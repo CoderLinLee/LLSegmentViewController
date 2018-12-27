@@ -21,14 +21,13 @@ class TestViewController: UIViewController {
     }
 }
 
-
 extension TestViewController {
     func initSubView() {
         let topInsert:CGFloat = 0
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = UIColor.clear
-        tableView.rowHeight = 60
+        tableView.rowHeight = 50
         tableView.frame = view.bounds
         tableView.contentInset = UIEdgeInsets.init(top: -topInsert, left: 0, bottom: 0, right: 0)
         tableView.autoresizingMask = [.flexibleHeight,.flexibleWidth]

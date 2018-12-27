@@ -9,8 +9,9 @@
 import UIKit
 
 public class LLSegmentItemTabbarViewStyle:LLSegmentItemTitleViewStyle {
-    var titleImgeGap:CGFloat = 0
-    var titleBottomGap:CGFloat = 0
+    var titleImgeGap:CGFloat = 2
+    var titleBottomGap:CGFloat = 5
+    var badgeValueLabelOffset = CGPoint.init(x: 5, y: 5)
 }
 
 
@@ -20,32 +21,29 @@ class LLSegmentItemTabbarView: LLSegmentCtlItemView {
     let badgeValueLabel = UILabel()
     let tabbarItemButton = UIButton()
     private var tabbarViewStyle = LLSegmentItemTabbarViewStyle()
+    private let badgeValueObserverKeyPath = "badgeValue"
     required init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(titleLabel)
         addSubview(imageView)
         
-//        badgeValueLabel.backgroundColor = UIColor.red
-//        badgeValueLabel.textAlignment = .center
-//        badgeValueLabel.textColor = UIColor.white
-//        badgeValueLabel.font = UIFont.systemFont(ofSize: 12)
-//        badgeValueLabel.frame = CGRect.init(x: 0, y: 0, width: 20, height: 20)
-//        badgeValueLabel.center = CGPoint.init(x: bounds.width - 10, y: 10)
-//        addSubview(badgeValueLabel)
-        
-        backgroundColor = LLRandomRGB()
+        badgeValueLabel.backgroundColor = UIColor.red
+        badgeValueLabel.textAlignment = .center
+        badgeValueLabel.textColor = UIColor.white
+        badgeValueLabel.font = UIFont.systemFont(ofSize: 12)
+        badgeValueLabel.frame = CGRect.init(x: 0, y: 0, width: 20, height: 20)
+        badgeValueLabel.center = CGPoint.init(x: bounds.width - 10, y: 10)
+        addSubview(badgeValueLabel)
+
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
     override var associateViewCtl: UIViewController? {
         didSet{
+            associateViewCtl?.tabBarItem.addObserver(self, forKeyPath: badgeValueObserverKeyPath, options: [.new], context: nil)
             if associateViewCtl?.tabBarItem.title == nil {
                 titleLabel.text = associateViewCtl?.title
             }else{
@@ -91,4 +89,39 @@ class LLSegmentItemTabbarView: LLSegmentCtlItemView {
         }
     }
 
+    override func layoutSubviews() {
+        badgeValueLabel.text = associateViewCtl?.tabBarItem.badgeValue
+        badgeValueLabel.sizeToFit()
+        var badgeValueLabelFrame = badgeValueLabel.frame
+        if associateViewCtl?.tabBarItem.badgeValue == LLSegmentRedBadgeValue {
+            badgeValueLabel.isHidden = false
+            badgeValueLabelFrame.size.width = 5
+            badgeValueLabelFrame.size.height = 5
+            badgeValueLabel.text = ""
+        }else if associateViewCtl?.tabBarItem.badgeValue == nil {
+            badgeValueLabel.isHidden = true
+        }else{
+            badgeValueLabel.isHidden = false
+            badgeValueLabelFrame.size.width += 10
+            badgeValueLabelFrame.size.height += 5
+        }
+        badgeValueLabel.bounds = badgeValueLabelFrame
+        let imageViewBottomCenter = CGPoint.init(x: imageView.center.x, y: imageView.frame.maxY)
+        if let imageSize = imageView.image?.size {
+            let offsetX:CGFloat = tabbarViewStyle.badgeValueLabelOffset.x
+            let offsetY:CGFloat = tabbarViewStyle.badgeValueLabelOffset.y
+            badgeValueLabel.center = CGPoint.init(x: imageViewBottomCenter.x + imageSize.width/2 + offsetX, y: imageViewBottomCenter.y - imageSize.height + offsetY)
+        }else{
+            badgeValueLabel.isHidden = true
+        }
+        badgeValueLabel.layer.cornerRadius = badgeValueLabel.bounds.height/2
+        badgeValueLabel.clipsToBounds = true
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if  keyPath ==  badgeValueObserverKeyPath{
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+    }
 }

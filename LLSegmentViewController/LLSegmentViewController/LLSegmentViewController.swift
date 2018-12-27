@@ -10,7 +10,7 @@ import UIKit
 
 
 class LLSegmentViewController: UIViewController {
-    var ctlModels:[UIViewController]!
+    var ctls:[UIViewController]!
     var containerScrollerView:UICollectionView!
     let segmentCtlView = LLSegmentCtlView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
     private let cellIdentifier = "cellIdentifier"
@@ -56,38 +56,35 @@ extension LLSegmentViewController{
         containerScrollerView.frame = containerFrame
     }
     
-    func reloadContents(ctlModels:[UIViewController]) {
-        self.ctlModels = ctlModels
-        segmentCtlView.ctlModels = ctlModels
+    func reloadContents(ctls:[UIViewController]) {
+        self.ctls = ctls
+        segmentCtlView.ctls = ctls
         
         for ctl in self.childViewControllers {
             ctl.removeFromParentViewController()
         }
         
-        for ctl in ctlModels{
+        for ctl in ctls{
             addChildViewController(ctl)
         }
-        containerScrollerView.contentSize = CGSize.init(width: view.bounds.size.width * CGFloat(ctlModels.count), height: 0)
+        containerScrollerView.contentSize = CGSize.init(width: view.bounds.size.width * CGFloat(ctls.count), height: 0)
         containerScrollerView.reloadData()
     }
 }
 
 extension LLSegmentViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ctlModels.count
+        return ctls.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
-        let ctlTag = 999999
-        let ctlView = cell.contentView.viewWithTag(ctlTag)
-        if ctlView == nil {
-            let ctl = ctlModels[indexPath.item]
-            ctl.view.tag = ctlTag
-            ctl.view.frame = cell.contentView.bounds
-            cell.contentView.addSubview(ctl.view)
-            ctl.view.autoresizingMask = [.flexibleHeight,.flexibleWidth]
+        for subView in cell.contentView.subviews {
+            subView.removeFromSuperview()
         }
+        let ctl = ctls[indexPath.item]
+        ctl.view.frame = cell.contentView.bounds
+        cell.contentView.addSubview(ctl.view)
         return cell
     }
     

@@ -48,15 +48,18 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let styleListCtl = StyleListViewController()
+        styleListCtl.title = dataArr[indexPath.row]
         if indexPath.row == 0 {
-            let indicatorCtl = IndicatorViewController()
-            self.navigationController?.pushViewController(indicatorCtl, animated: true)
+            styleListCtl.customTabs = [CellModel(title: "Segment样式", exampleCtlName: "LLMsgViewController"),
+                                       CellModel(title: "Title样式", exampleCtlName: "TitleViewController")]
         }else if indexPath.row == 1 {
             
         }else if indexPath.row == 2 {
-            let customTabCtl = CustomTabViewController()
-            self.navigationController?.pushViewController(customTabCtl, animated: true)
+            styleListCtl.customTabs = [CellModel(title: "微信样式", exampleCtlName: "SimpleTabViewController"),
+                                       CellModel(title: "微博样式", exampleCtlName: "SinaViewController")]
         }
+        self.navigationController?.pushViewController(styleListCtl, animated: true)
 
     }
 }

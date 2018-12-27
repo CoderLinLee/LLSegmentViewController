@@ -1,25 +1,27 @@
 //
-//  CustomTabViewController.swift
+//  StyleListViewController.swift
 //  LLSegmentViewController
 //
-//  Created by lilin on 2018/12/26.
+//  Created by lilin on 2018/12/27.
 //  Copyright © 2018年 lilin. All rights reserved.
 //
 
 import UIKit
 
-class CustomTabViewController: UIViewController {
+
+
+class StyleListViewController: UIViewController {
     let tableView = UITableView(frame: CGRect.zero, style: .plain)
-    let customTabs = ["微信样式SimpleTabViewController"]
+    var customTabs = [CellModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        self.title = "自定义tabViewController"
         initSubView()
+        
     }
 }
 
-extension CustomTabViewController {
+extension StyleListViewController {
     func initSubView() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -35,7 +37,7 @@ extension CustomTabViewController {
 }
 
 
-extension CustomTabViewController:UITableViewDelegate,UITableViewDataSource{
+extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
     //列表
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return customTabs.count
@@ -43,15 +45,27 @@ extension CustomTabViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        cell.textLabel?.text = customTabs[indexPath.row]
+        cell.textLabel?.text = customTabs[indexPath.row].title + ":" + customTabs[indexPath.row].exampleCtlName
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tabBarItem.badgeValue = "99"
-        if indexPath.row == 0 {
-            let sampleTabCtl = SimpleTabViewController()
-            self.navigationController?.pushViewController(sampleTabCtl, animated: true)
+        let cellModel = customTabs[indexPath.row]
+        let controllerName = cellModel.exampleCtlName
+        
+        //1:动态获取命名空间
+        guard let spaceName = Bundle.main.infoDictionary!["CFBundleExecutable"] as? String else {
+            print("获取命名空间失败")
+            return
+        }
+        
+        
+        if let classType: AnyObject.Type = NSClassFromString(spaceName + "." + controllerName){
+            if let viewCtlType : UIViewController.Type = classType as? UIViewController.Type{
+                let viewCtl: UIViewController = viewCtlType.init(nibName: nil, bundle: nil)
+                viewCtl.title = cellModel.title
+                self.navigationController?.pushViewController(viewCtl, animated: true)
+            }
         }
     }
 }

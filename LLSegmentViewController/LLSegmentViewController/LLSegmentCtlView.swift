@@ -17,13 +17,20 @@ import UIKit
 
 
 public class LLSegmentCtlView: UIView {
+    //----------------------separatorLine-----------------------// 设置完成后调用reloadSeparator方法，刷新分割线样式
+    public var separatorLineShowEnabled = false
+    public var separatorLineColor = UIColor.lightGray
+    public var separatorLineWidth = 1/UIScreen.main.scale
+    public var separatorLayoutMargins = UIEdgeInsets.zero
+    private var separatorViews = [UIView]()
+
+
     public var contentOffsetAnimation = true
-    var ctlModels:[UIViewController]!
+    var ctls:[UIViewController]!
     var itemViews = [LLSegmentCtlItemView]()
     var delegate:LLSegmentCtlViewDelegate?
     let segMegmentScrollerView = UIScrollView(frame: CGRect.zero)
     private (set) var indicatorView = LLIndicatorView()
-    private let LLSegmentTitleCellIdentifier = "LLSegmentTitleCellIdentifier"
     private let associateScrollerViewObserverKeyPath = "contentOffset"
     private var selectedPage = 0
     private var indicatorLayoutOnBottom = true
@@ -44,20 +51,23 @@ public class LLSegmentCtlView: UIView {
     deinit {
         associateScrollerView?.removeObserver(self, forKeyPath: associateScrollerViewObserverKeyPath)
     }
-    
+}
+
+extension LLSegmentCtlView{
+    //点击
     @objc func itemViewClick(gesture:UIGestureRecognizer) {
         if let selectedItemView = gesture.view as? LLSegmentCtlItemView,
             let selectedIndex = itemViews.index(of: selectedItemView)?.hashValue,
             let associateScrollerView = associateScrollerView{
             let preSeletedIndex = Int(associateScrollerView.contentOffset.x / associateScrollerView.bounds.width)
             let preSelectedItemView = getItemView(atIndex: preSeletedIndex)
+            
+            delegate?.segMegmentCtlView?(segMegmentCtlView: self, itemView: selectedItemView, selectedAt: selectedIndex)
 
             //点击的是当前的
             if selectedIndex == preSeletedIndex {
                 return
             }
-            
-            delegate?.segMegmentCtlView?(segMegmentCtlView: self, itemView: selectedItemView, selectedAt: selectedIndex)
             
             if let preSelectedItemView = preSelectedItemView {
                 var leftItemView = selectedItemView
@@ -71,8 +81,6 @@ public class LLSegmentCtlView: UIView {
                     let offset = CGPoint.init(x: CGFloat(selectedIndex) * associateScrollerView.bounds.width, y: 0)
                     associateScrollerView.setContentOffset(offset, animated: true)
                 }else{
-                    segMegmentScrollerView.scrollRectToVisible(selectedItemView.frame, animated: contentOffsetAnimation)
-                    
                     selectedItemView.percentChange(percent: 1)
                     preSelectedItemView.percentChange(percent: 0)
                     
@@ -82,14 +90,36 @@ public class LLSegmentCtlView: UIView {
                         self.indicatorView.reloadIndicatorViewLayout(segMegmentCtlView: self, leftItemView: leftItemView, rightItemView: rightItemView)
                         self.indicatorView.center = CGPoint.init(x: selectedItemView.center.x, y: indicatorViewCenter.y)
                     }
-            
+                    
                     //TODO:
                     let offset = CGPoint.init(x: CGFloat(selectedIndex) * associateScrollerView.bounds.width, y: 0)
                     associateScrollerView.setContentOffset(offset, animated: false)
                 }
-                
+                segMentScrollerViewSrollerTo(itemView: selectedItemView, animated: true)
             }
         }
+    }
+    
+    func segMentScrollerViewSrollerTo(itemView:LLSegmentCtlItemView,animated:Bool) {
+//        segMegmentScrollerView.setContentOffset(CGPoint.init(x: itemView.center.x, y: 0), animated: animated)
+    }
+}
+
+extension LLSegmentCtlView{
+    func reloadSeparator() {
+        for separator in separatorViews {
+            reloadOneSeparatorView(separatorView: separator)
+        }
+    }
+    
+    private func reloadOneSeparatorView(separatorView:UIView) {
+        var separatorViewCenter = separatorView.center
+        separatorView.frame = CGRect.init(x: 0, y: separatorLayoutMargins.top, width: separatorLineWidth, height: bounds.height - separatorLayoutMargins.top - separatorLayoutMargins.bottom)
+        separatorViewCenter.y = separatorView.center.y
+        separatorView.center = separatorViewCenter
+        
+        separatorView.backgroundColor = separatorLineColor
+        separatorView.isHidden = !separatorLineShowEnabled
     }
 }
 
@@ -125,7 +155,7 @@ extension LLSegmentCtlView{
         }
         itemViews.removeAll()
         var lastItemView:LLSegmentCtlItemView? = nil
-        for (index,ctl) in ctlModels.enumerated() {
+        for (index,ctl) in ctls.enumerated() {
             let segmentCtlItemView = segmentItemViewClass.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: bounds.height))
             segmentCtlItemView.associateViewCtl = ctl
             segmentCtlItemView.setSegmentItemViewStyle(itemViewStyle: itemViewStyle)
@@ -152,6 +182,15 @@ extension LLSegmentCtlView{
             segmentCtlItemView.frame = segmentCtlItemViewFrame
             segMegmentScrollerView.addSubview(segmentCtlItemView)
             itemViews.append(segmentCtlItemView)
+            
+            //分割线
+            if lastItemView != nil {
+                let separatorView = UIView()
+                separatorView.center.x = (lastItemView!.frame.maxX + segmentCtlItemView.frame.minX)/2
+                segMegmentScrollerView.addSubview(separatorView)
+                reloadOneSeparatorView(separatorView: separatorView)
+                separatorViews.append(separatorView)
+            }
             lastItemView = segmentCtlItemView
         }
         segMegmentScrollerView.contentSize = CGSize.init(width: lastItemView?.frame.maxX ?? bounds.width, height: bounds.height)
@@ -206,7 +245,7 @@ extension LLSegmentCtlView{
             percent = (newContentOffset.x - CGFloat(targetItem)*scrollView.bounds.width) / scrollView.bounds.width
         }
         
-        if (currentItem < 0 || currentItem >= ctlModels.count) || (targetItem < 0 || targetItem >= ctlModels.count){
+        if (currentItem < 0 || currentItem >= ctls.count) || (targetItem < 0 || targetItem >= ctls.count){
             return
         }
         
