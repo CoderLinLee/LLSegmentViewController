@@ -33,9 +33,8 @@ class LLMsgViewController: LLSegmentViewController {
         titleViewStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
 
         reloadContents(ctls:ctls)
-        segmentCtlView.separatorLineShowEnabled = true
+        segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
         segmentCtlView.reloadData(itemSpacing: 0,segmentItemViewClass:LLSegmentItemBadgeTitleView.self,itemViewStyle: titleViewStyle)
-        segmentCtlView.indicatorView.indicatorViewStyle.isEqualToItemWidth = false
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
     }
 }

@@ -28,11 +28,10 @@ extension StyleListViewController {
         tableView.backgroundColor = UIColor.clear
         tableView.rowHeight = 60
         tableView.frame = view.bounds
-        tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         tableView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         tableView.tableFooterView = UIView()
-        self.view.addSubview(tableView)
         tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
+        self.view.addSubview(tableView)
     }
 }
 
@@ -45,27 +44,55 @@ extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        cell.textLabel?.text = customTabs[indexPath.row].title + ":" + customTabs[indexPath.row].exampleCtlName
+        cell.textLabel?.text = customTabs[indexPath.row].title + ":" + "\(customTabs[indexPath.row].viewControllerClass)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellModel = customTabs[indexPath.row]
-        let controllerName = cellModel.exampleCtlName
+        let ctlClass = cellModel.viewControllerClass
+        let ctl = ctlClass.init(nibName: nil, bundle: nil)
+        ctl.title = cellModel.title
         
-        //1:动态获取命名空间
-        guard let spaceName = Bundle.main.infoDictionary!["CFBundleExecutable"] as? String else {
-            print("获取命名空间失败")
-            return
-        }
-        
-        
-        if let classType: AnyObject.Type = NSClassFromString(spaceName + "." + controllerName){
-            if let viewCtlType : UIViewController.Type = classType as? UIViewController.Type{
-                let viewCtl: UIViewController = viewCtlType.init(nibName: nil, bundle: nil)
-                viewCtl.title = cellModel.title
-                self.navigationController?.pushViewController(viewCtl, animated: true)
+        if let ctl = ctl as? TitleViewController{
+            let titleViewStyle = LLSegmentItemTitleViewStyle()
+            titleViewStyle.selectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
+            titleViewStyle.unSelectedColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
+            titleViewStyle.extraTitleSpace = 10
+            titleViewStyle.selectedTitleScale = 1
+            //固定长度
+            if indexPath.row == 1 {
+                ctl.indicatorViewWidthChangeStyle = .stationary(baseWidth: 20)
+            }else if indexPath.row == 2 {
+                ctl.indicatorViewWidthChangeStyle = .jdIqiyi(baseWidth: 30, changeWidth: 0)
+            }else if indexPath.row == 3 {
+                ctl.indicatorViewWidthChangeStyle = .jdIqiyi(baseWidth: 30, changeWidth: 40)
+            }else if indexPath.row == 4 {
+                ctl.indicatorViewWidthChangeStyle = .jdIqiyi(baseWidth: 30, changeWidth: 140)
+            }else if indexPath.row == 5 {
+                ctl.indicatorViewWidthChangeStyle = .equalToItemWidth
+            }else if indexPath.row == 6 {
+                ctl.segmentCtlView.separatorLineShowEnabled = true
+                ctl.segmentCtlView.separatorLineColor = UIColor.lightGray.withAlphaComponent(0.5)
+                ctl.segmentCtlView.separatorTopBottomMargin = (15,15)
+            
+            }else if indexPath.row == 7 {
+                ctl.segmentCtlView.indicatorView.bounds = CGRect.init(x: 0, y: 0, width: 10, height: 50)
+                ctl.segmentCtlView.indicatorView.centerYGradientStyle = .center
+                ctl.indicatorViewWidthChangeStyle = .equalToItemWidth
+                ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+            }else if indexPath.row == 8 {
+                ctl.segmentCtlView.indicatorView.bounds = CGRect.init(x: 0, y: 0, width: 10, height: 20)
+                ctl.segmentCtlView.indicatorView.centerYGradientStyle = .center
+                ctl.segmentCtlView.indicatorView.layer.cornerRadius = 10
+                ctl.indicatorViewWidthChangeStyle = .equalToItemWidth
+                ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.8)
             }
+           
+            
+            ctl.titleViewStyle = titleViewStyle
         }
+        
+        self.navigationController?.pushViewController(ctl, animated: true)
     }
 }

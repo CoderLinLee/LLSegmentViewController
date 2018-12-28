@@ -8,7 +8,8 @@
 
 import UIKit
 
+
 struct CellModel {
     var title = ""
-    var exampleCtlName = ""
+    var viewControllerClass:UIViewController.Type = UIViewController.self
 }

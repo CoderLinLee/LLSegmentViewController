@@ -9,7 +9,8 @@
 import UIKit
 
 class TitleViewController: LLSegmentViewController {
-
+    var titleViewStyle = LLSegmentItemTitleViewStyle()
+    var indicatorViewWidthChangeStyle:LLIndicatorViewWidthChangeStyle = .jdIqiyi(baseWidth: 30, changeWidth: 20)
     override func viewDidLoad() {
         super.viewDidLoad()
         let segmentCtlFrame =  CGRect.init(x: 0, y: 64, width: view.bounds.width, height: 50)
@@ -25,18 +26,10 @@ class TitleViewController: LLSegmentViewController {
             ctls.append(ctl)
         }
         
-        let titleViewStyle = LLSegmentItemTitleViewStyle()
-        titleViewStyle.selectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
-        titleViewStyle.unSelectedColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
-        titleViewStyle.extraTitleSpace = 10
+        segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         
         reloadContents(ctls:ctls)
+        segmentCtlView.indicatorView.widthChangeStyle = indicatorViewWidthChangeStyle
         segmentCtlView.reloadData(itemSpacing: 0,segmentItemViewClass:LLSegmentItemTitleView.self,itemViewStyle: titleViewStyle)
-        segmentCtlView.indicatorView.indicatorViewStyle.isEqualToItemWidth = false
-        segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
     }
-
-    
-
-
 }
