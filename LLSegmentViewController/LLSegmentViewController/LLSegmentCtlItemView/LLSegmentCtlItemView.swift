@@ -16,7 +16,11 @@ public class LLSegmentCtlItemViewStyle {
     var separatorSize = CGSize.init(width: 1, height: 10)
 }
 
+
 public class LLSegmentCtlItemView: UIView {
+    var isScrollerTarget = false
+    var contentOffsetOnRight = false
+
     var separatorView = UIView()
     public override required init(frame: CGRect) {
         super.init(frame: frame)

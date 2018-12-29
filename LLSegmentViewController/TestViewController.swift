@@ -26,7 +26,6 @@ extension TestViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = UIColor.clear
-        tableView.rowHeight = 50
         tableView.frame = view.bounds
         tableView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")

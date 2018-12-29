@@ -8,15 +8,19 @@
 
 import UIKit
 
-let indicatiorcustomTabs = [CellModel(title: "Segment样式", viewControllerClass: LLMsgViewController.self),
-                            CellModel(title: "Title样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "京东样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "爱奇艺样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "回滚样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "与cell同宽样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "分割线样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "方形样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "椭圆形样式", viewControllerClass: TitleViewController.self),]
+let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerClass: LLMsgViewController.self),
+                            CellModel(title: "1Title样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "2京东样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "3爱奇艺样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "4回滚样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "5与cell同宽样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "6分割线样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "7方形样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "8椭圆形样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "9阴影样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "10文字遮罩无背景样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "11文字遮罩有背景样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "12足球样式", viewControllerClass: FootballViewController.self),]
 
 let customTab = [CellModel(title: "微信样式", viewControllerClass: SimpleTabViewController.self),
                  CellModel(title: "微博样式", viewControllerClass: SinaViewController.self)]
@@ -38,7 +42,6 @@ extension ViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = UIColor.clear
-        tableView.rowHeight = 60
         tableView.frame = view.bounds
         tableView.contentInset = UIEdgeInsets.init(top: -topInsert, left: 0, bottom: 0, right: 0)
         tableView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
@@ -60,6 +63,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         cell.textLabel?.text = dataArr[indexPath.row]
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let styleListCtl = StyleListViewController()

@@ -11,7 +11,6 @@ import UIKit
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, leftItemView: LLSegmentCtlItemView,rightItemView:LLSegmentCtlItemView,percent:CGFloat)
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, itemView: LLSegmentCtlItemView,extraGapAtIndex:NSInteger) -> CGFloat
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, itemView: LLSegmentCtlItemView,selectedAt:NSInteger)
-
 }
 
 
@@ -257,6 +256,7 @@ extension LLSegmentCtlView{
         let rightItemIndex = leftFirstItem + 1
         if let leftItemView = getItemView(atIndex: leftItemIndex),
             let rightItemView = getItemView(atIndex: rightItemIndex) {
+            
             contentOffsetChangeAction(leftItemView: leftItemView, rightItemView: rightItemView, percent: percent)
         }
     }
@@ -266,6 +266,9 @@ extension LLSegmentCtlView{
         let rightPercent = percent
         let rang = CGFloat(0)...CGFloat(1)
         if rang.contains(leftPercent) && rang.contains(rightPercent){
+        
+            leftItemView.contentOffsetOnRight = false
+            rightItemView.contentOffsetOnRight = true
             leftItemView.percentChange(percent: leftPercent)
             rightItemView.percentChange(percent: rightPercent)
             

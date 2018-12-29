@@ -15,16 +15,29 @@ public class LLSegmentItemTitleViewStyle:LLSegmentCtlItemViewStyle {
     var selectedTitleScale:CGFloat = 1.2
     var titleFontSize:CGFloat = 12
     var extraTitleSpace:CGFloat = 30
+    var titleLabelMaskEnabled = false
+
 }
 
 class LLSegmentItemTitleView: LLSegmentCtlItemView {
     let titleLabel = UILabel()
+    private let maskTitleLabel = UILabel()
+    private let maskTitleLabelMask = CAShapeLayer()
     private var itemTitleViewStyle = LLSegmentItemTitleViewStyle()
     required init(frame: CGRect) {
         super.init(frame: frame)
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.boldSystemFont(ofSize: itemTitleViewStyle.titleFontSize)
         addSubview(titleLabel)
+        
+        
+        maskTitleLabel.textAlignment = .center
+        maskTitleLabel.textColor = UIColor.red
+        maskTitleLabel.font = titleLabel.font
+        addSubview(maskTitleLabel)
+
+        maskTitleLabelMask.backgroundColor = UIColor.red.cgColor
+        maskTitleLabel.layer.mask = maskTitleLabelMask
     }
     
     
@@ -35,6 +48,7 @@ class LLSegmentItemTitleView: LLSegmentCtlItemView {
     override var associateViewCtl: UIViewController? {
         didSet{
             titleLabel.text = associateViewCtl?.title
+            maskTitleLabel.text = titleLabel.text
         }
     }
     
@@ -42,6 +56,10 @@ class LLSegmentItemTitleView: LLSegmentCtlItemView {
         super.layoutSubviews()
         titleLabel.sizeToFit()
         titleLabel.center = CGPoint.init(x: bounds.width/2, y: bounds.height/2)
+        
+        maskTitleLabel.sizeToFit()
+        maskTitleLabel.center = titleLabel.center
+        maskTitleLabelMask.bounds = maskTitleLabel.bounds
     }
     
     override func percentChange(percent: CGFloat) {
@@ -52,6 +70,31 @@ class LLSegmentItemTitleView: LLSegmentCtlItemView {
         titleLabel.font = font
         titleLabel.sizeToFit()
         titleLabel.center = CGPoint.init(x: bounds.width/2, y: bounds.height/2)
+        
+        
+        //mask
+        if itemTitleViewStyle.titleLabelMaskEnabled {
+            maskTitleLabel.sizeToFit()
+            maskTitleLabel.center = titleLabel.center
+            maskTitleLabel.font = titleLabel.font
+            maskTitleLabelMask.bounds = maskTitleLabel.bounds
+            var centerXPercent = 1 - percent   //0<---0.5<---1--->0.5--->0 转化为 1<---0--->1
+            if contentOffsetOnRight {
+                centerXPercent = -centerXPercent
+            }
+            var maskTitleLabelCenter = maskTitleLabel.center
+            let maskTitleLabelWidth = maskTitleLabel.frame.width
+            maskTitleLabelCenter.x = maskTitleLabelCenter.x + maskTitleLabelWidth * centerXPercent
+            
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            maskTitleLabelMask.frame = maskTitleLabel.bounds
+            maskTitleLabelMask.position = self.convert(maskTitleLabelCenter, to: maskTitleLabel)
+            maskTitleLabel.isHidden = false
+            CATransaction.commit()
+        }else{
+            maskTitleLabel.isHidden = true
+        }
     }
     
     override func itemWidth() -> CGFloat {

@@ -22,8 +22,25 @@ public enum LLIndicatorViewCenterYGradientStyle {
 }
 
 
+@objc protocol LLIndicatorViewDelegate : NSObjectProtocol {
+    @objc optional func indicatorView(indicatorView: LLIndicatorView, percent:CGFloat)
+}
+
 
 public class LLIndicatorView: UIView {
+    var contentView = UIView()
+    var delegate:LLIndicatorViewDelegate?
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(contentView)
+        contentView.frame = bounds
+        contentView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var centerYGradientStyle = LLIndicatorViewCenterYGradientStyle.bottom(margin: 0) {
         didSet{
             if let selfSuperView = self.superview {
@@ -86,6 +103,7 @@ public class LLIndicatorView: UIView {
         var selfBounds = self.bounds
         selfBounds.size.width = targetWidth
         self.bounds = selfBounds
+        delegate?.indicatorView?(indicatorView: self, percent: leftItemView.percent)
     }
 }
 
