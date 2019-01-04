@@ -39,7 +39,8 @@ class SimpleTabViewController: LLSegmentViewController {
         tabItemViewStyle.badgeValueLabelOffset = CGPoint.init(x: 2, y: 5)
         
         reloadViewControllers(ctls:ctls)
-        segmentCtlView.reloadData(itemSpacing: 0,segmentItemViewClass:LLSegmentItemTabbarView.self,itemViewStyle: tabItemViewStyle)
+        let ctlViewStyle = LLSegmentCtlViewStyle(itemSpacing: 0, segmentItemViewClass: LLSegmentItemTabbarView.self, itemViewStyle: tabItemViewStyle, defaultSelectedIndex: 0)
+        segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
         segmentCtlView.contentOffsetAnimation = false
         segmentCtlView.indicatorView.isHidden = true
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)

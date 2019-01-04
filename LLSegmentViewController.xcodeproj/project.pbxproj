@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1833537521DFAC86005331E7 /* InsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833537421DFAC86005331E7 /* InsertViewController.swift */; };
 		F2055B3421D0B5DE00FF961B /* LLSegmentCtlItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B3221D0B5DE00FF961B /* LLSegmentCtlItemView.swift */; };
 		F2055B3521D0B5DE00FF961B /* LLSegmentItemBadgeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B3321D0B5DE00FF961B /* LLSegmentItemBadgeTitleView.swift */; };
 		F2055B3921D0F3A000FF961B /* LLSegmentItemTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B3821D0F3A000FF961B /* LLSegmentItemTitleView.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1833537421DFAC86005331E7 /* InsertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertViewController.swift; sourceTree = "<group>"; };
 		F2055B3221D0B5DE00FF961B /* LLSegmentCtlItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentCtlItemView.swift; sourceTree = "<group>"; };
 		F2055B3321D0B5DE00FF961B /* LLSegmentItemBadgeTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentItemBadgeTitleView.swift; sourceTree = "<group>"; };
 		F2055B3821D0F3A000FF961B /* LLSegmentItemTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentItemTitleView.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			children = (
 				F2DE12C021DCC23500D13738 /* NestViewController.swift */,
 				F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */,
+				1833537421DFAC86005331E7 /* InsertViewController.swift */,
 			);
 			path = SpecialViewController;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				F23D2F7521CA27F00067B399 /* LLIndicatorView.swift in Sources */,
 				F2055B3921D0F3A000FF961B /* LLSegmentItemTitleView.swift in Sources */,
 				F27132DC21C8DD7C00F9D2AB /* ViewController.swift in Sources */,
+				1833537521DFAC86005331E7 /* InsertViewController.swift in Sources */,
 				F263034421D4E94E0067F8CA /* TitleViewController.swift in Sources */,
 				F23D2F7421CA27F00067B399 /* LLSegmentCtlView.swift in Sources */,
 				F2055B3521D0B5DE00FF961B /* LLSegmentItemBadgeTitleView.swift in Sources */,

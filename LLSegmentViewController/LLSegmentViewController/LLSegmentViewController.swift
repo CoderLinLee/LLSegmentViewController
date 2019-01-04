@@ -74,13 +74,18 @@ extension LLSegmentViewController{
     public func insertOneViewController(ctl:UIViewController,index:NSInteger){
         if !self.childViewControllers.contains(ctl) {
             addChildViewController(ctl)
-            let itemIndex = max(0, min(index, ctls.count-1))
+            let itemIndex = max(0, min(index, ctls.count))
             self.ctls.insert(ctl, at: itemIndex)
             
             let contentSizeWidth = viewCtlContainerColView.bounds.size.width * CGFloat(ctls.count)
             viewCtlContainerColView.contentSize = CGSize.init(width: contentSizeWidth, height: 0)
             viewCtlContainerColView.reloadData()
             viewCtlContainerColView.scrollToItem(at: IndexPath.init(item: itemIndex, section: 0), at: .centeredHorizontally, animated: false)
+            
+            segmentCtlView.ctls = ctls
+            
+            segmentCtlView.ctlViewStyle.defaultSelectedIndex = itemIndex
+            segmentCtlView.reloadData()
         }
         
     }

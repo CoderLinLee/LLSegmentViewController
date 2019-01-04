@@ -14,7 +14,7 @@ class FootballViewController: LLSegmentViewController {
         super.viewDidLoad()
         title = "足球"
 
-        let segmentCtlFrame =  CGRect.init(x: 0, y: 64, width: view.bounds.width, height: 70)
+        let segmentCtlFrame =  CGRect.init(x: 0, y: 64, width: view.bounds.width, height:50)
         let containerFrame = CGRect.init(x: 0, y: segmentCtlFrame.maxY, width: view.bounds.width, height: view.bounds.height - segmentCtlFrame.maxY)
         layout(segmentCtlFrame:segmentCtlFrame, containerFrame: containerFrame)
         
@@ -31,6 +31,7 @@ class FootballViewController: LLSegmentViewController {
         titleViewStyle.selectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
         titleViewStyle.unSelectedColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
         titleViewStyle.itemWidth = LLSegmentAutomaticDimension
+        titleViewStyle.titleLabelCenterOffsetY = -10
         
         segmentCtlView.delegate = self
         reloadViewControllers(ctls:ctls)
@@ -41,7 +42,8 @@ class FootballViewController: LLSegmentViewController {
         segmentCtlView.indicatorView.centerYGradientStyle = .bottom(margin: 12)
         segmentCtlView.indicatorView.backgroundColor = UIColor.clear
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-        segmentCtlView.reloadData(itemSpacing: 0,segmentItemViewClass:LLSegmentItemBadgeTitleView.self,itemViewStyle: titleViewStyle)
+        let ctlViewStyle = LLSegmentCtlViewStyle(itemSpacing: 0, segmentItemViewClass: LLSegmentItemBadgeTitleView.self, itemViewStyle: titleViewStyle, defaultSelectedIndex: 0)
+        segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
 
         let indicatorViewContentView = segmentCtlView.indicatorView.contentView
         let footballImg = UIImage.init(named: "football")

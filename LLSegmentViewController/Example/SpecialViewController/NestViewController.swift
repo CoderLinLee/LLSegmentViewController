@@ -37,7 +37,8 @@ class NestViewController: LLSegmentViewController {
         segmentCtlView.indicatorView.bounds = CGRect.init(x: 0, y: 0, width: segmentItemWidth, height: segmentViewHeight)
         segmentCtlView.indicatorView.layer.cornerRadius = segmentViewHeight/2
         segmentCtlView.indicatorView.backgroundColor = UIColor.red
-        segmentCtlView.reloadData(itemSpacing: 0,segmentItemViewClass:LLSegmentItemBadgeTitleView.self,itemViewStyle: titleViewStyle)
+        let ctlViewStyle = LLSegmentCtlViewStyle(itemSpacing: 0, segmentItemViewClass: LLSegmentItemBadgeTitleView.self, itemViewStyle: titleViewStyle, defaultSelectedIndex: 0)
+        segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
         
         segmentCtlView.layer.cornerRadius = segmentViewHeight/2
         segmentCtlView.layer.borderColor = UIColor.red.cgColor
@@ -73,7 +74,9 @@ class NestSubViewController: LLSegmentViewController {
         
         reloadViewControllers(ctls:ctls)
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
-        segmentCtlView.reloadData(itemSpacing: 0,segmentItemViewClass:LLSegmentItemBadgeTitleView.self,itemViewStyle: titleViewStyle)
+        let ctlViewStyle = LLSegmentCtlViewStyle(itemSpacing: 0, segmentItemViewClass: LLSegmentItemBadgeTitleView.self, itemViewStyle: titleViewStyle, defaultSelectedIndex: 0)
+        segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
+        
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
     }
 }

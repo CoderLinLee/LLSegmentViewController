@@ -16,7 +16,7 @@ public class LLSegmentItemTitleViewStyle:LLSegmentCtlItemViewStyle {
     var titleFontSize:CGFloat = 12
     var extraTitleSpace:CGFloat = 10
     var titleLabelMaskEnabled = false
-
+    var titleLabelCenterOffsetY:CGFloat = 0
 }
 
 class LLSegmentItemTitleView: LLSegmentCtlItemView {
@@ -55,7 +55,7 @@ class LLSegmentItemTitleView: LLSegmentCtlItemView {
     override func layoutSubviews() {
         super.layoutSubviews()
         titleLabel.sizeToFit()
-        titleLabel.center = CGPoint.init(x: bounds.width/2, y: bounds.height/2)
+        titleLabel.center = CGPoint.init(x: bounds.width/2, y: bounds.height/2 + itemTitleViewStyle.titleLabelCenterOffsetY)
         
         maskTitleLabel.sizeToFit()
         maskTitleLabel.center = titleLabel.center
@@ -69,8 +69,7 @@ class LLSegmentItemTitleView: LLSegmentCtlItemView {
         let font = UIFont.boldSystemFont(ofSize: itemTitleViewStyle.titleFontSize * scale)
         titleLabel.font = font
         titleLabel.sizeToFit()
-        titleLabel.center = CGPoint.init(x: bounds.width/2, y: bounds.height/2)
-        
+        titleLabel.center = CGPoint.init(x: bounds.width/2, y: bounds.height/2 + itemTitleViewStyle.titleLabelCenterOffsetY)
         
         //mask
         if itemTitleViewStyle.titleLabelMaskEnabled {

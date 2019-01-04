@@ -34,7 +34,8 @@ class LLMsgViewController: LLSegmentViewController {
 
         reloadViewControllers(ctls:ctls)
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
-        segmentCtlView.reloadData(itemSpacing: 0,segmentItemViewClass:LLSegmentItemBadgeTitleView.self,itemViewStyle: titleViewStyle)
+        let ctlViewStyle = LLSegmentCtlViewStyle(itemSpacing: 0, segmentItemViewClass: LLSegmentItemBadgeTitleView.self, itemViewStyle: titleViewStyle, defaultSelectedIndex: 0)
+        segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
     }
 }

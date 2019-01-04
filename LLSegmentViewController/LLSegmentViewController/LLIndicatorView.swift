@@ -55,11 +55,7 @@ public class LLIndicatorView: UIView {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    public override var bounds: CGRect{
-        didSet{
-            print(bounds.size)
-        }
-    }
+
     public var centerYGradientStyle = LLIndicatorViewCenterYGradientStyle.bottom(margin: 0) {
         didSet{
             if let selfSuperView = self.superview {
@@ -103,8 +99,15 @@ public class LLIndicatorView: UIView {
             case .custom:
                 break
             case .background(let color, let img):
+                self.centerYGradientStyle = .center
+                self.widthChangeStyle = .equalToItemWidth
                 self.backgroundColor = color
                 self.layer.contents = img?.cgImage
+                
+                var selfFrame = self.frame
+                selfFrame.size.height = superview?.bounds.height ?? selfFrame.height
+                self.frame = selfFrame
+                self.autoresizingMask = [.flexibleHeight]
             case .crossBar(let widthChangeStyle,let height):
                 self.widthChangeStyle = widthChangeStyle
                 var selfBounds = self.bounds
@@ -138,6 +141,7 @@ public class LLIndicatorView: UIView {
                 var selfBounds = self.bounds
                 selfBounds.size.height = height
                 self.bounds = selfBounds
+                
                 self.layer.cornerRadius = height/2
                 if shadowColor != nil {
                     self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.8)

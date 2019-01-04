@@ -41,7 +41,8 @@ class SinaViewController: LLSegmentViewController {
         
         reloadViewControllers(ctls:ctls)
         segmentCtlView.delegate = self
-        segmentCtlView.reloadData(itemSpacing: 0,segmentItemViewClass:LLSegmentItemTabbarView.self,itemViewStyle: tabItemViewStyle)
+        let ctlViewStyle = LLSegmentCtlViewStyle(itemSpacing: 0, segmentItemViewClass: LLSegmentItemTabbarView.self, itemViewStyle: tabItemViewStyle, defaultSelectedIndex: 0)
+        segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
         segmentCtlView.contentOffsetAnimation = false
         segmentCtlView.indicatorView.isHidden = true
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
@@ -80,5 +81,9 @@ extension SinaViewController:LLSegmentCtlViewDelegate{
         //将帧动画添加到当前图层
         destinationItemView.layer.add(keyAnimation, forKey: "keyAnimation")
        
+    }
+    
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, reloadCtlView defaultSelectItemView: LLSegmentCtlItemView) {
+        
     }
 }
