@@ -30,7 +30,8 @@
 		F27132EF21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132EE21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.swift */; };
 		F27132FA21C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132F921C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift */; };
 		F271330C21C8E66F00F9D2AB /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F271330B21C8E66F00F9D2AB /* TestViewController.swift */; };
-		F28515C721D783E100724120 /* FootballViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28515C621D783E100724120 /* FootballViewController.swift */; };
+		F2DE12C121DCC23500D13738 /* NestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12C021DCC23500D13738 /* NestViewController.swift */; };
+		F2DE12D621DF6DFB00D13738 /* FootballViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +81,8 @@
 		F27132F921C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentViewControllerUITests.swift; sourceTree = "<group>"; };
 		F27132FB21C8DD7F00F9D2AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F271330B21C8E66F00F9D2AB /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		F28515C621D783E100724120 /* FootballViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootballViewController.swift; sourceTree = "<group>"; };
+		F2DE12C021DCC23500D13738 /* NestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestViewController.swift; sourceTree = "<group>"; };
+		F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootballViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				F2055B4D21D4D00100FF961B /* CellModel.swift */,
+				F2DE12BF21DCC1E100D13738 /* SpecialViewController */,
 				F2055B4421D39CB300FF961B /* IndicatorViewController */,
 				F2055B3F21D3585E00FF961B /* CustomTableViewController */,
 			);
@@ -143,7 +146,6 @@
 			children = (
 				F2055B4521D39CB300FF961B /* LLMsgViewController.swift */,
 				F263034321D4E94E0067F8CA /* TitleViewController.swift */,
-				F28515C621D783E100724120 /* FootballViewController.swift */,
 			);
 			path = IndicatorViewController;
 			sourceTree = "<group>";
@@ -214,6 +216,15 @@
 				F27132FB21C8DD7F00F9D2AB /* Info.plist */,
 			);
 			path = LLSegmentViewControllerUITests;
+			sourceTree = "<group>";
+		};
+		F2DE12BF21DCC1E100D13738 /* SpecialViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F2DE12C021DCC23500D13738 /* NestViewController.swift */,
+				F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */,
+			);
+			path = SpecialViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2DE12C121DCC23500D13738 /* NestViewController.swift in Sources */,
 				F23D2F7B21CA53830067B399 /* LLSegmentConst.swift in Sources */,
 				F2055B3B21D34BFC00FF961B /* LLSegmentItemTabbarView.swift in Sources */,
 				F23D2F7521CA27F00067B399 /* LLIndicatorView.swift in Sources */,
@@ -359,10 +371,10 @@
 				F27132DA21C8DD7C00F9D2AB /* AppDelegate.swift in Sources */,
 				F23D2F7221CA27F00067B399 /* LLSegmentViewController.swift in Sources */,
 				F2055B3421D0B5DE00FF961B /* LLSegmentCtlItemView.swift in Sources */,
+				F2DE12D621DF6DFB00D13738 /* FootballViewController.swift in Sources */,
 				F2055B5221D4D85B00FF961B /* StyleListViewController.swift in Sources */,
 				F2055B4621D39CB300FF961B /* LLMsgViewController.swift in Sources */,
 				F2055B4A21D4CE1200FF961B /* SinaViewController.swift in Sources */,
-				F28515C721D783E100724120 /* FootballViewController.swift in Sources */,
 				F2055B5021D4D6D200FF961B /* BaseNavigationController.swift in Sources */,
 				F271330C21C8E66F00F9D2AB /* TestViewController.swift in Sources */,
 				F2055B4E21D4D00100FF961B /* CellModel.swift in Sources */,

@@ -7,12 +7,13 @@
 //
 
 import UIKit
+
+
 @objc  protocol LLSegmentCtlViewDelegate : NSObjectProtocol {
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, leftItemView: LLSegmentCtlItemView,rightItemView:LLSegmentCtlItemView,percent:CGFloat)
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, itemView: LLSegmentCtlItemView,extraGapAtIndex:NSInteger) -> CGFloat
-    @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, itemView: LLSegmentCtlItemView,selectedAt:NSInteger)
+    @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentCtlItemView, to destinationItemView: LLSegmentCtlItemView)
 }
-
 
 
 public class LLSegmentCtlView: UIView {
@@ -25,13 +26,16 @@ public class LLSegmentCtlView: UIView {
 
     
     public var contentOffsetAnimation = true
+    var delegate:LLSegmentCtlViewDelegate?
+    
     var ctls:[UIViewController]!
     var itemViews = [LLSegmentCtlItemView]()
-    var delegate:LLSegmentCtlViewDelegate?
     let segMegmentScrollerView = UIScrollView(frame: CGRect.zero)
+    var currentPageItemView:LLSegmentCtlItemView!
     private (set) var indicatorView = LLIndicatorView(frame:CGRect.init(x: 0, y: 0, width: 10, height: 3))
     private let associateScrollerViewObserverKeyPath = "contentOffset"
     private var selectedPage = 0
+    private var itemSpacing:CGFloat = 0
     public weak var associateScrollerView:UIScrollView? {
         didSet{
             associateScrollerView?.addObserver(self, forKeyPath: associateScrollerViewObserverKeyPath, options: [.new,.old], context: nil)
@@ -53,14 +57,17 @@ public class LLSegmentCtlView: UIView {
 
 extension LLSegmentCtlView{
     //点击
-    @objc func itemViewClick(gesture:UIGestureRecognizer) {
+    @objc func segmentItemClick(gesture:UIGestureRecognizer) {
         if let selectedItemView = gesture.view as? LLSegmentCtlItemView,
             let selectedIndex = itemViews.index(of: selectedItemView)?.hashValue,
             let associateScrollerView = associateScrollerView{
             let preSeletedIndex = Int(associateScrollerView.contentOffset.x / associateScrollerView.bounds.width)
             let preSelectedItemView = getItemView(atIndex: preSeletedIndex)
             
-            delegate?.segMegmentCtlView?(segMegmentCtlView: self, itemView: selectedItemView, selectedAt: selectedIndex)
+            
+            if let preSelectedItemView = preSelectedItemView {
+                delegate?.segMegmentCtlView?(segMegmentCtlView: self, clickItemAt: preSelectedItemView, to: selectedItemView)
+            }
 
             //点击的是当前的
             if selectedIndex == preSeletedIndex {
@@ -82,36 +89,23 @@ extension LLSegmentCtlView{
                     let offset = CGPoint.init(x: CGFloat(selectedIndex) * associateScrollerView.bounds.width, y: 0)
                     associateScrollerView.setContentOffset(offset, animated: true)
                 }else{
-                    
-                    //TODO:
                     let offset = CGPoint.init(x: CGFloat(selectedIndex) * associateScrollerView.bounds.width, y: 0)
                     associateScrollerView.setContentOffset(offset, animated: false)
                 }
-                segMentScrollerViewSrollerTo(itemView: selectedItemView, animated: true)
+                segmentScrollerViewSrollerToCenter(itemView: selectedItemView, animated: true)
                 
                 UIView.animate(withDuration: 0.25) {
-                    self.indicatorView.reloadIndicatorViewLayout(segMegmentCtlView: self, leftItemView: leftItemView, rightItemView: rightItemView)
+                    self.indicatorView.reloadLayout(leftItemView: leftItemView, rightItemView: rightItemView)
                 }
-
             }
         }
     }
     
-    func segMentScrollerViewSrollerTo(itemView:LLSegmentCtlItemView,animated:Bool) {
-        var offsetX = segMegmentScrollerView.contentOffset.x
-        let targetCenter = itemView.center
-        
-        let boundsCenterX = bounds.width/2
-        if let convertCenter = itemView.superview?.convert(targetCenter, to: self){
-            offsetX -= boundsCenterX - convertCenter.x
-            offsetX = max(0, min(offsetX, segMegmentScrollerView.contentSize.width - bounds.width))
-            segMegmentScrollerView.setContentOffset(CGPoint.init(x: offsetX, y: 0), animated: animated)
-        }
-    }
 }
 
+
 extension LLSegmentCtlView{
-    func reloadSeparator() {
+    public func reloadSeparator() {
         for separator in separatorViews {
             reloadOneSeparatorView(separatorView: separator)
         }
@@ -150,6 +144,7 @@ extension LLSegmentCtlView{
             }
         }
         itemViews.removeAll()
+        
         var lastItemView:LLSegmentCtlItemView? = nil
         for (index,ctl) in ctls.enumerated() {
             let segmentCtlItemView = segmentItemViewClass.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: bounds.height))
@@ -157,7 +152,7 @@ extension LLSegmentCtlView{
             segmentCtlItemView.setSegmentItemViewStyle(itemViewStyle: itemViewStyle)
             segmentCtlItemView.percentChange(percent: 0)
             
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(itemViewClick(gesture:)))
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(segmentItemClick(gesture:)))
             segmentCtlItemView.addGestureRecognizer(tapGesture)
             
             //size
@@ -195,7 +190,8 @@ extension LLSegmentCtlView{
         if let firstItemView = getItemView(atIndex: 0) {
             firstItemView.percentChange(percent: 1)
             indicatorView.centerYGradientStyle = indicatorView.centerYGradientStyle
-            indicatorView.reloadIndicatorViewLayout(segMegmentCtlView: self, leftItemView: firstItemView, rightItemView: firstItemView)
+            indicatorView.reloadLayout(leftItemView: firstItemView, rightItemView: firstItemView)
+            currentPageItemView = firstItemView
         }
         
         if let defaultSelectedItemView = getItemView(atIndex: defaultSelectedIndex) {
@@ -220,19 +216,11 @@ extension LLSegmentCtlView{
             if  scrollView.contentSize.width != 0 && scrollView.bounds.width != 0 && userScroller{
                 contentOffsetChangeCalculation(newContentOffset: newContentOffset, oldContentOffset: oldContentOffset, scrollView: scrollView)
             }
-            
-            //用户停止拖拽
-            if scrollView.isDecelerating {
-                let selectedItemIndex = Int((newContentOffset.x + scrollView.bounds.width/2) / scrollView.bounds.width)
-                if let selectedItem = getItemView(atIndex: selectedItemIndex) {
-                    segMentScrollerViewSrollerTo(itemView: selectedItem, animated: true)
-                }
-            }
         }
     }
     
     
-    func contentOffsetChangeCalculation(newContentOffset:CGPoint,oldContentOffset:CGPoint,scrollView:UIScrollView) {
+    private func contentOffsetChangeCalculation(newContentOffset:CGPoint,oldContentOffset:CGPoint,scrollView:UIScrollView) {
         let isScrollerToRight = (newContentOffset.x - oldContentOffset.x > 0)
         let leftFirstItem = Int(newContentOffset.x / scrollView.bounds.width)
         var currentItem = 0
@@ -256,32 +244,56 @@ extension LLSegmentCtlView{
         let rightItemIndex = leftFirstItem + 1
         if let leftItemView = getItemView(atIndex: leftItemIndex),
             let rightItemView = getItemView(atIndex: rightItemIndex) {
-            
-            contentOffsetChangeAction(leftItemView: leftItemView, rightItemView: rightItemView, percent: percent)
+            contentOffsetChangeViewAction(leftItemView: leftItemView, rightItemView: rightItemView, percent: percent)
         }
     }
     
-    func contentOffsetChangeAction(leftItemView:LLSegmentCtlItemView,rightItemView:LLSegmentCtlItemView,percent:CGFloat) {
+    private func contentOffsetChangeViewAction(leftItemView:LLSegmentCtlItemView,rightItemView:LLSegmentCtlItemView,percent:CGFloat) {
         let leftPercent = 1 - percent
         let rightPercent = percent
-        let rang = CGFloat(0)...CGFloat(1)
-        if rang.contains(leftPercent) && rang.contains(rightPercent){
+        let percentRang = CGFloat(0)...CGFloat(1)
+        if percentRang.contains(leftPercent) && percentRang.contains(rightPercent){
         
             leftItemView.contentOffsetOnRight = false
             rightItemView.contentOffsetOnRight = true
             leftItemView.percentChange(percent: leftPercent)
             rightItemView.percentChange(percent: rightPercent)
             
-            indicatorView.reloadIndicatorViewLayout(segMegmentCtlView: self, leftItemView: leftItemView, rightItemView: rightItemView)
+            indicatorView.reloadLayout(leftItemView: leftItemView, rightItemView: rightItemView)
             delegate?.segMegmentCtlView?(segMegmentCtlView: self, leftItemView: leftItemView, rightItemView: rightItemView, percent: percent)
+        }
+        
+        //segMegmentScrollerView Follow rolling:segMegmentScrollerView跟随用户的滑动
+        var scrollerPageItemView:LLSegmentCtlItemView?
+        if leftItemView.percent >= 0.5 {
+            scrollerPageItemView = leftItemView
+        }else{
+            scrollerPageItemView = rightItemView
+        }
+        if let scrollerPageItemView = scrollerPageItemView, scrollerPageItemView != currentPageItemView {
+            currentPageItemView = scrollerPageItemView
+            segmentScrollerViewSrollerToCenter(itemView: currentPageItemView, animated: true)
         }
     }
     
 }
 
+extension LLSegmentCtlView{
+    private  func segmentScrollerViewSrollerToCenter(itemView:LLSegmentCtlItemView,animated:Bool) {
+        var offsetX = segMegmentScrollerView.contentOffset.x
+        let targetCenter = itemView.center
+        
+        let boundsCenterX = bounds.width/2
+        if let convertCenter = itemView.superview?.convert(targetCenter, to: self){
+            offsetX -= boundsCenterX - convertCenter.x
+            offsetX = max(0, min(offsetX, segMegmentScrollerView.contentSize.width - bounds.width))
+            segMegmentScrollerView.setContentOffset(CGPoint.init(x: offsetX, y: 0), animated: animated)
+        }
+    }
+}
 
 extension LLSegmentCtlView{
-    func initSubviews() {
+    private func initSubviews() {
         if #available(iOS 11.0, *) {
             segMegmentScrollerView.contentInsetAdjustmentBehavior = .never
         }
@@ -297,7 +309,7 @@ extension LLSegmentCtlView{
         segMegmentScrollerView.addSubview(indicatorView)
     }
     
-    func getItemView(atIndex:NSInteger) -> LLSegmentCtlItemView? {
+    private func getItemView(atIndex:NSInteger) -> LLSegmentCtlItemView? {
         if atIndex < 0 || atIndex >= itemViews.count {
             return nil
         }

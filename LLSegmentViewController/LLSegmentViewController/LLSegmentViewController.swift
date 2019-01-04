@@ -8,13 +8,12 @@
 
 import UIKit
 
-
-class LLSegmentViewController: UIViewController {
-    var ctls:[UIViewController]!
-    var containerScrollerView:UICollectionView!
+ public class LLSegmentViewController: UIViewController {
+    var viewCtlContainerColView:UICollectionView!
     let segmentCtlView = LLSegmentCtlView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+    var ctls:[UIViewController]!
     private let cellIdentifier = "cellIdentifier"
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         initSubviews()
@@ -22,7 +21,7 @@ class LLSegmentViewController: UIViewController {
 }
 
 extension LLSegmentViewController{
-    func initSubviews() {
+     private func initSubviews() {
         view.addSubview(segmentCtlView)
         
         let layout = UICollectionViewFlowLayout()
@@ -31,19 +30,18 @@ extension LLSegmentViewController{
         layout.scrollDirection = .horizontal
         
         let colView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
-        colView.contentInset =  UIEdgeInsetsMake(0, 0, 0, 0)
         colView.backgroundColor = UIColor.clear
         colView.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: cellIdentifier)
         colView.delegate = self
         colView.dataSource = self
         colView.showsHorizontalScrollIndicator = false
-        containerScrollerView = colView
+        viewCtlContainerColView = colView
         
-        view.addSubview(containerScrollerView)
-        containerScrollerView.isPagingEnabled = true
-        segmentCtlView.associateScrollerView = containerScrollerView
+        view.addSubview(viewCtlContainerColView)
+        viewCtlContainerColView.isPagingEnabled = true
+        segmentCtlView.associateScrollerView = viewCtlContainerColView
         if #available(iOS 11.0, *) {
-            containerScrollerView.contentInsetAdjustmentBehavior = .never
+            viewCtlContainerColView.contentInsetAdjustmentBehavior = .never
         } else {
             automaticallyAdjustsScrollViewInsets = false
         }
@@ -51,15 +49,15 @@ extension LLSegmentViewController{
 }
 
 extension LLSegmentViewController{
-    func layout(segmentCtlFrame:CGRect,containerFrame:CGRect) {
+    public func layout(segmentCtlFrame:CGRect,containerFrame:CGRect) {
         segmentCtlView.frame = segmentCtlFrame
-        containerScrollerView.frame = containerFrame
+        viewCtlContainerColView.frame = containerFrame
     }
     
-    func reloadContents(ctls:[UIViewController]) {
-        self.ctls = ctls
+    public func reloadViewControllers(ctls:[UIViewController]) {
         segmentCtlView.ctls = ctls
-        
+
+        self.ctls = ctls
         for ctl in self.childViewControllers {
             ctl.removeFromParentViewController()
         }
@@ -67,17 +65,33 @@ extension LLSegmentViewController{
         for ctl in ctls{
             addChildViewController(ctl)
         }
-        containerScrollerView.contentSize = CGSize.init(width: view.bounds.size.width * CGFloat(ctls.count), height: 0)
-        containerScrollerView.reloadData()
+        
+        let contentSizeWidth = viewCtlContainerColView.bounds.size.width * CGFloat(ctls.count)
+        viewCtlContainerColView.contentSize = CGSize.init(width: contentSizeWidth, height: 0)
+        viewCtlContainerColView.reloadData()
+    }
+    
+    public func insertOneViewController(ctl:UIViewController,index:NSInteger){
+        if !self.childViewControllers.contains(ctl) {
+            addChildViewController(ctl)
+            let itemIndex = max(0, min(index, ctls.count-1))
+            self.ctls.insert(ctl, at: itemIndex)
+            
+            let contentSizeWidth = viewCtlContainerColView.bounds.size.width * CGFloat(ctls.count)
+            viewCtlContainerColView.contentSize = CGSize.init(width: contentSizeWidth, height: 0)
+            viewCtlContainerColView.reloadData()
+            viewCtlContainerColView.scrollToItem(at: IndexPath.init(item: itemIndex, section: 0), at: .centeredHorizontally, animated: false)
+        }
+        
     }
 }
 
 extension LLSegmentViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ctls.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
         for subView in cell.contentView.subviews {
             subView.removeFromSuperview()
@@ -88,7 +102,7 @@ extension LLSegmentViewController:UICollectionViewDelegate,UICollectionViewDataS
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-        return containerScrollerView.bounds.size
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
+        return viewCtlContainerColView.bounds.size
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 public class LLSegmentItemTabbarViewStyle:LLSegmentItemTitleViewStyle {
     var titleImgeGap:CGFloat = 2
-    var titleBottomGap:CGFloat = 5
+    var titleBottomGap:CGFloat = 3
     var badgeValueLabelOffset = CGPoint.init(x: 5, y: 5)
 }
 
@@ -103,7 +103,7 @@ class LLSegmentItemTabbarView: LLSegmentCtlItemView {
         }else{
             badgeValueLabel.isHidden = false
             badgeValueLabelFrame.size.width += 10
-            badgeValueLabelFrame.size.height += 5
+            badgeValueLabelFrame.size.height += 3
         }
         badgeValueLabel.bounds = badgeValueLabelFrame
         let imageViewBottomCenter = CGPoint.init(x: imageView.center.x, y: imageView.frame.maxY)

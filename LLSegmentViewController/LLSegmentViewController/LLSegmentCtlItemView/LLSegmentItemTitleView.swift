@@ -14,7 +14,7 @@ public class LLSegmentItemTitleViewStyle:LLSegmentCtlItemViewStyle {
     var unSelectedColor = UIColor.init(red: 136/255.0, green: 136/255.0, blue: 136/255.0, alpha: 1)
     var selectedTitleScale:CGFloat = 1.2
     var titleFontSize:CGFloat = 12
-    var extraTitleSpace:CGFloat = 30
+    var extraTitleSpace:CGFloat = 10
     var titleLabelMaskEnabled = false
 
 }

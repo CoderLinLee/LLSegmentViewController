@@ -22,6 +22,21 @@ public enum LLIndicatorViewCenterYGradientStyle {
 }
 
 
+//指示器形状样式
+public enum LLIndicatorViewShapeStyle{
+    /*自定义类型*/
+    case custom
+    /*三角形*/
+    case triangle(size:CGSize,color:UIColor)
+    /*椭圆*/
+    case ellipse(widthChangeStyle:LLIndicatorViewWidthChangeStyle,height:CGFloat,shadowColor:UIColor?)
+    /*横杆*/
+    case crossBar(widthChangeStyle:LLIndicatorViewWidthChangeStyle,height:CGFloat)
+    /*横杆*/
+    case background(color:UIColor,img:UIImage?)
+}
+
+
 @objc protocol LLIndicatorViewDelegate : NSObjectProtocol {
     @objc optional func indicatorView(indicatorView: LLIndicatorView, percent:CGFloat)
 }
@@ -40,8 +55,12 @@ public class LLIndicatorView: UIView {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    var centerYGradientStyle = LLIndicatorViewCenterYGradientStyle.bottom(margin: 0) {
+    public override var bounds: CGRect{
+        didSet{
+            print(bounds.size)
+        }
+    }
+    public var centerYGradientStyle = LLIndicatorViewCenterYGradientStyle.bottom(margin: 0) {
         didSet{
             if let selfSuperView = self.superview {
                 var selfCenter = self.center
@@ -58,7 +77,7 @@ public class LLIndicatorView: UIView {
         }
     }
     
-    var widthChangeStyle = LLIndicatorViewWidthChangeStyle.normal {
+    public var widthChangeStyle = LLIndicatorViewWidthChangeStyle.normal {
         didSet{
             var targetWidth = self.bounds.width
             switch widthChangeStyle {
@@ -77,7 +96,61 @@ public class LLIndicatorView: UIView {
         }
     }
     
-    func reloadIndicatorViewLayout(segMegmentCtlView: LLSegmentCtlView, leftItemView: LLSegmentCtlItemView,rightItemView:LLSegmentCtlItemView){
+    public var shapeStyle = LLIndicatorViewShapeStyle.custom {
+        didSet{
+            self.layer.contents = nil
+            switch shapeStyle {
+            case .custom:
+                break
+            case .background(let color, let img):
+                self.backgroundColor = color
+                self.layer.contents = img?.cgImage
+            case .crossBar(let widthChangeStyle,let height):
+                self.widthChangeStyle = widthChangeStyle
+                var selfBounds = self.bounds
+                selfBounds.size.height = height
+                self.bounds = selfBounds
+            case .triangle(let size,let color):
+                self.widthChangeStyle = .stationary(baseWidth: size.width)
+                self.centerYGradientStyle = .bottom(margin: 0)
+                var selfBounds = self.bounds
+                selfBounds.size = size
+                self.bounds = selfBounds
+                
+                let trianglePath = UIBezierPath()
+                trianglePath.move(to: CGPoint.init(x: size.width/2, y: 0))
+                trianglePath.addLine(to: CGPoint.init(x: size.width, y: size.height))
+                trianglePath.addLine(to: CGPoint.init(x: 0, y: size.height))
+                trianglePath.close()
+                
+                let triangleShape = CAShapeLayer()
+                triangleShape.path = trianglePath.cgPath
+                triangleShape.lineWidth = 0
+                triangleShape.fillColor = color.cgColor
+                contentView.layer.addSublayer(triangleShape)
+                
+                self.backgroundColor = UIColor.clear
+                self.contentView.backgroundColor = UIColor.clear
+            case .ellipse(let widthChangeStyle, let height,let shadowColor):
+                self.widthChangeStyle = widthChangeStyle
+                self.centerYGradientStyle = .center
+                
+                var selfBounds = self.bounds
+                selfBounds.size.height = height
+                self.bounds = selfBounds
+                self.layer.cornerRadius = height/2
+                if shadowColor != nil {
+                    self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.8)
+                    self.layer.shadowColor = shadowColor!.cgColor;
+                    self.layer.shadowRadius = 3;
+                    self.layer.shadowOffset = CGSize.init(width: 3, height: 4);
+                    self.layer.shadowOpacity = 0.6;
+                }
+            }
+        }
+    }
+    
+    public func reloadLayout(leftItemView: LLSegmentCtlItemView,rightItemView:LLSegmentCtlItemView){
         //center.X
         var selfCenter = self.center
         selfCenter.x = interpolationFrom(from: leftItemView.center.x, to: rightItemView.center.x, percent: rightItemView.percent)

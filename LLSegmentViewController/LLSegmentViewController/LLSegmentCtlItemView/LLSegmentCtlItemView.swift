@@ -11,9 +11,6 @@ import UIKit
 let LLSegmentAutomaticDimension:CGFloat = -1
 public class LLSegmentCtlItemViewStyle {
     var itemWidth:CGFloat = LLSegmentAutomaticDimension
-    var showSeperatorLine = false
-    var separatorColor = UIColor.lightGray
-    var separatorSize = CGSize.init(width: 1, height: 10)
 }
 
 
@@ -35,7 +32,5 @@ public class LLSegmentCtlItemView: UIView {
     //override for subClass
     func percentChange(percent:CGFloat){ self.percent = percent}
     func itemWidth() ->CGFloat { return 0 }
-    func setSegmentItemViewStyle(itemViewStyle:LLSegmentCtlItemViewStyle) {
-        
-    }
+    func setSegmentItemViewStyle(itemViewStyle:LLSegmentCtlItemViewStyle) {}
 }

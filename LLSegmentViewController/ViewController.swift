@@ -20,10 +20,14 @@ let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerCla
                             CellModel(title: "9阴影样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "10文字遮罩无背景样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "11文字遮罩有背景样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "12足球样式", viewControllerClass: FootballViewController.self),]
+                            CellModel(title: "13文字遮罩有背景有阴影样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "14三角形样式", viewControllerClass: TitleViewController.self),]
 
 let customTab = [CellModel(title: "微信样式", viewControllerClass: SimpleTabViewController.self),
                  CellModel(title: "微博样式", viewControllerClass: SinaViewController.self)]
+
+let specialTab = [CellModel(title: "1嵌套样式", viewControllerClass: NestViewController.self),
+                  CellModel(title: "2足球样式", viewControllerClass: FootballViewController.self),]
 
 class ViewController: UIViewController {
     var dataArr = ["指示器样式","特殊样式","自定义TabViewController"]
@@ -71,7 +75,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.row == 0 {
             styleListCtl.customTabs = indicatiorcustomTabs
         }else if indexPath.row == 1 {
-            
+            styleListCtl.customTabs = specialTab
         }else if indexPath.row == 2 {
             styleListCtl.customTabs = customTab
         }
