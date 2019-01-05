@@ -44,6 +44,10 @@ class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
         
         badgeValueLabel.text = associateViewCtl?.tabBarItem.badgeValue
         badgeValueLabel.sizeToFit()
+        if let badgeColor = associateViewCtl?.tabBarItem.badgeColor {
+            badgeValueLabel.backgroundColor = badgeColor
+        }
+        
         var badgeValueLabelFrame = badgeValueLabel.frame
         if associateViewCtl?.tabBarItem.badgeValue == LLSegmentRedBadgeValue {
             badgeValueLabel.isHidden = false
@@ -56,6 +60,7 @@ class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
             badgeValueLabel.isHidden = false
             badgeValueLabelFrame.size.width += 10
             badgeValueLabelFrame.size.height += 5
+            badgeValueLabelFrame.size.width = max(badgeValueLabelFrame.width, badgeValueLabelFrame.height)
         }
         badgeValueLabel.frame = badgeValueLabelFrame
         badgeValueLabel.center = CGPoint.init(x: titleLabel.frame.maxX + 5, y: titleLabel.frame.minY - 5)

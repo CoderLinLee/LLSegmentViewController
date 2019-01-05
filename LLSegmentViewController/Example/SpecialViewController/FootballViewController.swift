@@ -62,7 +62,7 @@ extension FootballViewController:LLIndicatorViewDelegate{
 }
 
 extension FootballViewController:LLSegmentCtlViewDelegate{
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentCtlItemView, to destinationItemView: LLSegmentCtlItemView) {
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView) {
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotateAnimation.duration = 0.25
         rotateAnimation.toValue = sourceItemView.frame.origin.x > destinationItemView.frame.origin.x ? CGFloat.pi*2 : -CGFloat.pi*2

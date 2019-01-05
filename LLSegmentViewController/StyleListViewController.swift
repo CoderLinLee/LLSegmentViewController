@@ -94,9 +94,17 @@ extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
                 ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.lightGray
             }else if indexPath.row == 13 {
                 ctl.segmentCtlView.indicatorView.shapeStyle = .triangle(size: CGSize.init(width: 30, height: 20),color:UIColor.blue)
+            }else if indexPath.row == 14 {
+                ctl.segmentCtlView.indicatorView.shapeStyle = .triangle(size: CGSize.init(width: 30, height: 20),color:UIColor.blue)
             }
 
             ctl.titleViewStyle = titleViewStyle
+        }else if let ctl = ctl as? CustomItemViewController {
+            if indexPath.row == 0 {
+                ctl.customItemViewClass = BackgroundColorGradientItemView.self
+            }else if indexPath.row == 1 {
+                ctl.customItemViewClass = BackgroundColorGradientItemView.self
+            }
         }
         
         self.navigationController?.pushViewController(ctl, animated: true)

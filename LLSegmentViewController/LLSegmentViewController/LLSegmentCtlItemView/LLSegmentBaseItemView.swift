@@ -14,7 +14,7 @@ public class LLSegmentCtlItemViewStyle {
 }
 
 
-public class LLSegmentCtlItemView: UIView {
+public class LLSegmentBaseItemView: UIView {
     var isScrollerTarget = false
     var contentOffsetOnRight = false
 

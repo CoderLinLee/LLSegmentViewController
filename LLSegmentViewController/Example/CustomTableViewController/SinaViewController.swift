@@ -66,13 +66,13 @@ class SinaViewController: LLSegmentViewController {
 
 
 extension SinaViewController:LLSegmentCtlViewDelegate{
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, itemView: LLSegmentCtlItemView, extraGapAtIndex: NSInteger) -> CGFloat {
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, itemView: LLSegmentBaseItemView, extraGapAtIndex: NSInteger) -> CGFloat {
         if extraGapAtIndex == 2 {
             return UIScreen.main.bounds.width/CGFloat(ctls.count+1)
         }
         return 0
     }
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentCtlItemView, to destinationItemView: LLSegmentCtlItemView) {
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView) {
         let keyAnimation = CAKeyframeAnimation.init(keyPath: "transform.scale")
         keyAnimation.duration = 0.25;
         keyAnimation.values = [1.0,0.8,1.0];
@@ -83,7 +83,7 @@ extension SinaViewController:LLSegmentCtlViewDelegate{
        
     }
     
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, reloadCtlView defaultSelectItemView: LLSegmentCtlItemView) {
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, reloadCtlView defaultSelectItemView: LLSegmentBaseItemView) {
         
     }
 }

@@ -21,7 +21,8 @@ let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerCla
                             CellModel(title: "10文字遮罩无背景样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "11文字遮罩有背景样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "13文字遮罩有背景有阴影样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "14三角形样式", viewControllerClass: TitleViewController.self),]
+                            CellModel(title: "14三角形样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "15小红点和数字样式", viewControllerClass: BadgeValueViewController.self),]
 
 let customTab = [CellModel(title: "微信样式", viewControllerClass: SimpleTabViewController.self),
                  CellModel(title: "微博样式", viewControllerClass: SinaViewController.self)]
@@ -30,8 +31,12 @@ let specialTab = [CellModel(title: "1嵌套样式", viewControllerClass: NestVie
                   CellModel(title: "2足球样式", viewControllerClass: FootballViewController.self),
                   CellModel(title: "2插入样式", viewControllerClass: InsertViewController.self),]
 
+let customItemViewTab = [CellModel(title: "背景色渐变样式", viewControllerClass: BackgroundColorGradientItemViewController.self),
+                         CellModel(title: "富文本样式", viewControllerClass: AttributeItemViewController.self),
+                         CellModel(title: "title&image样式", viewControllerClass: TitleImageItemViewController.self)]
+
 class ViewController: UIViewController {
-    var dataArr = ["指示器样式","特殊样式","自定义TabViewController"]
+    var dataArr = ["指示器样式","特殊样式","自定义TabViewController","自定义ItemView"]
     let tableView = UITableView(frame: CGRect.zero, style: .plain)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +84,8 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             styleListCtl.customTabs = specialTab
         }else if indexPath.row == 2 {
             styleListCtl.customTabs = customTab
+        }else if indexPath.row == 3{
+            styleListCtl.customTabs = customItemViewTab
         }
         self.navigationController?.pushViewController(styleListCtl, animated: true)
 

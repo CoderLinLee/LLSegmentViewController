@@ -19,7 +19,7 @@ public class LLSegmentItemTitleViewStyle:LLSegmentCtlItemViewStyle {
     var titleLabelCenterOffsetY:CGFloat = 0
 }
 
-class LLSegmentItemTitleView: LLSegmentCtlItemView {
+class LLSegmentItemTitleView: LLSegmentBaseItemView {
     let titleLabel = UILabel()
     private let maskTitleLabel = UILabel()
     private let maskTitleLabelMask = CAShapeLayer()

@@ -8,11 +8,17 @@
 
 import UIKit
 
+
 class TitleViewController: LLSegmentViewController {
     var titleViewStyle = LLSegmentItemTitleViewStyle()
     var indicatorViewWidthChangeStyle:LLIndicatorViewWidthChangeStyle?
     override func viewDidLoad() {
         super.viewDidLoad()
+        initCtls()
+        initSegmentCtlView()
+    }
+    
+    func initCtls() {
         let segmentCtlFrame =  CGRect.init(x: 0, y: 64, width: view.bounds.width, height: 50)
         let containerFrame = CGRect.init(x: 0, y: segmentCtlFrame.maxY, width: view.bounds.width, height: view.bounds.height - segmentCtlFrame.maxY)
         layout(segmentCtlFrame:segmentCtlFrame, containerFrame: containerFrame)
@@ -25,10 +31,11 @@ class TitleViewController: LLSegmentViewController {
             ctl.title = title
             ctls.append(ctl)
         }
-        
-        segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-        
         reloadViewControllers(ctls:ctls)
+    }
+    
+    func initSegmentCtlView() {
+        segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         if let indicatorViewWidthChangeStyle = indicatorViewWidthChangeStyle {
             segmentCtlView.indicatorView.widthChangeStyle = indicatorViewWidthChangeStyle
         }

@@ -154,7 +154,7 @@ public class LLIndicatorView: UIView {
         }
     }
     
-    public func reloadLayout(leftItemView: LLSegmentCtlItemView,rightItemView:LLSegmentCtlItemView){
+    public func reloadLayout(leftItemView: LLSegmentBaseItemView,rightItemView:LLSegmentBaseItemView){
         //center.X
         var selfCenter = self.center
         selfCenter.x = interpolationFrom(from: leftItemView.center.x, to: rightItemView.center.x, percent: rightItemView.percent)

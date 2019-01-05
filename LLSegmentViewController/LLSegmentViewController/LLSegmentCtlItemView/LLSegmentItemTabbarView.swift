@@ -15,7 +15,7 @@ public class LLSegmentItemTabbarViewStyle:LLSegmentItemTitleViewStyle {
 }
 
 
-class LLSegmentItemTabbarView: LLSegmentCtlItemView {
+class LLSegmentItemTabbarView: LLSegmentBaseItemView {
     let titleLabel = UILabel()
     let imageView = UIImageView()
     let badgeValueLabel = UILabel()
@@ -34,7 +34,6 @@ class LLSegmentItemTabbarView: LLSegmentCtlItemView {
         badgeValueLabel.frame = CGRect.init(x: 0, y: 0, width: 20, height: 20)
         badgeValueLabel.center = CGPoint.init(x: bounds.width - 10, y: 10)
         addSubview(badgeValueLabel)
-
     }
     
     required public init?(coder aDecoder: NSCoder) {
