@@ -81,8 +81,8 @@ public enum TitleImageButtonStyle {
 class TitleImageButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
-        var titleRect = CGRect.init()
-        var imageRect = CGRect.init()
+//        var titleRect = CGRect.init()
+//        var imageRect = CGRect.init()
         
     }
 

@@ -99,14 +99,7 @@ extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
             }
 
             ctl.titleViewStyle = titleViewStyle
-        }else if let ctl = ctl as? CustomItemViewController {
-            if indexPath.row == 0 {
-                ctl.customItemViewClass = BackgroundColorGradientItemView.self
-            }else if indexPath.row == 1 {
-                ctl.customItemViewClass = BackgroundColorGradientItemView.self
-            }
         }
-        
         self.navigationController?.pushViewController(ctl, animated: true)
     }
 }
