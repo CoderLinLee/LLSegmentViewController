@@ -44,9 +44,6 @@ class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
         
         badgeValueLabel.text = associateViewCtl?.tabBarItem.badgeValue
         badgeValueLabel.sizeToFit()
-        if let badgeColor = associateViewCtl?.tabBarItem.badgeColor {
-            badgeValueLabel.backgroundColor = badgeColor
-        }
         
         var badgeValueLabelFrame = badgeValueLabel.frame
         if associateViewCtl?.tabBarItem.badgeValue == LLSegmentRedBadgeValue {

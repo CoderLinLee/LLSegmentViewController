@@ -27,7 +27,6 @@ class BadgeValueViewController: LLSegmentViewController {
             let ctl = TestBadgeValueViewController()
             ctl.title = title
             ctl.tabBarItem.badgeValue = index%3 == 0 ? LLSegmentRedBadgeValue : "\(index)"
-            ctl.tabBarItem.badgeColor = UIColor.blue
             ctls.append(ctl)
         }
         reloadViewControllers(ctls:ctls)
