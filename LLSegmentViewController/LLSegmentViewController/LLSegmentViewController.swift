@@ -8,43 +8,15 @@
 
 import UIKit
 
- public class LLSegmentViewController: UIViewController {
+ open class LLSegmentViewController: UIViewController {
     var viewCtlContainerColView:UICollectionView!
     let segmentCtlView = LLSegmentCtlView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
     var ctls:[UIViewController]!
     private let cellIdentifier = "cellIdentifier"
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         initSubviews()
-    }
-}
-
-extension LLSegmentViewController{
-     private func initSubviews() {
-        view.addSubview(segmentCtlView)
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.scrollDirection = .horizontal
-        
-        let colView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
-        colView.backgroundColor = UIColor.clear
-        colView.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: cellIdentifier)
-        colView.delegate = self
-        colView.dataSource = self
-        colView.showsHorizontalScrollIndicator = false
-        viewCtlContainerColView = colView
-        
-        view.addSubview(viewCtlContainerColView)
-        viewCtlContainerColView.isPagingEnabled = true
-        segmentCtlView.associateScrollerView = viewCtlContainerColView
-        if #available(iOS 11.0, *) {
-            viewCtlContainerColView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
     }
 }
 
@@ -87,7 +59,6 @@ extension LLSegmentViewController{
             segmentCtlView.ctlViewStyle.defaultSelectedIndex = itemIndex
             segmentCtlView.reloadData()
         }
-        
     }
 }
 
@@ -109,5 +80,33 @@ extension LLSegmentViewController:UICollectionViewDelegate,UICollectionViewDataS
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         return viewCtlContainerColView.bounds.size
+    }
+}
+
+extension LLSegmentViewController{
+    private func initSubviews() {
+        view.addSubview(segmentCtlView)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.scrollDirection = .horizontal
+        
+        let colView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
+        colView.backgroundColor = UIColor.clear
+        colView.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: cellIdentifier)
+        colView.delegate = self
+        colView.dataSource = self
+        colView.showsHorizontalScrollIndicator = false
+        viewCtlContainerColView = colView
+        
+        view.addSubview(viewCtlContainerColView)
+        viewCtlContainerColView.isPagingEnabled = true
+        segmentCtlView.associateScrollerView = viewCtlContainerColView
+        if #available(iOS 11.0, *) {
+            viewCtlContainerColView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
     }
 }

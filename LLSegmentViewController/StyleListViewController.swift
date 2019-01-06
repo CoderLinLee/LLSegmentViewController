@@ -96,6 +96,10 @@ extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
                 ctl.segmentCtlView.indicatorView.shapeStyle = .triangle(size: CGSize.init(width: 30, height: 20),color:UIColor.blue)
             }else if indexPath.row == 14 {
                 ctl.segmentCtlView.indicatorView.shapeStyle = .triangle(size: CGSize.init(width: 30, height: 20),color:UIColor.blue)
+            }else if indexPath.row == 15 {
+                ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .jdIqiyi(baseWidth: 10, changeWidth: 0), height: 10, shadowColor: nil)
+                ctl.segmentCtlView.indicatorView.centerYGradientStyle = .bottom(margin: 8)
+                ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.red
             }
 
             ctl.titleViewStyle = titleViewStyle

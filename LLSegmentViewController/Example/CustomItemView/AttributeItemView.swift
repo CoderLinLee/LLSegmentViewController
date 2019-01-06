@@ -51,19 +51,22 @@ class AttributeItemView: LLSegmentBaseItemView {
 }
 
 
-
+//MARK:-自定义的使用
 class AttributeItemViewController: LLSegmentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        initCtls()
-        initSegmentCtlView()
+        layoutContentView()
+        loadCtls()
+        setUpSegmentStyle()
     }
     
-    func initCtls() {
+    func layoutContentView() {
         let segmentCtlFrame =  CGRect.init(x: 0, y: 64, width: view.bounds.width, height: 50)
         let containerFrame = CGRect.init(x: 0, y: segmentCtlFrame.maxY, width: view.bounds.width, height: view.bounds.height - segmentCtlFrame.maxY)
         layout(segmentCtlFrame:segmentCtlFrame, containerFrame: containerFrame)
-        
+    }
+
+    func loadCtls() {
         let titles = ["周一\n8月20号","周二\n8月21号","周三\n8月22号","周四\n8月23号","周五\n8月24号","周六\n8月25号","周七\n8月26号"]
         var ctls = [UIViewController]()
         for title in titles {
@@ -75,11 +78,13 @@ class AttributeItemViewController: LLSegmentViewController {
         reloadViewControllers(ctls:ctls)
     }
     
-    func initSegmentCtlView() {
+    func setUpSegmentStyle() {
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         segmentCtlView.indicatorView.shapeStyle = .background(color: UIColor.red, img: nil)
         let titleViewStyle = LLSegmentItemTitleViewStyle()
-        let ctlViewStyle = LLSegmentCtlViewStyle(itemSpacing: 0, segmentItemViewClass: AttributeItemView.self, itemViewStyle: titleViewStyle, defaultSelectedIndex: 0)
+        var ctlViewStyle = LLSegmentCtlViewStyle()
+        ctlViewStyle.segmentItemViewClass = AttributeItemView.self
+        ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
     }
 }

@@ -12,15 +12,18 @@ class BadgeValueViewController: LLSegmentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initCtls()
-        initSegmentCtlView()
+        layoutContentView()
+        loadCtls()
+        setUpSegmentStyle()
     }
-
-    func initCtls() {
+    
+    func layoutContentView() {
         let segmentCtlFrame =  CGRect.init(x: 0, y: 64, width: view.bounds.width, height: 50)
         let containerFrame = CGRect.init(x: 0, y: segmentCtlFrame.maxY, width: view.bounds.width, height: view.bounds.height - segmentCtlFrame.maxY)
         layout(segmentCtlFrame:segmentCtlFrame, containerFrame: containerFrame)
-        
+    }
+    
+    func loadCtls() {
         let titles = ["螃蟹", "麻辣小龙虾", "苹果", "营养胡萝卜", "葡萄", "美味西瓜", "香蕉", "香甜菠萝", "鸡肉", "鱼", "海星"];
         var ctls = [UIViewController]()
         for (index,title) in titles.enumerated() {
@@ -32,13 +35,15 @@ class BadgeValueViewController: LLSegmentViewController {
         reloadViewControllers(ctls:ctls)
     }
     
-    func initSegmentCtlView() {
+    func setUpSegmentStyle() {
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         segmentCtlView.indicatorView.widthChangeStyle = .equalToItemWidth
         
         let titleStyle = LLSegmentItemTitleViewStyle()
         titleStyle.selectedTitleScale = 1
-        let ctlViewStyle = LLSegmentCtlViewStyle(itemSpacing: 0, segmentItemViewClass: LLSegmentItemBadgeTitleView.self, itemViewStyle: titleStyle, defaultSelectedIndex: 0)
+        var ctlViewStyle = LLSegmentCtlViewStyle()
+        ctlViewStyle.segmentItemViewClass = LLSegmentItemBadgeTitleView.self
+        ctlViewStyle.itemViewStyle = titleStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
     }
 }

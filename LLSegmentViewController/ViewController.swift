@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerClass: LLMsgViewController.self),
                             CellModel(title: "1Title样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "2京东样式", viewControllerClass: TitleViewController.self),
@@ -22,14 +23,16 @@ let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerCla
                             CellModel(title: "11文字遮罩有背景样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "13文字遮罩有背景有阴影样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "14三角形样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "15小红点和数字样式", viewControllerClass: BadgeValueViewController.self),]
+                            CellModel(title: "15小红点和数字样式", viewControllerClass: BadgeValueViewController.self),
+                            CellModel(title: "16点线效果样式", viewControllerClass: TitleViewController.self),]
 
 let customTab = [CellModel(title: "微信样式", viewControllerClass: SimpleTabViewController.self),
                  CellModel(title: "微博样式", viewControllerClass: SinaViewController.self)]
 
 let specialTab = [CellModel(title: "1嵌套样式", viewControllerClass: NestViewController.self),
                   CellModel(title: "2足球样式", viewControllerClass: FootballViewController.self),
-                  CellModel(title: "2插入样式", viewControllerClass: InsertViewController.self),]
+                  CellModel(title: "3插入样式", viewControllerClass: InsertViewController.self),
+                  CellModel(title: "4混合样式", viewControllerClass: MixViewController.self),]
 
 let customItemViewTab = [CellModel(title: "背景色渐变样式", viewControllerClass: BackgroundColorGradientItemViewController.self),
                          CellModel(title: "富文本样式", viewControllerClass: AttributeItemViewController.self),

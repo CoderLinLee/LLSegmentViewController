@@ -8,11 +8,11 @@
 
 import UIKit
 
-let LLSegmentRedBadgeValue = "redBadgeValue"
-class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
-    let badgeValueLabel = UILabel()
+public let LLSegmentRedBadgeValue = "redBadgeValue"
+open class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
+    public let badgeValueLabel = UILabel()
     private let badgeValueObserverKeyPath = "badgeValue"
-    required init(frame: CGRect) {
+    required public init(frame: CGRect) {
         super.init(frame: frame)
 
         badgeValueLabel.backgroundColor = UIColor.red
@@ -24,11 +24,11 @@ class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
         addSubview(badgeValueLabel)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var associateViewCtl: UIViewController? {
+    override public var associateViewCtl: UIViewController? {
         didSet{
             associateViewCtl?.tabBarItem.addObserver(self, forKeyPath: badgeValueObserverKeyPath, options: [.new], context: nil)
         }
@@ -39,7 +39,7 @@ class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
     }
     
     
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         
         badgeValueLabel.text = associateViewCtl?.tabBarItem.badgeValue
@@ -66,7 +66,7 @@ class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
         badgeValueLabel.clipsToBounds = true
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if  keyPath ==  badgeValueObserverKeyPath{
             layoutSubviews()
         }

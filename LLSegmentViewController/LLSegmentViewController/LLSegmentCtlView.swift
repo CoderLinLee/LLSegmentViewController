@@ -9,7 +9,7 @@
 import UIKit
 
 
-@objc protocol LLSegmentCtlViewDelegate : NSObjectProtocol {
+@objc public protocol LLSegmentCtlViewDelegate : NSObjectProtocol {
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, reloadCtlView defaultSelectItemView:LLSegmentBaseItemView)
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, itemView: LLSegmentBaseItemView,extraGapAtIndex:NSInteger) -> CGFloat
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView)
@@ -17,13 +17,14 @@ import UIKit
 
 
 public struct LLSegmentCtlViewStyle{
-    var itemSpacing:CGFloat = 0
-    var segmentItemViewClass:LLSegmentBaseItemView.Type = LLSegmentItemTitleView.self
-    var itemViewStyle:LLSegmentCtlItemViewStyle = LLSegmentItemTitleViewStyle()
-    var defaultSelectedIndex:NSInteger = 0
+    public var itemSpacing:CGFloat = 0
+    public var segmentItemViewClass:LLSegmentBaseItemView.Type = LLSegmentItemTitleView.self
+    public var itemViewStyle:LLSegmentCtlItemViewStyle = LLSegmentItemTitleViewStyle()
+    public var defaultSelectedIndex:NSInteger = 0
+    public init(){}
 }
 
-public class LLSegmentCtlView: UIView {
+open class LLSegmentCtlView: UIView {
     //----------------------separatorLine-----------------------// 设置完成后调用reloadSeparator方法，刷新分割线样式
     public var separatorLineShowEnabled = false
     public var separatorLineColor = UIColor.lightGray
@@ -33,17 +34,14 @@ public class LLSegmentCtlView: UIView {
 
     
     public var contentOffsetAnimation = true
-    var delegate:LLSegmentCtlViewDelegate?
-    
-    var ctls:[UIViewController]!
-    var itemViews = [LLSegmentBaseItemView]()
-    let segMegmentScrollerView = UIScrollView(frame: CGRect.zero)
-    var currentPageItemView:LLSegmentBaseItemView!
-    var ctlViewStyle = LLSegmentCtlViewStyle()
-    private (set) var indicatorView = LLIndicatorView(frame:CGRect.init(x: 0, y: 0, width: 10, height: 3))
+    public var delegate:LLSegmentCtlViewDelegate?
+    private (set) public var indicatorView = LLIndicatorView(frame:CGRect.init(x: 0, y: 0, width: 10, height: 3))
+    public var ctls:[UIViewController]!
+    public let segMegmentScrollerView = UIScrollView(frame: CGRect.zero)
+    public var currentPageItemView:LLSegmentBaseItemView!
+    public var ctlViewStyle = LLSegmentCtlViewStyle()
     private let associateScrollerViewObserverKeyPath = "contentOffset"
-    private var selectedPage = 0
-    private var itemSpacing:CGFloat = 0
+    private var itemViews = [LLSegmentBaseItemView]()
     public weak var associateScrollerView:UIScrollView? {
         didSet{
             associateScrollerView?.addObserver(self, forKeyPath: associateScrollerViewObserverKeyPath, options: [.new,.old], context: nil)
@@ -115,7 +113,7 @@ extension LLSegmentCtlView{
             
             //origin
             if let lastItemView = lastItemView {
-                var itemGap = itemSpacing
+                var itemGap = self.ctlViewStyle.itemSpacing
                 if let gap = delegate?.segMegmentCtlView?(segMegmentCtlView: self, itemView: segmentCtlItemView, extraGapAtIndex: index) {
                     itemGap += gap
                 }
@@ -209,7 +207,7 @@ extension LLSegmentCtlView{
 }
 
 extension LLSegmentCtlView{
-    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == associateScrollerViewObserverKeyPath ,
             let newContentOffset = change?[NSKeyValueChangeKey.newKey] as? CGPoint,
             let oldContentOffset = change?[NSKeyValueChangeKey.oldKey] as? CGPoint,

@@ -37,14 +37,14 @@ public enum LLIndicatorViewShapeStyle{
 }
 
 
-@objc protocol LLIndicatorViewDelegate : NSObjectProtocol {
+@objc public protocol LLIndicatorViewDelegate : NSObjectProtocol {
     @objc optional func indicatorView(indicatorView: LLIndicatorView, percent:CGFloat)
 }
 
 
-public class LLIndicatorView: UIView {
-    var contentView = UIView()
-    var delegate:LLIndicatorViewDelegate?
+open class LLIndicatorView: UIView {
+    public var contentView = UIView()
+    public var delegate:LLIndicatorViewDelegate?
     public override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(contentView)

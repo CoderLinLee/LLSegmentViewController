@@ -8,6 +8,19 @@
 
 import UIKit
 
+func LLRandomRGB() -> UIColor {
+    return UIColor.init(red: CGFloat(arc4random()%256)/255.0, green: CGFloat(arc4random()%256)/255.0, blue: CGFloat(arc4random()%256)/255.0, alpha: 1)
+}
+
+func factoryCtl(title:String,imageName:String,selectedImageNameStr:String) -> UIViewController {
+    let test2Ctl = TestViewController()
+    test2Ctl.title = title
+    test2Ctl.tabBarItem.image = UIImage.init(named: imageName)
+    test2Ctl.tabBarItem.selectedImage = UIImage.init(named: selectedImageNameStr)
+    return test2Ctl
+}
+
+
 class TestViewController: UIViewController {
     var showTableView = true
     let tableView = UITableView(frame: CGRect.zero, style: .plain)

@@ -19,13 +19,16 @@ class BackgroundColorGradientItemView: LLSegmentItemTitleView {
 }
 
 
+//MARK:-自定义的使用
 class BackgroundColorGradientItemViewController: TitleViewController {
-    override func initSegmentCtlView() {
+    override func setUpSegmentStyle() {
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         if let indicatorViewWidthChangeStyle = indicatorViewWidthChangeStyle {
             segmentCtlView.indicatorView.widthChangeStyle = indicatorViewWidthChangeStyle
         }
-        let ctlViewStyle = LLSegmentCtlViewStyle(itemSpacing: 0, segmentItemViewClass: BackgroundColorGradientItemView.self, itemViewStyle: titleViewStyle, defaultSelectedIndex: 0)
+        var ctlViewStyle = LLSegmentCtlViewStyle()
+        ctlViewStyle.segmentItemViewClass = BackgroundColorGradientItemView.self
+        ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
     }
 }

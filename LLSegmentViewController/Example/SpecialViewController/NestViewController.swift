@@ -9,35 +9,47 @@
 import UIKit
 
 class NestViewController: LLSegmentViewController {
-
+    let segmentItemWidth:CGFloat = 60
+    let segmentViewHeight:CGFloat = 30
     override func viewDidLoad() {
         super.viewDidLoad()
-        let segmentItemWidth:CGFloat = 60
-        let segmentViewHeight:CGFloat = 30
+        
+        layoutContentView()
+        loadCtls()
+        setUpSegmentStyle()
+    }
+    
+    func layoutContentView() {
         let segmentCtlFrame = CGRect.init(x: 0, y: 0, width: segmentItemWidth*2, height: segmentViewHeight)
         let containerFrame = view.bounds
         layout(segmentCtlFrame:segmentCtlFrame, containerFrame: containerFrame)
-        
+    }
+    
+    func loadCtls() {
         let test1Ctl = NestSubViewController()
         test1Ctl.title = "主题一"
         
         let test2Ctl = NestSubViewController()
         test2Ctl.title = "主题二"
         let ctls =  [test1Ctl,test2Ctl]
-        
+        reloadViewControllers(ctls:ctls)
+    }
+    
+    func setUpSegmentStyle() {
         let titleViewStyle = LLSegmentItemTitleViewStyle()
         titleViewStyle.selectedColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 1)
         titleViewStyle.unSelectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
         titleViewStyle.itemWidth = segmentItemWidth
         titleViewStyle.selectedTitleScale = 1
         
-        reloadViewControllers(ctls:ctls)
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: segmentItemWidth)
         segmentCtlView.indicatorView.centerYGradientStyle = .center
         segmentCtlView.indicatorView.bounds = CGRect.init(x: 0, y: 0, width: segmentItemWidth, height: segmentViewHeight)
         segmentCtlView.indicatorView.layer.cornerRadius = segmentViewHeight/2
         segmentCtlView.indicatorView.backgroundColor = UIColor.red
-        let ctlViewStyle = LLSegmentCtlViewStyle(itemSpacing: 0, segmentItemViewClass: LLSegmentItemBadgeTitleView.self, itemViewStyle: titleViewStyle, defaultSelectedIndex: 0)
+        var ctlViewStyle = LLSegmentCtlViewStyle()
+        ctlViewStyle.segmentItemViewClass = LLSegmentItemBadgeTitleView.self
+        ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
         
         segmentCtlView.layer.cornerRadius = segmentViewHeight/2
@@ -51,11 +63,19 @@ class NestViewController: LLSegmentViewController {
 class NestSubViewController: LLSegmentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        layoutContentView()
+        loadCtls()
+        setUpSegmentStyle()
+    }
+    
+    func layoutContentView() {
         let segmentCtlFrame =  CGRect.init(x: 0, y: 64, width: view.bounds.width, height: 50)
         let containerFrame = CGRect.init(x: 0, y: segmentCtlFrame.maxY, width: view.bounds.width, height: view.bounds.height - segmentCtlFrame.maxY)
         layout(segmentCtlFrame:segmentCtlFrame, containerFrame: containerFrame)
-        
+    }
+    
+    func loadCtls() {
         let test1Ctl = TestViewController()
         test1Ctl.showTableView = false
         test1Ctl.title = "动态"
@@ -66,15 +86,20 @@ class NestSubViewController: LLSegmentViewController {
         test2Ctl.title = "通知"
         test2Ctl.tabBarItem.badgeValue = nil
         let ctls =  [test1Ctl,test2Ctl]
-        
+        reloadViewControllers(ctls:ctls)
+    }
+    
+    func setUpSegmentStyle() {
         let titleViewStyle = LLSegmentItemTitleViewStyle()
         titleViewStyle.selectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
         titleViewStyle.unSelectedColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
         titleViewStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
         
-        reloadViewControllers(ctls:ctls)
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
-        let ctlViewStyle = LLSegmentCtlViewStyle(itemSpacing: 0, segmentItemViewClass: LLSegmentItemBadgeTitleView.self, itemViewStyle: titleViewStyle, defaultSelectedIndex: 0)
+        
+        var ctlViewStyle = LLSegmentCtlViewStyle()
+        ctlViewStyle.segmentItemViewClass = LLSegmentItemBadgeTitleView.self
+        ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
         
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
