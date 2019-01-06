@@ -283,7 +283,7 @@ extension LLSegmentCtlView{
     private  func segmentScrollerViewSrollerToCenter(itemView:LLSegmentBaseItemView,animated:Bool) {
         var offsetX = segMegmentScrollerView.contentOffset.x
         let targetCenter = itemView.center
-        
+         
         let boundsCenterX = bounds.width/2
         if let convertCenter = itemView.superview?.convert(targetCenter, to: self){
             offsetX -= boundsCenterX - convertCenter.x
