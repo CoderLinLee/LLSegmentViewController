@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "LLSegmentViewController"
-s.version      = "1.0.6"
+s.version      = "1.0.7"
 s.summary      = "主流APP分类切换滚动视图"
 s.homepage     = "https://github.com/CoderLinLee/LLSegmentViewController"
 s.license      = "MIT"
