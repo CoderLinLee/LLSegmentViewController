@@ -43,6 +43,7 @@ class FootballViewController: LLSegmentViewController {
         titleViewStyle.unSelectedColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
         titleViewStyle.itemWidth = LLSegmentAutomaticDimension
         titleViewStyle.titleLabelCenterOffsetY = -10
+        titleViewStyle.selectedTitleScale = 1
         
         segmentCtlView.delegate = self
         segmentCtlView.indicatorView.bounds = CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 30, height: 30))
@@ -82,5 +83,9 @@ extension FootballViewController:LLSegmentCtlViewDelegate{
         rotateAnimation.duration = 0.25
         rotateAnimation.toValue = sourceItemView.frame.origin.x > destinationItemView.frame.origin.x ? CGFloat.pi*2 : -CGFloat.pi*2
         footballImageView.layer.add(rotateAnimation, forKey: "rotate")
+    }
+    
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, totalPercent: CGFloat) {
+        print(totalPercent)
     }
 }

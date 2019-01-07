@@ -13,6 +13,9 @@ import UIKit
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, reloadCtlView defaultSelectItemView:LLSegmentBaseItemView)
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, itemView: LLSegmentBaseItemView,extraGapAtIndex:NSInteger) -> CGFloat
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView)
+    @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView,totalPercent:CGFloat)
+    @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView,dragToScroll leftItemView:LLSegmentBaseItemView,rightItemView:LLSegmentBaseItemView)
+
 }
 
 
@@ -102,6 +105,7 @@ extension LLSegmentCtlView{
             segmentCtlItemView.associateViewCtl = ctl
             segmentCtlItemView.setSegmentItemViewStyle(itemViewStyle: self.ctlViewStyle.itemViewStyle)
             segmentCtlItemView.percentChange(percent: 0)
+            segmentCtlItemView.index = index
             
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(segmentItemClick(gesture:)))
             segmentCtlItemView.addGestureRecognizer(tapGesture)
@@ -217,6 +221,13 @@ extension LLSegmentCtlView{
             if  scrollView.contentSize.width != 0 && scrollView.bounds.width != 0 && userScroller{
                 contentOffsetChangeCalculation(newContentOffset: newContentOffset, oldContentOffset: oldContentOffset, scrollView: scrollView)
             }
+            
+            //总进度
+            let totalPercent = (newContentOffset.x + scrollView.bounds.width) / scrollView.contentSize.width
+            let percentRang = CGFloat(0)...CGFloat(1)
+            if percentRang.contains(totalPercent) {
+                delegate?.segMegmentCtlView?(segMegmentCtlView: self, totalPercent: totalPercent)
+            }
         }
     }
     
@@ -245,22 +256,25 @@ extension LLSegmentCtlView{
         let rightItemIndex = leftFirstItem + 1
         if let leftItemView = getItemView(atIndex: leftItemIndex),
             let rightItemView = getItemView(atIndex: rightItemIndex) {
-            contentOffsetChangeViewAction(leftItemView: leftItemView, rightItemView: rightItemView, percent: percent)
+            
+            let percentRang = CGFloat(0)...CGFloat(1)
+            if percentRang.contains(percent) {
+                contentOffsetChangeViewAction(leftItemView: leftItemView, rightItemView: rightItemView, percent: percent)
+            }
+            
+            delegate?.segMegmentCtlView?(segMegmentCtlView: self, dragToScroll: leftItemView, rightItemView: rightItemView)
         }
     }
     
     private func contentOffsetChangeViewAction(leftItemView:LLSegmentBaseItemView,rightItemView:LLSegmentBaseItemView,percent:CGFloat) {
         let leftPercent = 1 - percent
         let rightPercent = percent
-        let percentRang = CGFloat(0)...CGFloat(1)
-        if percentRang.contains(leftPercent) && percentRang.contains(rightPercent){
-        
-            leftItemView.contentOffsetOnRight = false
-            rightItemView.contentOffsetOnRight = true
-            leftItemView.percentChange(percent: leftPercent)
-            rightItemView.percentChange(percent: rightPercent)
-            indicatorView.reloadLayout(leftItemView: leftItemView, rightItemView: rightItemView)
-        }
+
+        leftItemView.contentOffsetOnRight = false
+        rightItemView.contentOffsetOnRight = true
+        leftItemView.percentChange(percent: leftPercent)
+        rightItemView.percentChange(percent: rightPercent)
+        indicatorView.reloadLayout(leftItemView: leftItemView, rightItemView: rightItemView)
         
         //segMegmentScrollerView Follow rolling:segMegmentScrollerView跟随用户的滑动
         var scrollerPageItemView:LLSegmentBaseItemView?

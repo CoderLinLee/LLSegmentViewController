@@ -32,7 +32,8 @@ let customTab = [CellModel(title: "微信样式", viewControllerClass: SimpleTab
 let specialTab = [CellModel(title: "1嵌套样式", viewControllerClass: NestViewController.self),
                   CellModel(title: "2足球样式", viewControllerClass: FootballViewController.self),
                   CellModel(title: "3插入样式", viewControllerClass: InsertViewController.self),
-                  CellModel(title: "4混合样式", viewControllerClass: MixViewController.self),]
+                  CellModel(title: "4混合样式", viewControllerClass: MixViewController.self),
+                  CellModel(title: "5IndicatorImageView底部样式", viewControllerClass: ChangeImageViewViewController.self),]
 
 let customItemViewTab = [CellModel(title: "背景色渐变样式", viewControllerClass: BackgroundColorGradientItemViewController.self),
                          CellModel(title: "富文本样式", viewControllerClass: AttributeItemViewController.self),

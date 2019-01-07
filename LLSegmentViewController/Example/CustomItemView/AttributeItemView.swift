@@ -25,6 +25,7 @@ class AttributeItemView: LLSegmentBaseItemView {
     
     override var associateViewCtl: UIViewController?{
         didSet{
+            //方式一：通过ctl.title传递数据
             var titleStr1 = ""
             if let titleStr = associateViewCtl?.title{
                 titleStr1 = titleStr
@@ -42,6 +43,11 @@ class AttributeItemView: LLSegmentBaseItemView {
                 attributedText.addAttributes([NSAttributedStringKey.font:UIFont.systemFont(ofSize: 15)], range: NSRange.init(location: 0, length: contentStr.count))
                 titleLabel.attributedText = attributedText
             }
+            
+            //方式二：ctl转化位自己的viewControler，
+//            if let ctl = associateViewCtl as? CustomViewControler{
+//                let model = ctl.model
+//            }
         }
     }
     

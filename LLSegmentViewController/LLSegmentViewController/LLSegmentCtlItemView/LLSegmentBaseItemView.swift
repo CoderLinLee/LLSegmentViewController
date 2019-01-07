@@ -17,6 +17,7 @@ open class LLSegmentCtlItemViewStyle:NSObject {
 open class LLSegmentBaseItemView: UIView {
     public var isScrollerTarget = false
     public var contentOffsetOnRight = false
+    public var index = 0
 
     public override required init(frame: CGRect) {
         super.init(frame: frame)

@@ -24,6 +24,8 @@ class MixIndicatorView: UIView {
         crossBarView.backgroundColor = UIColor.blue
         crossBarView.frame = CGRect.init(x: 0, y: bounds.height - crossBarViewHight, width: bounds.width, height: crossBarViewHight)
         addSubview(crossBarView)
+        crossBarView.autoresizingMask = [.flexibleWidth,.flexibleTopMargin,.flexibleBottomMargin]
+
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -34,7 +36,10 @@ class MixIndicatorView: UIView {
 class MixViewController: TitleViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addMixIndicatorView()
+    }
+    
+    func addMixIndicatorView() {
         let indicatorViewContentView = segmentCtlView.indicatorView.contentView
         let mixIndicatorView = MixIndicatorView(frame: indicatorViewContentView.bounds)
         indicatorViewContentView.addSubview(mixIndicatorView)
