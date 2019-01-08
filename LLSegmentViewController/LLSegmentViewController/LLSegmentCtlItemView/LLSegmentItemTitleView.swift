@@ -21,9 +21,10 @@ public class LLSegmentItemTitleViewStyle:LLSegmentCtlItemViewStyle {
 
 open class LLSegmentItemTitleView: LLSegmentBaseItemView {
     public let titleLabel = UILabel()
-    private let maskTitleLabel = UILabel()
+    internal let maskTitleLabel = UILabel()
     private let maskTitleLabelMask = CAShapeLayer()
     private var itemTitleViewStyle = LLSegmentItemTitleViewStyle()
+    internal weak var indicatorView:LLIndicatorView!
     required public init(frame: CGRect) {
         super.init(frame: frame)
         titleLabel.textAlignment = .center
@@ -35,7 +36,6 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
         maskTitleLabel.textColor = UIColor.red
         maskTitleLabel.font = titleLabel.font
         addSubview(maskTitleLabel)
-
         maskTitleLabelMask.backgroundColor = UIColor.red.cgColor
         maskTitleLabel.layer.mask = maskTitleLabelMask
     }
@@ -76,7 +76,6 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
             maskTitleLabel.sizeToFit()
             maskTitleLabel.center = titleLabel.center
             maskTitleLabel.font = titleLabel.font
-            maskTitleLabelMask.bounds = maskTitleLabel.bounds
             var centerXPercent = 1 - percent   //0<---0.5<---1--->0.5--->0 转化为 1<---0--->1
             if contentOffsetOnRight {
                 centerXPercent = -centerXPercent
@@ -87,7 +86,7 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
             
             CATransaction.begin()
             CATransaction.setDisableActions(true)
-            maskTitleLabelMask.frame = maskTitleLabel.bounds
+            maskTitleLabelMask.bounds = maskTitleLabel.bounds
             maskTitleLabelMask.position = self.convert(maskTitleLabelCenter, to: maskTitleLabel)
             maskTitleLabel.isHidden = false
             CATransaction.commit()

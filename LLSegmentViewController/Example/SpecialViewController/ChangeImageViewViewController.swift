@@ -48,6 +48,7 @@ class ChangeImageViewViewController: LLSegmentViewController {
         titleViewStyle.titleLabelCenterOffsetY = -10
         titleViewStyle.selectedTitleScale = 1
         
+        
         segmentCtlView.delegate = self
         segmentCtlView.indicatorView.bounds = CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 30, height: 30))
         
@@ -57,6 +58,7 @@ class ChangeImageViewViewController: LLSegmentViewController {
         segmentCtlView.backgroundColor = UIColor.white.withAlphaComponent(0.6)
         
         var ctlViewStyle = LLSegmentCtlViewStyle()
+        ctlViewStyle.defaultSelectedIndex = 2
         ctlViewStyle.segmentItemViewClass = LLSegmentItemBadgeTitleView.self
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
@@ -79,9 +81,10 @@ class ChangeImageViewViewController: LLSegmentViewController {
         rightImageView.frame = leftImageView.frame
         self.view.insertSubview(leftImageView, at: 0)
         self.view.insertSubview(rightImageView, at: 0)
-        leftImageView.image = getImgAt(index: 0)
-        rightImageView.image = getImgAt(index: 0)
-
+        
+        //方法一可以不用写下面这两行
+        leftImageView.image = getImgAt(index: segmentCtlView.ctlViewStyle.defaultSelectedIndex)
+        rightImageView.image = getImgAt(index: segmentCtlView.ctlViewStyle.defaultSelectedIndex)
     }
     
     func getImgAt(index:NSInteger) -> UIImage {
@@ -92,39 +95,39 @@ class ChangeImageViewViewController: LLSegmentViewController {
 
 extension ChangeImageViewViewController:LLSegmentCtlViewDelegate{
     //方法一：
-//    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, totalPercent: CGFloat) {
-//        let basePercent = 1.0 / CGFloat(ctls.count)
-//        if totalPercent >= basePercent {
-//            let index = totalPercent/basePercent - 1
-//            let leftIndex = max(0, min(ctls.count - 1, Int(floor(index))))
-//            let rightIndex = max(0, min(ctls.count - 1, Int(ceil(index))))
-//            let leftPercent = CGFloat(rightIndex) - index
-//            let rightPercent = 1 - leftPercent
-//
-//            leftImageView.image = getImgAt(index: leftIndex)
-//            leftImageView.alpha = max(0, leftPercent)
-//            rightImageView.image = getImgAt(index: rightIndex)
-//            rightImageView.alpha = max(0, rightPercent)
-//        }
-//    }
-    
-    //方法二
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, dragToScroll leftItemView: LLSegmentBaseItemView, rightItemView: LLSegmentBaseItemView) {
-        let leftIndex = max(0, min(ctls.count - 1, leftItemView.index))
-        let rightIndex = max(0, min(ctls.count - 1, rightItemView.index))
-        let leftPercent = leftItemView.percent
-        let rightPercent = 1 - leftPercent
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, totalPercent: CGFloat) {
+        let leftIndex = segMegmentCtlView.leftItemView.index
+        let rightIndex = segMegmentCtlView.rightItemView.index
+        let leftPercent = segMegmentCtlView.leftItemView.percent
+        let rightPercent = segMegmentCtlView.rightItemView.percent
         
         leftImageView.image = getImgAt(index: leftIndex)
         leftImageView.alpha = max(0, leftPercent)
         rightImageView.image = getImgAt(index: rightIndex)
         rightImageView.alpha = max(0, rightPercent)
-
     }
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView) {
-        leftImageView.image = getImgAt(index: destinationItemView.index)
-        rightImageView.image = getImgAt(index: destinationItemView.index)
-        rightImageView.alpha = 0
-        leftImageView.alpha = 1
+    
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, dragToSelected itemView: LLSegmentBaseItemView) {
+        print(itemView.index)
     }
+    
+    //方法二
+//    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, dragToScroll leftItemView: LLSegmentBaseItemView, rightItemView: LLSegmentBaseItemView) {
+//        let leftIndex = max(0, min(ctls.count - 1, leftItemView.index))
+//        let rightIndex = max(0, min(ctls.count - 1, rightItemView.index))
+//        let leftPercent = leftItemView.percent
+//        let rightPercent = 1 - leftPercent
+//
+//        leftImageView.image = getImgAt(index: leftIndex)
+//        leftImageView.alpha = max(0, leftPercent)
+//        rightImageView.image = getImgAt(index: rightIndex)
+//        rightImageView.alpha = max(0, rightPercent)
+//
+//    }
+//    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView) {
+//        leftImageView.image = getImgAt(index: destinationItemView.index)
+//        rightImageView.image = getImgAt(index: destinationItemView.index)
+//        rightImageView.alpha = 0
+//        leftImageView.alpha = 1
+//    }
 }

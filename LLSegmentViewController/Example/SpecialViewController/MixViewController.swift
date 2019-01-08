@@ -25,7 +25,6 @@ class MixIndicatorView: UIView {
         crossBarView.frame = CGRect.init(x: 0, y: bounds.height - crossBarViewHight, width: bounds.width, height: crossBarViewHight)
         addSubview(crossBarView)
         crossBarView.autoresizingMask = [.flexibleWidth,.flexibleTopMargin,.flexibleBottomMargin]
-
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -56,7 +55,4 @@ class MixViewController: TitleViewController {
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
     }
-
- 
-
 }

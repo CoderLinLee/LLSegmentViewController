@@ -26,7 +26,7 @@ class TestViewController: UIViewController {
     let tableView = UITableView(frame: CGRect.zero, style: .plain)
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(self.title)
         view.backgroundColor = LLRandomRGB()
         if showTableView == true {
             initSubView()

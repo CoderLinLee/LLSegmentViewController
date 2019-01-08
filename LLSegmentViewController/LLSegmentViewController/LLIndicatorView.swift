@@ -8,13 +8,14 @@
 
 import UIKit
 
+//指示器宽度变化样式
 public enum LLIndicatorViewWidthChangeStyle {
-    case normal
     case equalToItemWidth
     case jdIqiyi(baseWidth:CGFloat,changeWidth:CGFloat)
     case stationary(baseWidth:CGFloat)
 }
 
+//指示器中心位置
 public enum LLIndicatorViewCenterYGradientStyle {
     case center
     case top(margin:CGFloat)
@@ -73,7 +74,7 @@ open class LLIndicatorView: UIView {
         }
     }
     
-    public var widthChangeStyle = LLIndicatorViewWidthChangeStyle.normal {
+    public var widthChangeStyle = LLIndicatorViewWidthChangeStyle.stationary(baseWidth: 10) {
         didSet{
             var targetWidth = self.bounds.width
             switch widthChangeStyle {
@@ -83,8 +84,6 @@ open class LLIndicatorView: UIView {
                 targetWidth = baseWidth
             case .stationary(let baseWidth):
                 targetWidth = baseWidth
-            default:
-                break
             }
             var selfBounds = self.bounds
             selfBounds.size.width = targetWidth
@@ -154,7 +153,7 @@ open class LLIndicatorView: UIView {
         }
     }
     
-    public func reloadLayout(leftItemView: LLSegmentBaseItemView,rightItemView:LLSegmentBaseItemView){
+    internal func reloadLayout(leftItemView: LLSegmentBaseItemView,rightItemView:LLSegmentBaseItemView){
         //center.X
         var selfCenter = self.center
         selfCenter.x = interpolationFrom(from: leftItemView.center.x, to: rightItemView.center.x, percent: rightItemView.percent)
@@ -174,8 +173,6 @@ open class LLIndicatorView: UIView {
             targetWidth = percent * (maxX - minX - changeWidth) + baseWidth
         case .stationary(let baseWidth):
             targetWidth = baseWidth
-        default:
-            break
         }
         var selfBounds = self.bounds
         selfBounds.size.width = targetWidth
