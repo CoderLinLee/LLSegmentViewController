@@ -76,17 +76,24 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
             maskTitleLabel.sizeToFit()
             maskTitleLabel.center = titleLabel.center
             maskTitleLabel.font = titleLabel.font
-            var centerXPercent = 1 - percent   //0<---0.5<---1--->0.5--->0 转化为 1<---0--->1
-            if contentOffsetOnRight {
-                centerXPercent = -centerXPercent
+
+            var centerX:CGFloat = titleLabel.frame.minX - titleLabel.frame.width/2
+            if let indicatorView = indicatorView {
+                let indicatorFrame = indicatorView.convert(indicatorView.bounds,to:self)
+                if contentOffsetOnRight {
+                    centerX = min(indicatorFrame.maxX - maskTitleLabel.bounds.width/2, titleLabel.frame.maxX - maskTitleLabel.bounds.width/2)
+                }else{
+                    centerX = max(indicatorFrame.minX + maskTitleLabel.bounds.width/2, titleLabel.frame.minX+maskTitleLabel.bounds.width/2)
+                }
+                print(indicatorFrame,centerX)
             }
             var maskTitleLabelCenter = maskTitleLabel.center
-            let maskTitleLabelWidth = maskTitleLabel.frame.width
-            maskTitleLabelCenter.x = maskTitleLabelCenter.x + maskTitleLabelWidth * centerXPercent
+            maskTitleLabelCenter.x = centerX
             
             CATransaction.begin()
             CATransaction.setDisableActions(true)
             maskTitleLabelMask.bounds = maskTitleLabel.bounds
+
             maskTitleLabelMask.position = self.convert(maskTitleLabelCenter, to: maskTitleLabel)
             maskTitleLabel.isHidden = false
             CATransaction.commit()

@@ -108,13 +108,13 @@ extension LLSegmentCtlView{
         let ItemViewClass = self.ctlViewStyle.segmentItemViewClass
         for (index,ctl) in ctls.enumerated() {
             let segmentCtlItemView = ItemViewClass.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: bounds.height))
-            if let segmentCtlItemView = segmentCtlItemView as? LLSegmentItemTitleView {
-                segmentCtlItemView.indicatorView = indicatorView
-            }
             segmentCtlItemView.associateViewCtl = ctl
             segmentCtlItemView.setSegmentItemViewStyle(itemViewStyle: self.ctlViewStyle.itemViewStyle)
             segmentCtlItemView.percentChange(percent: 0)
             segmentCtlItemView.index = index
+            if let segmentCtlItemView = segmentCtlItemView as? LLSegmentItemTitleView {
+                segmentCtlItemView.indicatorView = indicatorView
+            }
     
             
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(segmentItemClick(gesture:)))
