@@ -13,6 +13,7 @@ import UIKit
     let segmentCtlView = LLSegmentCtlView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
     var ctls:[UIViewController]!
     private let cellIdentifier = "cellIdentifier"
+    let layout = UICollectionViewFlowLayout()
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -24,6 +25,7 @@ extension LLSegmentViewController{
     public func layout(segmentCtlFrame:CGRect,containerFrame:CGRect) {
         segmentCtlView.frame = segmentCtlFrame
         viewCtlContainerColView.frame = containerFrame
+//        viewCtlContainerColView.reloadData()
     }
     
     public func reloadViewControllers(ctls:[UIViewController]) {
@@ -87,7 +89,6 @@ extension LLSegmentViewController{
     private func initSubviews() {
         view.addSubview(segmentCtlView)
         
-        let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal

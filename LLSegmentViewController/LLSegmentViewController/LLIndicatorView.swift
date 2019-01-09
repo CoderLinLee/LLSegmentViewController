@@ -10,7 +10,7 @@ import UIKit
 
 //指示器宽度变化样式
 public enum LLIndicatorViewWidthChangeStyle {
-    case equalToItemWidth
+    case equalToItemWidth(margin:CGFloat)
     case jdIqiyi(baseWidth:CGFloat,changeWidth:CGFloat)
     case stationary(baseWidth:CGFloat)
 }
@@ -25,7 +25,7 @@ public enum LLIndicatorViewCenterYGradientStyle {
 
 //指示器形状样式
 public enum LLIndicatorViewShapeStyle{
-    /*自定义类型*/
+    /*自定义类型,不做任何处理，由外部定义这个view的宽高*/
     case custom
     /*三角形*/
     case triangle(size:CGSize,color:UIColor)
@@ -99,7 +99,7 @@ open class LLIndicatorView: UIView {
                 break
             case .background(let color, let img):
                 self.centerYGradientStyle = .center
-                self.widthChangeStyle = .equalToItemWidth
+                self.widthChangeStyle = .equalToItemWidth(margin: 0)
                 self.backgroundColor = color
                 self.layer.contents = img?.cgImage
                 
@@ -162,10 +162,11 @@ open class LLIndicatorView: UIView {
         //bounds.width
         var targetWidth = self.bounds.width
         switch widthChangeStyle {
-        case .equalToItemWidth:
+        case .equalToItemWidth(let margin):
             let leftItemWidth = leftItemView.bounds.width
             let rightItemWidth = rightItemView.bounds.width
             targetWidth = interpolationFrom(from: leftItemWidth, to: rightItemWidth, percent: rightItemView.percent)
+            targetWidth -= 2*margin
         case .jdIqiyi(let baseWidth,let changeWidth):
             let percent = 1 - fabs(0.5-leftItemView.percent)*2   //变化范围（0....1.....0）
             let minX = leftItemView.center.x - baseWidth/2

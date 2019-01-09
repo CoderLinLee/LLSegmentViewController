@@ -23,7 +23,7 @@ import UIKit
 public struct LLSegmentCtlViewStyle{
     public var itemSpacing:CGFloat = 0
     public var segmentItemViewClass:LLSegmentBaseItemView.Type = LLSegmentItemTitleView.self
-    public var itemViewStyle:LLSegmentCtlItemViewStyle = LLSegmentItemTitleViewStyle()
+    public var itemViewStyle:LLSegmentCtlItemViewStyle = LLSegmentCtlItemViewStyle()
     public var defaultSelectedIndex:NSInteger = 0
     public init(){}
 }
@@ -155,7 +155,8 @@ extension LLSegmentCtlView{
         if let defaultSelectedItemView = getItemView(atIndex: self.ctlViewStyle.defaultSelectedIndex) {
             defaultSelectedItemView.percentChange(percent: 1)
             currentPageItemView = defaultSelectedItemView
-            didSelecteItemView()
+            rightItemView = currentPageItemView
+            leftItemView = currentPageItemView
             
             segmentScrollerViewSrollerToCenter(itemView: defaultSelectedItemView, animated: true)
             if let associateScrollerView = associateScrollerView {
@@ -190,8 +191,12 @@ extension LLSegmentCtlView{
             if currentPageItemView == selectedItemView {
                 return
             }
+            
+            preSelectedItemView?.percentChange(percent: 0)
+            selectedItemView.percentChange(percent: 1)
             currentPageItemView = selectedItemView
-            didSelecteItemView()
+            leftItemView = currentPageItemView
+            rightItemView = currentPageItemView
 
             if let preSelectedItemView = preSelectedItemView {
                 var leftItemView = selectedItemView
@@ -212,18 +217,6 @@ extension LLSegmentCtlView{
                 UIView.animate(withDuration: 0.25) {
                     self.indicatorView.reloadLayout(leftItemView: leftItemView, rightItemView: rightItemView)
                 }
-            }
-        }
-    }
-    
-    private func didSelecteItemView() {
-        rightItemView = currentPageItemView
-        leftItemView = currentPageItemView
-        for itemView in itemViews {
-            if itemView != currentPageItemView {
-                itemView.percentChange(percent: 0)
-            }else{
-                itemView.percentChange(percent: 1)
             }
         }
     }
@@ -309,7 +302,6 @@ extension LLSegmentCtlView{
         
         if scrollerPageItemView?.percent == 1 && scrollerPageItemView != currentPageItemView{
             currentPageItemView = scrollerPageItemView
-            didSelecteItemView()
             delegate?.segMegmentCtlView?(segMegmentCtlView: self, dragToSelected: currentPageItemView)
         }
     }

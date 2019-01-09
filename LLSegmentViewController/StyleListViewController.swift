@@ -69,7 +69,7 @@ extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
             }else if indexPath.row == 4 {
                 ctl.indicatorViewWidthChangeStyle = .jdIqiyi(baseWidth: 30, changeWidth: 140)
             }else if indexPath.row == 5 {
-                ctl.indicatorViewWidthChangeStyle = .equalToItemWidth
+                ctl.indicatorViewWidthChangeStyle = .equalToItemWidth(margin:0)
             }else if indexPath.row == 6 {
                 ctl.segmentCtlView.separatorLineShowEnabled = true
                 ctl.segmentCtlView.separatorLineColor = UIColor.lightGray.withAlphaComponent(0.5)
@@ -77,20 +77,20 @@ extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
             }else if indexPath.row == 7 {
                 ctl.segmentCtlView.indicatorView.shapeStyle = .background(color: UIColor.lightGray.withAlphaComponent(0.5), img: nil)
             }else if indexPath.row == 8 {
-                ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .equalToItemWidth, height: 20, shadowColor: nil)
+                ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .equalToItemWidth(margin:0), height: 20, shadowColor: nil)
                 ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.8)
             }else if indexPath.row == 9 {
-                ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .equalToItemWidth, height: 20, shadowColor: UIColor.red)
+                ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .equalToItemWidth(margin:0), height: 20, shadowColor: UIColor.red)
                 ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.lightGray
             }else if indexPath.row == 10 {
                 titleViewStyle.titleLabelMaskEnabled = true
                 ctl.indicatorViewWidthChangeStyle = .jdIqiyi(baseWidth: 30, changeWidth: 0)
             }else if indexPath.row == 11 {
                 titleViewStyle.titleLabelMaskEnabled = true
-                ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .equalToItemWidth, height: 20, shadowColor: nil)
+                ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .equalToItemWidth(margin:0), height: 20, shadowColor: nil)
                 ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.lightGray
             }else if indexPath.row == 12 {
-                ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .equalToItemWidth, height: 20, shadowColor: UIColor.red)
+                ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .equalToItemWidth(margin:0), height: 20, shadowColor: UIColor.red)
                 ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.lightGray
             }else if indexPath.row == 13 {
                 ctl.segmentCtlView.indicatorView.shapeStyle = .triangle(size: CGSize.init(width: 30, height: 20),color:UIColor.blue)

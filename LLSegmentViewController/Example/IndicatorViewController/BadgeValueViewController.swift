@@ -37,7 +37,7 @@ class BadgeValueViewController: LLSegmentViewController {
     
     func setUpSegmentStyle() {
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-        segmentCtlView.indicatorView.widthChangeStyle = .equalToItemWidth
+        segmentCtlView.indicatorView.widthChangeStyle = .equalToItemWidth(margin:0)
         
         let titleStyle = LLSegmentItemTitleViewStyle()
         titleStyle.selectedTitleScale = 1

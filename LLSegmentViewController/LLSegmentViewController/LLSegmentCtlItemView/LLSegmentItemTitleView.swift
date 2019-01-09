@@ -16,6 +16,7 @@ public class LLSegmentItemTitleViewStyle:LLSegmentCtlItemViewStyle {
     public var titleFontSize:CGFloat = 12
     public var extraTitleSpace:CGFloat = 10
     public var titleLabelMaskEnabled = false
+    public var titleLabelMaskColor = UIColor.red
     public var titleLabelCenterOffsetY:CGFloat = 0
 }
 
@@ -24,7 +25,7 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
     internal let maskTitleLabel = UILabel()
     private let maskTitleLabelMask = CAShapeLayer()
     private var itemTitleViewStyle = LLSegmentItemTitleViewStyle()
-    internal weak var indicatorView:LLIndicatorView!
+    internal weak var indicatorView:UIView!
     required public init(frame: CGRect) {
         super.init(frame: frame)
         titleLabel.textAlignment = .center
@@ -64,42 +65,9 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
     
     override public func percentChange(percent: CGFloat) {
         super.percentChange(percent: percent)
-        titleLabel.textColor = interpolationColorFrom(fromColor:itemTitleViewStyle.unSelectedColor, toColor:itemTitleViewStyle.selectedColor, percent: percent)
-        let scale = 1 + (itemTitleViewStyle.selectedTitleScale - 1)*percent
-        let font = UIFont.boldSystemFont(ofSize: itemTitleViewStyle.titleFontSize * scale)
-        titleLabel.font = font
-        titleLabel.sizeToFit()
-        titleLabel.center = CGPoint.init(x: bounds.width/2, y: bounds.height/2 + itemTitleViewStyle.titleLabelCenterOffsetY)
-        
-        //mask
-        if itemTitleViewStyle.titleLabelMaskEnabled {
-            maskTitleLabel.sizeToFit()
-            maskTitleLabel.center = titleLabel.center
-            maskTitleLabel.font = titleLabel.font
-
-            var centerX:CGFloat = titleLabel.frame.minX - titleLabel.frame.width/2
-            if let indicatorView = indicatorView {
-                let indicatorFrame = indicatorView.convert(indicatorView.bounds,to:self)
-                if contentOffsetOnRight {
-                    centerX = min(indicatorFrame.maxX - maskTitleLabel.bounds.width/2, titleLabel.frame.maxX - maskTitleLabel.bounds.width/2)
-                }else{
-                    centerX = max(indicatorFrame.minX + maskTitleLabel.bounds.width/2, titleLabel.frame.minX+maskTitleLabel.bounds.width/2)
-                }
-                print(indicatorFrame,centerX)
-            }
-            var maskTitleLabelCenter = maskTitleLabel.center
-            maskTitleLabelCenter.x = centerX
-            
-            CATransaction.begin()
-            CATransaction.setDisableActions(true)
-            maskTitleLabelMask.bounds = maskTitleLabel.bounds
-
-            maskTitleLabelMask.position = self.convert(maskTitleLabelCenter, to: maskTitleLabel)
-            maskTitleLabel.isHidden = false
-            CATransaction.commit()
-        }else{
-            maskTitleLabel.isHidden = true
-        }
+      
+        titleLabelCalculation()
+        titleLabelMaskCalculation()
     }
     
     override public func itemWidth() -> CGFloat {
@@ -116,6 +84,55 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
         if let itemViewStyle = itemViewStyle as? LLSegmentItemTitleViewStyle {
             self.itemTitleViewStyle = itemViewStyle
             titleLabel.textColor = itemViewStyle.unSelectedColor
+            maskTitleLabel.textColor = itemViewStyle.titleLabelMaskColor
+        }
+    }
+}
+
+extension LLSegmentItemTitleView{
+    //titleLabel
+    private func titleLabelCalculation() {
+        titleLabel.textColor = interpolationColorFrom(fromColor:itemTitleViewStyle.unSelectedColor, toColor:itemTitleViewStyle.selectedColor, percent: percent)
+        let scale = 1 + (itemTitleViewStyle.selectedTitleScale - 1)*percent
+        let font = UIFont.boldSystemFont(ofSize: itemTitleViewStyle.titleFontSize * scale)
+        titleLabel.font = font
+        titleLabel.sizeToFit()
+        titleLabel.center = CGPoint.init(x: bounds.width/2, y: bounds.height/2 + itemTitleViewStyle.titleLabelCenterOffsetY)
+    }
+    
+    //mask
+    private func titleLabelMaskCalculation() {
+        if itemTitleViewStyle.titleLabelMaskEnabled {
+            maskTitleLabel.sizeToFit()
+            maskTitleLabel.center = titleLabel.center
+            maskTitleLabel.font = titleLabel.font
+            
+            let maskTitleLabelHalfWidth = titleLabel.frame.width/2
+            var centerX:CGFloat = titleLabel.frame.minX - maskTitleLabelHalfWidth
+            if let indicatorView = indicatorView {
+                let indicatorFrame = indicatorView.convert(indicatorView.bounds,to:self)
+                if contentOffsetOnRight {
+                    centerX = min(indicatorFrame.maxX - maskTitleLabelHalfWidth, titleLabel.center.x)
+                }else{
+                    centerX = max(indicatorFrame.minX + maskTitleLabelHalfWidth, titleLabel.center.x)
+                }
+                
+                //TO:指示器的宽度小于maskTitleLabel的宽度
+            }
+            var maskTitleLabelCenter = maskTitleLabel.center
+            maskTitleLabelCenter.x = centerX
+            
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            maskTitleLabelMask.bounds = maskTitleLabel.bounds
+            maskTitleLabelMask.position = self.convert(maskTitleLabelCenter, to: maskTitleLabel)
+            maskTitleLabel.isHidden = false
+            CATransaction.commit()
+        }else{
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            maskTitleLabel.isHidden = true
+            CATransaction.commit()
         }
     }
 }

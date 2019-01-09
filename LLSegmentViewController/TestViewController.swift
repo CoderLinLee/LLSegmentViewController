@@ -24,9 +24,10 @@ func factoryCtl(title:String,imageName:String,selectedImageNameStr:String) -> UI
 class TestViewController: UIViewController {
     var showTableView = true
     let tableView = UITableView(frame: CGRect.zero, style: .plain)
+    typealias SwiftClosure = (_ oldContentOffset:CGPoint,_ newContentOffset:CGPoint) -> Void
+    var tableViewDidScroll:SwiftClosure?
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(self.title)
         view.backgroundColor = LLRandomRGB()
         if showTableView == true {
             initSubView()
@@ -43,9 +44,20 @@ extension TestViewController {
         tableView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
         self.view.addSubview(tableView)
+        tableView.addObserver(self, forKeyPath: "contentOffset", options: [.new,.old], context: nil)
+
     }
 }
 
+extension TestViewController {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "contentOffset" ,
+            let oldContentOffset = change?[NSKeyValueChangeKey.oldKey] as? CGPoint,
+            let newContentOffset = change?[NSKeyValueChangeKey.newKey] as? CGPoint{
+            tableViewDidScroll?(oldContentOffset,newContentOffset)
+        }
+    }
+}
 
 extension TestViewController:UITableViewDelegate,UITableViewDataSource{
     //列表
@@ -62,3 +74,4 @@ extension TestViewController:UITableViewDelegate,UITableViewDataSource{
         self.tabBarItem.badgeValue = "99"
     }
 }
+
