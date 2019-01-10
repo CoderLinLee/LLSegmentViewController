@@ -34,6 +34,7 @@
 		F27132EF21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132EE21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.swift */; };
 		F27132FA21C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132F921C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift */; };
 		F271330C21C8E66F00F9D2AB /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F271330B21C8E66F00F9D2AB /* TestViewController.swift */; };
+		F2C6F88821E73EEC0049BC68 /* WangYiItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C6F88721E73EEC0049BC68 /* WangYiItemView.swift */; };
 		F2DE12C121DCC23500D13738 /* NestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12C021DCC23500D13738 /* NestViewController.swift */; };
 		F2DE12D621DF6DFB00D13738 /* FootballViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */; };
 		F2DE12DA21E058FF00D13738 /* BackgroundColorGradientItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12D921E058FF00D13738 /* BackgroundColorGradientItemView.swift */; };
@@ -93,6 +94,7 @@
 		F27132F921C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentViewControllerUITests.swift; sourceTree = "<group>"; };
 		F27132FB21C8DD7F00F9D2AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F271330B21C8E66F00F9D2AB /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		F2C6F88721E73EEC0049BC68 /* WangYiItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WangYiItemView.swift; sourceTree = "<group>"; };
 		F2DE12C021DCC23500D13738 /* NestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestViewController.swift; sourceTree = "<group>"; };
 		F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootballViewController.swift; sourceTree = "<group>"; };
 		F2DE12D921E058FF00D13738 /* BackgroundColorGradientItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorGradientItemView.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				F2DE12D921E058FF00D13738 /* BackgroundColorGradientItemView.swift */,
 				F2DE12DF21E0887100D13738 /* AttributeItemView.swift */,
 				F2DE12E121E096E700D13738 /* TitleImageItemView.swift */,
+				F2C6F88721E73EEC0049BC68 /* WangYiItemView.swift */,
 			);
 			path = CustomItemView;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				F2055B4621D39CB300FF961B /* LLMsgViewController.swift in Sources */,
 				F2DE12DA21E058FF00D13738 /* BackgroundColorGradientItemView.swift in Sources */,
 				F2055B4A21D4CE1200FF961B /* SinaViewController.swift in Sources */,
+				F2C6F88821E73EEC0049BC68 /* WangYiItemView.swift in Sources */,
 				F2055B5021D4D6D200FF961B /* BaseNavigationController.swift in Sources */,
 				F271330C21C8E66F00F9D2AB /* TestViewController.swift in Sources */,
 				F2055B4E21D4D00100FF961B /* CellModel.swift in Sources */,
