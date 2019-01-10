@@ -30,11 +30,11 @@ extension LLSegmentViewController{
     
     public func reloadViewControllers(ctls:[UIViewController]) {
         segmentCtlView.ctls = ctls
-
         self.ctls = ctls
-        for ctl in self.childViewControllers {
-            ctl.removeFromParentViewController()
-        }
+        
+//        for ctl in self.childViewControllers {
+//            ctl.removeFromParentViewController()
+//        }
         
         for ctl in ctls{
             addChildViewController(ctl)
@@ -71,10 +71,10 @@ extension LLSegmentViewController:UICollectionViewDelegate,UICollectionViewDataS
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
+        let ctl = ctls[indexPath.item]
         for subView in cell.contentView.subviews {
             subView.removeFromSuperview()
         }
-        let ctl = ctls[indexPath.item]
         ctl.view.frame = cell.contentView.bounds
         cell.contentView.addSubview(ctl.view)
         return cell

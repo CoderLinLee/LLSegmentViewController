@@ -13,8 +13,10 @@ class TitleImageItemViewController: LLSegmentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutContentView()
-        loadCtls()
+        loadCtls(style: nil)
         setUpSegmentStyle()
+        
+        chooseStyleBtn()
     }
     
     func layoutContentView() {
@@ -23,16 +25,9 @@ class TitleImageItemViewController: LLSegmentViewController {
         layout(segmentCtlFrame:segmentCtlFrame, containerFrame: containerFrame)
     }
 
-    func loadCtls() {
+    func loadCtls(style:LLTitleImageButtonStyle?) {
         var ctls = [UIViewController]()
-        let margin:CGFloat = 2
-        let models = [LLTitleImageModel.init(title: "螃蟹", imgeStr: "watermelon", style: .titleTop(margin: margin)),
-                      LLTitleImageModel.init(title: "麻辣小龙虾", imgeStr: "lobster", style: .titleBottom(margin: margin)),
-                      LLTitleImageModel.init(title: "苹果", imgeStr: "grape", style: .titleLeft(margin: margin)),
-                      LLTitleImageModel.init(title: "营养胡萝卜", imgeStr: "crab", style: .titleRight(margin: margin)),
-                      LLTitleImageModel.init(title: "葡萄", imgeStr: "carrot", style: .titleTop(margin: margin)),
-                      LLTitleImageModel.init(title: "美味西瓜", imgeStr: "apple", style: .titleTop(margin: margin)),
-                      LLTitleImageModel.init(title: "香蕉", imgeStr: "grape", style: .titleTop(margin: margin))]
+        let models = getModels(style: style)
         for model in models {
             let ctl = TitleImageViewController()
             ctl.showTableView = true
@@ -52,11 +47,31 @@ class TitleImageItemViewController: LLSegmentViewController {
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
     }
+    
+    func chooseStyleBtn() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "设置", style: .plain, target: self, action: #selector(chooseStyleClick))
+    }
+    
+    @objc func chooseStyleClick() {
+        let ctl = ChooseTitleImageStyleViewController()
+        self.navigationController?.pushViewController(ctl, animated: true)
+        ctl.chooseStyleBlock = { (style) in
+            self.reload(style: style)
+        }
+    }
+    
+    func reload(style:LLTitleImageButtonStyle?) {
+        loadCtls(style: style)
+        segmentCtlView.reloadData()
+    }
 }
 
 
+
+
+
 class TitleImageViewController: TestViewController,LLSegmentItemTitleImageViewProtocol {
-    func loadImageView(titleLabel:UILabel,imageView: UIImageView, percent: CGFloat) {
+    func refreshWhenPercentChange(titleLabel:UILabel,imageView: UIImageView, percent: CGFloat) {
         if percent < 0.5 {
             titleLabel.textColor = UIColor.lightGray
             imageView.image = UIImage.init(named: model.imgeStr)
@@ -67,4 +82,80 @@ class TitleImageViewController: TestViewController,LLSegmentItemTitleImageViewPr
     }
     
     var model:LLTitleImageModel!
+}
+
+
+
+
+
+class ChooseTitleImageStyleViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+    typealias chooseStyleBlockDefine = (LLTitleImageButtonStyle?)->Void
+    var chooseStyleBlock:chooseStyleBlockDefine?
+    let dataArr:[(title:String,style:LLTitleImageButtonStyle?)] = [("顶部",.titleTop(margin: 2)),
+                                                                   ("左边",.titleLeft(margin: 2)),
+                                                                   ("底部",.titleBottom(margin: 2)),
+                                                                   ("右边",.titleRight(margin: 2)),
+                                                                   ("只有图片",.titleEmty),
+                                                                   ("只有文字",.titleOnly),
+                                                                   ("混合",nil)]
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let tableView = addTableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataArr.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        cell.textLabel?.text = dataArr[indexPath.row].title
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = dataArr[indexPath.row]
+        chooseStyleBlock?(data.style)
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
+
+
+
+func getModels(style:LLTitleImageButtonStyle?)->[LLTitleImageModel] {
+    let datas:[(title:String,imageStr:String)] = [
+        ("螃蟹","watermelon"),
+        ("麻辣小龙虾","lobster"),
+        ("苹果","grape"),
+        ("营养胡萝卜","crab"),
+        ("葡萄","carrot"),
+        ("美味西瓜","apple"),
+        ("香蕉","grape")]
+    var models = [LLTitleImageModel]()
+    let margin:CGFloat = 2
+    for (index,data) in datas.enumerated() {
+        var newStyle = LLTitleImageButtonStyle.titleEmty
+        if style != nil {
+            newStyle = style!
+        }else{
+            if index == 0 {
+                newStyle = LLTitleImageButtonStyle.titleTop(margin: margin)
+            }else if index == 1{
+                newStyle = LLTitleImageButtonStyle.titleRight(margin: margin)
+            }else if index == 2{
+                newStyle = LLTitleImageButtonStyle.titleLeft(margin: margin)
+            }else if index == 3{
+                newStyle = LLTitleImageButtonStyle.titleBottom(margin: margin)
+            }else if index == 4{
+                newStyle = LLTitleImageButtonStyle.titleEmty
+            }else if index == 5{
+                newStyle = LLTitleImageButtonStyle.titleOnly
+            }
+        }
+        let model = LLTitleImageModel(title: data.title, imgeStr: data.imageStr, style: newStyle)
+        models.append(model)
+    }
+    return models
 }

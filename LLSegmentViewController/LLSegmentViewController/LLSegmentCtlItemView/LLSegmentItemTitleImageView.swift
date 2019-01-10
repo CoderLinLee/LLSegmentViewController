@@ -10,11 +10,13 @@ import UIKit
 
 public protocol LLSegmentItemTitleImageViewProtocol{
     var model : LLTitleImageModel! {get set}
-    func loadImageView(titleLabel:UILabel,imageView:UIImageView,percent:CGFloat)
+    func refreshWhenPercentChange(titleLabel:UILabel,imageView:UIImageView,percent:CGFloat)
 }
 
 
 public enum LLTitleImageButtonStyle {
+    case titleEmty
+    case titleOnly
     case titleTop(margin:CGFloat)
     case titleBottom(margin:CGFloat)
     case titleLeft(margin:CGFloat)
@@ -84,7 +86,7 @@ open class LLSegmentItemTitleImageView: LLSegmentBaseItemView {
     override public func percentChange(percent: CGFloat) {
         super.percentChange(percent: percent)
         if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol{
-            ctl.loadImageView(titleLabel:titleLabel, imageView: imageView, percent: percent)
+            ctl.refreshWhenPercentChange(titleLabel:titleLabel, imageView: imageView, percent: percent)
         }
     }
     
@@ -98,6 +100,24 @@ open class LLSegmentItemTitleImageView: LLSegmentBaseItemView {
         var imageViewFrame = CGRect.init(origin: CGPoint.zero, size: imgViewSize)
         let selfCenter = CGPoint.init(x: bounds.width/2, y: bounds.height/2)
         switch model.style {
+        case .titleEmty:
+            contentHeight = imgViewSize.height
+            contentWidth = imageViewFrame.width
+            
+            imageViewFrame.origin.x = selfCenter.x - contentWidth/2
+            imageViewFrame.origin.y = selfCenter.y - contentWidth/2
+            
+            titleLabelFrame = CGRect.zero
+            
+        case .titleOnly:
+            contentHeight = titleLabelSize.height
+            contentWidth = titleLabelSize.width
+            
+            imageViewFrame = CGRect.zero
+
+            titleLabelFrame.origin.x = selfCenter.x - contentWidth/2
+            titleLabelFrame.origin.y = selfCenter.y - contentHeight/2
+
         case .titleTop(let margin):
             contentHeight = titleLabelSize.height + imgViewSize.height + margin
             contentWidth = max(titleLabelSize.width, imgViewSize.width)
