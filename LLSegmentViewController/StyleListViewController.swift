@@ -90,6 +90,7 @@ extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
                 ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .equalToItemWidth(margin:0), height: 20, shadowColor: nil)
                 ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.lightGray
             }else if indexPath.row == 12 {
+                titleViewStyle.titleLabelMaskEnabled = true
                 ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .equalToItemWidth(margin:0), height: 20, shadowColor: UIColor.red)
                 ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.lightGray
             }else if indexPath.row == 13 {

@@ -18,7 +18,7 @@ open class LLSegmentBaseItemView: UIView {
     public var isScrollerTarget = false
     public var contentOffsetOnRight = false
     public var index = 0
-
+    internal weak var indicatorView:LLIndicatorView!
     public override required init(frame: CGRect) {
         super.init(frame: frame)
     }

@@ -180,6 +180,20 @@ open class LLIndicatorView: UIView {
         self.bounds = selfBounds
         delegate?.indicatorView?(indicatorView: self, percent: leftItemView.percent)
     }
+    
+    internal func finalWidthOn(itemView:LLSegmentBaseItemView)->CGFloat{
+        let itemViewWidth = itemView.frame.width
+        var width:CGFloat = 0
+        switch widthChangeStyle {
+        case .equalToItemWidth(let margin):
+            width = itemViewWidth - 2*margin
+        case .jdIqiyi(let baseWidth,_):
+            width = baseWidth
+        case .stationary(let baseWidth):
+            width = baseWidth
+        }
+        return width
+    }
 }
 
 

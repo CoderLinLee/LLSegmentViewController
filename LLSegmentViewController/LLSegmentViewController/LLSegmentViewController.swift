@@ -25,7 +25,7 @@ extension LLSegmentViewController{
     public func layout(segmentCtlFrame:CGRect,containerFrame:CGRect) {
         segmentCtlView.frame = segmentCtlFrame
         viewCtlContainerColView.frame = containerFrame
-//        viewCtlContainerColView.reloadData()
+        viewCtlContainerColView.reloadData()
     }
     
     public func reloadViewControllers(ctls:[UIViewController]) {
