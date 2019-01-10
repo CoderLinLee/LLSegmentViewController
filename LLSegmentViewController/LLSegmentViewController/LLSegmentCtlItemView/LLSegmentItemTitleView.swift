@@ -128,6 +128,13 @@ extension LLSegmentItemTitleView{
                         centerX = max(centerX, titleLabel.center.x)
                     }
                 }
+                
+                //点击的情况，指示器有动画切换
+                if percent == 0 {
+                    centerX = titleLabel.frame.minX - maskTitleLabelHalfWidth
+                }else if percent == 1{
+                    centerX = titleLabel.frame.minX + maskTitleLabelHalfWidth
+                }
             }
             var maskTitleLabelCenter = maskTitleLabel.center
             maskTitleLabelCenter.x = centerX

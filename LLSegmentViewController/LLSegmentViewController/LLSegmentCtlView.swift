@@ -101,7 +101,6 @@ extension LLSegmentCtlView{
         
         removeItemViews()
         reloadItemViews()
-
         setDefaultSelectedAtIndexStatu()
     }
     
@@ -131,50 +130,55 @@ extension LLSegmentCtlView{
 
 //点击
 extension LLSegmentCtlView{
-    @objc func segmentItemClick(gesture:UIGestureRecognizer) {
-        if let selectedItemView = gesture.view as? LLSegmentBaseItemView,
-            let selectedIndex = itemViews.index(of: selectedItemView)?.hashValue,
+    @objc func segmentItemClick(gesture:UITapGestureRecognizer) {
+        if let itemViews = getClickItemView(gesture: gesture),
             let associateScrollerView = associateScrollerView{
-            let preSeletedIndex = Int(associateScrollerView.contentOffset.x / associateScrollerView.bounds.width)
-            let preSelectedItemView = getItemView(atIndex: preSeletedIndex)
             
-            //
-            if let preSelectedItemView = preSelectedItemView {
-                delegate?.segMegmentCtlView?(segMegmentCtlView: self, clickItemAt: preSelectedItemView, to: selectedItemView)
-            }
-            
-            //点击的是当前的
-            if currentSelectedItemView == selectedItemView {
-                return
-            }
-            
-            preSelectedItemView?.percentChange(percent: 0)
-            selectedItemView.percentChange(percent: 1)
-            currentSelectedItemView = selectedItemView
-            leftItemView = currentSelectedItemView
-            rightItemView = currentSelectedItemView
+            let sourceItemView = itemViews.sourceItemView
+            let destinationItemView = itemViews.destinationItemView
+            let gap = fabs(CGFloat(sourceItemView.index - destinationItemView.index))
 
-            if let preSelectedItemView = preSelectedItemView {
-                var leftItemView = selectedItemView
-                var rightItemView = preSelectedItemView
-                if leftItemView.frame.origin.x > rightItemView.frame.origin.x {
-                    leftItemView = preSelectedItemView
-                    rightItemView = selectedItemView
-                }
-                
-                let offset = CGPoint.init(x: CGFloat(selectedIndex) * associateScrollerView.bounds.width, y: 0)
-                if fabs(Double(preSeletedIndex - selectedIndex)) == 1 && contentOffsetAnimation{
-                    associateScrollerView.setContentOffset(offset, animated: true)
-                }else{
-                    associateScrollerView.setContentOffset(offset, animated: false)
-                }
-                segmentScrollerViewSrollerToCenter(itemView: selectedItemView, animated: true)
-                
-                UIView.animate(withDuration: 0.25) {
-                    self.indicatorView.reloadLayout(leftItemView: leftItemView, rightItemView: rightItemView)
-                }
+            let offsetX = CGFloat(destinationItemView.index) * associateScrollerView.bounds.width
+            let offset = CGPoint.init(x: offsetX, y: 0)
+            if gap == 1 && contentOffsetAnimation{
+                associateScrollerView.setContentOffset(offset, animated: true)
+            }else{
+                associateScrollerView.setContentOffset(offset, animated: false)
+            }
+            segmentScrollerViewSrollerToCenter(itemView: destinationItemView, animated: true)
+            
+            
+            var leftItemView = itemViews.sourceItemView
+            var rightItemView = itemViews.destinationItemView
+            if leftItemView.frame.origin.x > rightItemView.frame.origin.x {
+                leftItemView = itemViews.destinationItemView
+                rightItemView = itemViews.sourceItemView
+            }
+            UIView.animate(withDuration: 0.25) {
+                self.indicatorView.reloadLayout(leftItemView: leftItemView, rightItemView: rightItemView)
             }
         }
+    }
+    
+    private func getClickItemView(gesture:UITapGestureRecognizer)->(sourceItemView:LLSegmentBaseItemView,destinationItemView:LLSegmentBaseItemView)?{
+        if let selectedItemView = gesture.view as? LLSegmentBaseItemView,
+            let preSelectedItemView = currentSelectedItemView{
+            //有些类型要处理点击一样的情况
+            delegate?.segMegmentCtlView?(segMegmentCtlView: self, clickItemAt: preSelectedItemView, to: selectedItemView)
+
+            //点击的是当前的
+            if currentSelectedItemView == selectedItemView {
+                return nil
+            }
+            
+            preSelectedItemView.percentChange(percent: 0)
+            selectedItemView.percentChange(percent: 1)
+            leftItemView = selectedItemView
+            rightItemView = selectedItemView
+            currentSelectedItemView = selectedItemView
+            return (preSelectedItemView,selectedItemView)
+        }
+        return nil
     }
 }
 
