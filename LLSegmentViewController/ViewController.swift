@@ -24,7 +24,8 @@ let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerCla
                             CellModel(title: "13文字遮罩有背景有阴影样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "14三角形样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "15小红点和数字样式", viewControllerClass: BadgeValueViewController.self),
-                            CellModel(title: "16点线效果样式", viewControllerClass: TitleViewController.self),]
+                            CellModel(title: "16点线效果样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "17网易新闻样式", viewControllerClass: WangYiItemViewController.self),]
 
 let customTab = [CellModel(title: "微信样式", viewControllerClass: SimpleTabViewController.self),
                  CellModel(title: "微博样式", viewControllerClass: SinaViewController.self)]
