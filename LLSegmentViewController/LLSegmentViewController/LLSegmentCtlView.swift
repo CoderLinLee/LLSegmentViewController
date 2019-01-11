@@ -262,6 +262,7 @@ extension LLSegmentCtlView{
             indicatorView.reloadLayout(leftItemView: leftItemView, rightItemView: leftItemView)
         }
         if totalPercent > drageRange.upperBound {
+            indicatorView.reloadLayout(leftItemView: rightItemView, rightItemView: rightItemView)
             rightItemView.percentChange(percent: 1)
         }
         if !drageRange.contains(totalPercent){
