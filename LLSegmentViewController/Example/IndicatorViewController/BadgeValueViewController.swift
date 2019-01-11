@@ -41,7 +41,7 @@ class BadgeValueViewController: LLSegmentViewController {
         
         let titleStyle = LLSegmentItemTitleViewStyle()
         titleStyle.selectedTitleScale = 1
-        var ctlViewStyle = LLSegmentCtlViewStyle()
+        var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = LLSegmentItemBadgeTitleView.self
         ctlViewStyle.itemViewStyle = titleStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)

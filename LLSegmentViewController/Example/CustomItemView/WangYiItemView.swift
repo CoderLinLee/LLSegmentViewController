@@ -45,7 +45,7 @@ class WangYiItemViewController: TitleViewController {
         if let indicatorViewWidthChangeStyle = indicatorViewWidthChangeStyle {
             segmentCtlView.indicatorView.widthChangeStyle = indicatorViewWidthChangeStyle
         }
-        var ctlViewStyle = LLSegmentCtlViewStyle()
+        var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = WangYiItemView.self
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)

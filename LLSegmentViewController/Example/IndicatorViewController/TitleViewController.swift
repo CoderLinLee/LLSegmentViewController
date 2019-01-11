@@ -42,7 +42,7 @@ class TitleViewController: LLSegmentViewController {
         if let indicatorViewWidthChangeStyle = indicatorViewWidthChangeStyle {
             segmentCtlView.indicatorView.widthChangeStyle = indicatorViewWidthChangeStyle
         }
-        var ctlViewStyle = LLSegmentCtlViewStyle()
+        var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = LLSegmentItemTitleView.self
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)

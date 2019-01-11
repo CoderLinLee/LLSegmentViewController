@@ -47,16 +47,16 @@ class SinaViewController: LLSegmentViewController {
         tabItemViewStyle.selectedColor = UIColor.init(red: 0.7, green: 0.2, blue: 0.1, alpha: 1)
         tabItemViewStyle.selectedTitleScale = 1
         tabItemViewStyle.itemWidth = itemWidth
-        tabItemViewStyle.titleImgeGap = -2 //图片有空白的内容
+        tabItemViewStyle.titleImgeGap = -2 //因为图片有空白的内容
         tabItemViewStyle.titleBottomGap = 3
         tabItemViewStyle.badgeValueLabelOffset = CGPoint.init(x: -3, y: 10)
         
         segmentCtlView.delegate = self
-        var ctlViewStyle = LLSegmentCtlViewStyle()
+        var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = LLSegmentItemTabbarView.self
         ctlViewStyle.itemViewStyle = tabItemViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
-        segmentCtlView.contentOffsetAnimation = false
+        segmentCtlView.clickAnimation = false
         segmentCtlView.indicatorView.isHidden = true
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
     }
@@ -83,15 +83,15 @@ extension SinaViewController {
 }
 
 
-extension SinaViewController:LLSegmentCtlViewDelegate{
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, itemView: LLSegmentBaseItemView, extraGapAtIndex: NSInteger) -> CGFloat {
+extension SinaViewController:LLSegmentedControlDelegate{
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, itemView: LLSegmentBaseItemView, extraGapAtIndex: NSInteger) -> CGFloat {
         if extraGapAtIndex == 2 {
             return UIScreen.main.bounds.width/CGFloat(ctls.count+1)
         }
         return 0
     }
     
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView) {
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView) {
         let keyAnimation = CAKeyframeAnimation.init(keyPath: "transform.scale")
         keyAnimation.duration = 0.25;
         keyAnimation.values = [1.0,0.4,1.0];
@@ -101,7 +101,14 @@ extension SinaViewController:LLSegmentCtlViewDelegate{
         destinationItemView.layer.add(keyAnimation, forKey: "keyAnimation")
     }
     
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, reloadCtlView defaultSelectItemView: LLSegmentBaseItemView) {
-        
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, sourceItemView: LLSegmentBaseItemView, shouldChangeTo destinationItemView: LLSegmentBaseItemView) -> Bool {
+        if destinationItemView.index == 3 {
+            let loginCtl = TestViewController()
+            loginCtl.showTableView = false
+            loginCtl.title = "请先登录"
+            self.navigationController?.pushViewController(loginCtl, animated: true)
+            return false
+        }
+        return true
     }
 }

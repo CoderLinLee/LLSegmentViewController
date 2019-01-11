@@ -10,7 +10,7 @@ import UIKit
 
  open class LLSegmentViewController: UIViewController {
     var viewCtlContainerColView:UICollectionView!
-    let segmentCtlView = LLSegmentCtlView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+    let segmentCtlView = LLSegmentedControl(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
     var ctls:[UIViewController]!
     private let cellIdentifier = "cellIdentifier"
     let layout = UICollectionViewFlowLayout()
@@ -31,10 +31,6 @@ extension LLSegmentViewController{
     public func reloadViewControllers(ctls:[UIViewController]) {
         segmentCtlView.ctls = ctls
         self.ctls = ctls
-        
-//        for ctl in self.childViewControllers {
-//            ctl.removeFromParentViewController()
-//        }
         
         for ctl in ctls{
             addChildViewController(ctl)
@@ -62,6 +58,13 @@ extension LLSegmentViewController{
             segmentCtlView.reloadData()
         }
     }
+    
+    func selected(at Index:NSInteger,animation:Bool)  {
+        guard ctls != nil && ctls.count < Index else {
+            return
+        }
+        segmentCtlView.selected(at: Index, animation: animation)
+    }
 }
 
 extension LLSegmentViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
@@ -88,7 +91,8 @@ extension LLSegmentViewController:UICollectionViewDelegate,UICollectionViewDataS
 extension LLSegmentViewController{
     private func initSubviews() {
         view.addSubview(segmentCtlView)
-        
+        let tab = UITabBarController()
+        tab.selectedIndex = 1
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal

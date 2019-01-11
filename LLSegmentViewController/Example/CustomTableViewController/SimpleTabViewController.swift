@@ -49,11 +49,11 @@ class SimpleTabViewController: LLSegmentViewController {
         tabItemViewStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
         tabItemViewStyle.badgeValueLabelOffset = CGPoint.init(x: 2, y: 5)
         
-        var segmentCtlStyle = LLSegmentCtlViewStyle()
+        var segmentCtlStyle = LLSegmentedControlStyle()
         segmentCtlStyle.segmentItemViewClass = LLSegmentItemTabbarView.self
         segmentCtlStyle.itemViewStyle = tabItemViewStyle
         segmentCtlView.reloadData(ctlViewStyle: segmentCtlStyle)
-        segmentCtlView.contentOffsetAnimation = false
+        segmentCtlView.clickAnimation = false
         segmentCtlView.indicatorView.isHidden = true
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
     }

@@ -31,15 +31,13 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
         titleLabel.font = UIFont.boldSystemFont(ofSize: itemTitleViewStyle.titleFontSize)
         addSubview(titleLabel)
         
-        
         maskTitleLabel.textAlignment = .center
-        maskTitleLabel.textColor = UIColor.red
+        maskTitleLabel.textColor = itemTitleViewStyle.titleLabelMaskColor
         maskTitleLabel.font = titleLabel.font
-        addSubview(maskTitleLabel)
         maskTitleLabelMask.backgroundColor = UIColor.red.cgColor
         maskTitleLabel.layer.mask = maskTitleLabelMask
+        addSubview(maskTitleLabel)
     }
-    
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

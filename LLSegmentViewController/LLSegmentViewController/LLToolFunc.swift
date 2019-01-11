@@ -9,12 +9,12 @@
 import UIKit
 
 
-public func interpolationFrom(from:CGFloat,to:CGFloat,percent:CGFloat) -> CGFloat{
+internal func interpolationFrom(from:CGFloat,to:CGFloat,percent:CGFloat) -> CGFloat{
     let ratio = max(0, min(1, percent))
     return from + (to - from)*ratio
 }
 
-public func interpolationColorFrom(fromColor:UIColor,toColor:UIColor,percent:CGFloat) ->UIColor {
+internal func interpolationColorFrom(fromColor:UIColor,toColor:UIColor,percent:CGFloat) ->UIColor {
     var fromR:CGFloat = 0
     var fromG:CGFloat = 0
     var fromB:CGFloat = 0
@@ -35,7 +35,6 @@ public func interpolationColorFrom(fromColor:UIColor,toColor:UIColor,percent:CGF
 }
 
 
-//MARK: - 中间图形路径
 //https://github.com/wanhmr/QQMessageButton
 internal func qqShapPath(smallRect:CGRect,bigRect:CGRect) -> UIBezierPath  {
     let center1 = CGPoint.init(x: smallRect.midX, y: smallRect.midY)
@@ -71,12 +70,11 @@ internal func qqShapPath(smallRect:CGRect,bigRect:CGRect) -> UIBezierPath  {
     path.addQuadCurve(to: C, controlPoint: P)
     path.addLine(to: D)
     path.addQuadCurve(to: A, controlPoint: O)
-    
     return path
 }
 
 //MARK: - 两点之间距离
-private func pointToPointDistanceWithPoint(point1: CGPoint, point2: CGPoint) ->CGFloat {
+fileprivate func pointToPointDistanceWithPoint(point1: CGPoint, point2: CGPoint) ->CGFloat {
     let xDistance = point2.x - point1.x
     let yDistance = point2.y - point1.y
     return sqrt(xDistance * xDistance + yDistance * yDistance)
@@ -85,7 +83,7 @@ private func pointToPointDistanceWithPoint(point1: CGPoint, point2: CGPoint) ->C
 
 
 extension String {
-    func LLGetStrSize(font: CGFloat, w: CGFloat, h: CGFloat) -> CGSize {
+    internal func LLGetStrSize(font: CGFloat, w: CGFloat, h: CGFloat) -> CGSize {
         let strSize = (self as NSString).boundingRect(with: CGSize(width: w, height: h), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: font)], context: nil).size
         return strSize
     }

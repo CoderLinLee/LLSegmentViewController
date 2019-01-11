@@ -26,7 +26,7 @@ class BackgroundColorGradientItemViewController: TitleViewController {
         if let indicatorViewWidthChangeStyle = indicatorViewWidthChangeStyle {
             segmentCtlView.indicatorView.widthChangeStyle = indicatorViewWidthChangeStyle
         }
-        var ctlViewStyle = LLSegmentCtlViewStyle()
+        var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = BackgroundColorGradientItemView.self
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)

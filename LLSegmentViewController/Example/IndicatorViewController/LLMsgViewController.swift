@@ -44,7 +44,7 @@ class LLMsgViewController: LLSegmentViewController {
         titleViewStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
         
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
-        var ctlViewStyle = LLSegmentCtlViewStyle()
+        var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = LLSegmentItemBadgeTitleView.self
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)

@@ -201,12 +201,13 @@ extension LLIndicatorView{
         case .qqDragMsg(let color,let height):
             self.backgroundColor = UIColor.clear
             if qqShape == nil {
-                qqShape = CAShapeLayer()
-                qqShape?.backgroundColor = color.cgColor
-                qqShape?.lineWidth = 0
-                qqShape?.strokeColor = UIColor.clear.cgColor
-                qqShape?.fillColor = color.cgColor
-                layer.addSublayer(qqShape!)
+                let qqShape = CAShapeLayer()
+                qqShape.backgroundColor = color.cgColor
+                qqShape.lineWidth = 0
+                qqShape.strokeColor = UIColor.clear.cgColor
+                qqShape.fillColor = color.cgColor
+                layer.addSublayer(qqShape)
+                self.qqShape = qqShape
             }
             
             let baseRadius:CGFloat = 2

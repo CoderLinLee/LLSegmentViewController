@@ -38,7 +38,6 @@ open class LLTitleImageModel{
 
 
 open class LLSegmentItemTitleImageView: LLSegmentBaseItemView {
-
     let titleLabel = UILabel()
     let imageView = UIImageView()
     var titleImageModel:LLTitleImageModel?

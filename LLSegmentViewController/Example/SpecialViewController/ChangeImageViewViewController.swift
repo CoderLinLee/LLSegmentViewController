@@ -53,11 +53,11 @@ class ChangeImageViewViewController: LLSegmentViewController {
         segmentCtlView.indicatorView.bounds = CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 30, height: 30))
         
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
-        segmentCtlView.indicatorView.centerYGradientStyle = .bottom(margin: 12)
+        segmentCtlView.indicatorView.centerYGradientStyle = .bottom(margin: 0)
         segmentCtlView.indicatorView.backgroundColor = UIColor.clear
         segmentCtlView.backgroundColor = UIColor.white.withAlphaComponent(0.6)
         
-        var ctlViewStyle = LLSegmentCtlViewStyle()
+        var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.defaultSelectedIndex = 2
         ctlViewStyle.segmentItemViewClass = LLSegmentItemBadgeTitleView.self
         ctlViewStyle.itemViewStyle = titleViewStyle
@@ -93,9 +93,9 @@ class ChangeImageViewViewController: LLSegmentViewController {
 }
 
 
-extension ChangeImageViewViewController:LLSegmentCtlViewDelegate{
+extension ChangeImageViewViewController:LLSegmentedControlDelegate{
     //方法一：
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, totalPercent: CGFloat) {
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, totalPercent: CGFloat) {
         let leftIndex = segMegmentCtlView.leftItemView.index
         let rightIndex = segMegmentCtlView.rightItemView.index
         let leftPercent = segMegmentCtlView.leftItemView.percent
@@ -107,12 +107,12 @@ extension ChangeImageViewViewController:LLSegmentCtlViewDelegate{
         rightImageView.alpha = max(0, rightPercent)
     }
     
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, dragToSelected itemView: LLSegmentBaseItemView) {
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, dragToSelected itemView: LLSegmentBaseItemView) {
         print(itemView.index)
     }
     
     //方法二
-//    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, dragToScroll leftItemView: LLSegmentBaseItemView, rightItemView: LLSegmentBaseItemView) {
+//    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, dragToScroll leftItemView: LLSegmentBaseItemView, rightItemView: LLSegmentBaseItemView) {
 //        let leftIndex = max(0, min(ctls.count - 1, leftItemView.index))
 //        let rightIndex = max(0, min(ctls.count - 1, rightItemView.index))
 //        let leftPercent = leftItemView.percent
@@ -124,7 +124,7 @@ extension ChangeImageViewViewController:LLSegmentCtlViewDelegate{
 //        rightImageView.alpha = max(0, rightPercent)
 //
 //    }
-//    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView) {
+//    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView) {
 //        leftImageView.image = getImgAt(index: destinationItemView.index)
 //        rightImageView.image = getImgAt(index: destinationItemView.index)
 //        rightImageView.alpha = 0

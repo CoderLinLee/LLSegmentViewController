@@ -23,9 +23,9 @@
 		F2055B5021D4D6D200FF961B /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B4F21D4D6D200FF961B /* BaseNavigationController.swift */; };
 		F2055B5221D4D85B00FF961B /* StyleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B5121D4D85B00FF961B /* StyleListViewController.swift */; };
 		F23D2F7221CA27F00067B399 /* LLSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23D2F6D21CA27F00067B399 /* LLSegmentViewController.swift */; };
-		F23D2F7421CA27F00067B399 /* LLSegmentCtlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23D2F6F21CA27F00067B399 /* LLSegmentCtlView.swift */; };
+		F23D2F7421CA27F00067B399 /* LLSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23D2F6F21CA27F00067B399 /* LLSegmentedControl.swift */; };
 		F23D2F7521CA27F00067B399 /* LLIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23D2F7021CA27F00067B399 /* LLIndicatorView.swift */; };
-		F23D2F7B21CA53830067B399 /* LLSegmentConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23D2F7A21CA53830067B399 /* LLSegmentConst.swift */; };
+		F23D2F7B21CA53830067B399 /* LLToolFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23D2F7A21CA53830067B399 /* LLToolFunc.swift */; };
 		F263034421D4E94E0067F8CA /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263034321D4E94E0067F8CA /* TitleViewController.swift */; };
 		F27132DA21C8DD7C00F9D2AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132D921C8DD7C00F9D2AB /* AppDelegate.swift */; };
 		F27132DC21C8DD7C00F9D2AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132DB21C8DD7C00F9D2AB /* ViewController.swift */; };
@@ -78,9 +78,9 @@
 		F2055B4F21D4D6D200FF961B /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		F2055B5121D4D85B00FF961B /* StyleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleListViewController.swift; sourceTree = "<group>"; };
 		F23D2F6D21CA27F00067B399 /* LLSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentViewController.swift; sourceTree = "<group>"; };
-		F23D2F6F21CA27F00067B399 /* LLSegmentCtlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentCtlView.swift; sourceTree = "<group>"; };
+		F23D2F6F21CA27F00067B399 /* LLSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentedControl.swift; sourceTree = "<group>"; };
 		F23D2F7021CA27F00067B399 /* LLIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLIndicatorView.swift; sourceTree = "<group>"; };
-		F23D2F7A21CA53830067B399 /* LLSegmentConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentConst.swift; sourceTree = "<group>"; };
+		F23D2F7A21CA53830067B399 /* LLToolFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLToolFunc.swift; sourceTree = "<group>"; };
 		F263034321D4E94E0067F8CA /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
 		F27132D621C8DD7C00F9D2AB /* LLSegmentViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLSegmentViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F27132D921C8DD7C00F9D2AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -177,9 +177,9 @@
 			isa = PBXGroup;
 			children = (
 				F23D2F6D21CA27F00067B399 /* LLSegmentViewController.swift */,
-				F23D2F6F21CA27F00067B399 /* LLSegmentCtlView.swift */,
+				F23D2F6F21CA27F00067B399 /* LLSegmentedControl.swift */,
 				F23D2F7021CA27F00067B399 /* LLIndicatorView.swift */,
-				F23D2F7A21CA53830067B399 /* LLSegmentConst.swift */,
+				F23D2F7A21CA53830067B399 /* LLToolFunc.swift */,
 				F2055B3121D0B5DE00FF961B /* LLSegmentCtlItemView */,
 			);
 			path = LLSegmentViewController;
@@ -399,14 +399,14 @@
 			files = (
 				F2DE12C121DCC23500D13738 /* NestViewController.swift in Sources */,
 				18AF01F321E255AF00FD5F14 /* MixViewController.swift in Sources */,
-				F23D2F7B21CA53830067B399 /* LLSegmentConst.swift in Sources */,
+				F23D2F7B21CA53830067B399 /* LLToolFunc.swift in Sources */,
 				F2055B3B21D34BFC00FF961B /* LLSegmentItemTabbarView.swift in Sources */,
 				F23D2F7521CA27F00067B399 /* LLIndicatorView.swift in Sources */,
 				F2055B3921D0F3A000FF961B /* LLSegmentItemTitleView.swift in Sources */,
 				F27132DC21C8DD7C00F9D2AB /* ViewController.swift in Sources */,
 				1833537521DFAC86005331E7 /* InsertViewController.swift in Sources */,
 				F263034421D4E94E0067F8CA /* TitleViewController.swift in Sources */,
-				F23D2F7421CA27F00067B399 /* LLSegmentCtlView.swift in Sources */,
+				F23D2F7421CA27F00067B399 /* LLSegmentedControl.swift in Sources */,
 				F2055B3521D0B5DE00FF961B /* LLSegmentItemBadgeTitleView.swift in Sources */,
 				F2DE12E021E0887100D13738 /* AttributeItemView.swift in Sources */,
 				F2DE12E221E096E700D13738 /* TitleImageItemView.swift in Sources */,

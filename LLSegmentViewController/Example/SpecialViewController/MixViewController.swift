@@ -50,7 +50,7 @@ class MixViewController: TitleViewController {
         
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         segmentCtlView.indicatorView.shapeStyle = .background(color: UIColor.clear, img: nil)
-        var ctlViewStyle = LLSegmentCtlViewStyle()
+        var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = LLSegmentItemTitleView.self
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)

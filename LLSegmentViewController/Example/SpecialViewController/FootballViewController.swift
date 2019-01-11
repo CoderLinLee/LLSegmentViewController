@@ -39,8 +39,6 @@ class FootballViewController: LLSegmentViewController {
     
     func setUpSegmentStyle() {
         let titleViewStyle = LLSegmentItemTitleViewStyle()
-        titleViewStyle.selectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
-        titleViewStyle.unSelectedColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
         titleViewStyle.itemWidth = LLSegmentAutomaticDimension
         titleViewStyle.titleLabelCenterOffsetY = -10
         titleViewStyle.selectedTitleScale = 1
@@ -50,11 +48,11 @@ class FootballViewController: LLSegmentViewController {
         
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
         segmentCtlView.indicatorView.delegate = self
-        segmentCtlView.indicatorView.centerYGradientStyle = .bottom(margin: 12)
+        segmentCtlView.indicatorView.centerYGradientStyle = .bottom(margin: 0)
         segmentCtlView.indicatorView.backgroundColor = UIColor.clear
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         
-        var ctlViewStyle = LLSegmentCtlViewStyle()
+        var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = LLSegmentItemBadgeTitleView.self
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
@@ -77,15 +75,15 @@ extension FootballViewController:LLIndicatorViewDelegate{
     }
 }
 
-extension FootballViewController:LLSegmentCtlViewDelegate{
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView) {
+extension FootballViewController:LLSegmentedControlDelegate{
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView) {
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotateAnimation.duration = 0.25
         rotateAnimation.toValue = sourceItemView.frame.origin.x > destinationItemView.frame.origin.x ? CGFloat.pi*2 : -CGFloat.pi*2
         footballImageView.layer.add(rotateAnimation, forKey: "rotate")
     }
     
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentCtlView, totalPercent: CGFloat) {
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, totalPercent: CGFloat) {
         print(totalPercent)
     }
 }

@@ -88,7 +88,7 @@ class AttributeItemViewController: LLSegmentViewController {
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         segmentCtlView.indicatorView.shapeStyle = .background(color: UIColor.red, img: nil)
         let titleViewStyle = LLSegmentItemTitleViewStyle()
-        var ctlViewStyle = LLSegmentCtlViewStyle()
+        var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = AttributeItemView.self
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
