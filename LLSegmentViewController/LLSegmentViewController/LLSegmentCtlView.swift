@@ -258,7 +258,8 @@ extension LLSegmentCtlView{
         let basePercent = 1.0 / CGFloat(ctls.count)
         let drageRange = basePercent...1
         if totalPercent < drageRange.lowerBound {
-            leftItemView.percentChange(percent: 0)
+            leftItemView.percentChange(percent: 1)
+            indicatorView.reloadLayout(leftItemView: leftItemView, rightItemView: leftItemView)
         }
         if totalPercent > drageRange.upperBound {
             rightItemView.percentChange(percent: 1)
