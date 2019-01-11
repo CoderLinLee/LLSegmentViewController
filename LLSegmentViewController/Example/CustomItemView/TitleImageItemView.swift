@@ -177,7 +177,6 @@ extension TitleImageItemViewController{
     func reloadWhenScroll(oldContentOffset:CGPoint,newContentOffset:CGPoint){
         var segmentCtlFrame = segmentCtlView.frame
         let subValue = newContentOffset.y - oldContentOffset.y
-        print(subValue)
 //        segmentCtlFrame.origin.y -= subValue
         if fabs(subValue) > 25 {
             if subValue > 0 {

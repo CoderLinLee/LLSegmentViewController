@@ -33,8 +33,10 @@ public enum LLIndicatorViewShapeStyle{
     case ellipse(widthChangeStyle:LLIndicatorViewWidthChangeStyle,height:CGFloat,shadowColor:UIColor?)
     /*横杆*/
     case crossBar(widthChangeStyle:LLIndicatorViewWidthChangeStyle,height:CGFloat)
-    /*横杆*/
+    /*背景*/
     case background(color:UIColor,img:UIImage?)
+    /*QQ弹性小球*/
+    case qqDragMsg(color:UIColor,height:CGFloat)
 }
 
 
@@ -46,6 +48,7 @@ public enum LLIndicatorViewShapeStyle{
 open class LLIndicatorView: UIView {
     public var contentView = UIView()
     public var delegate:LLIndicatorViewDelegate?
+    private var qqShape:CAShapeLayer?
     public override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(contentView)
@@ -67,7 +70,7 @@ open class LLIndicatorView: UIView {
                 case .center:
                     selfCenter.y = selfSuperView.bounds.height/2
                 case .bottom(let margin):
-                    selfCenter.y = selfSuperView.bounds.height - margin
+                    selfCenter.y = selfSuperView.bounds.height - margin - bounds.height/2
                 }
                 self.center = selfCenter
             }
@@ -149,6 +152,12 @@ open class LLIndicatorView: UIView {
                     self.layer.shadowOffset = CGSize.init(width: 3, height: 4);
                     self.layer.shadowOpacity = 0.6;
                 }
+            case .qqDragMsg(_,let height):
+                self.bounds = CGRect.init(x: 0, y: 0, width: self.bounds.width, height: height)
+                self.widthChangeStyle = .jdIqiyi(baseWidth: height, changeWidth: 5)
+                self.centerYGradientStyle = .bottom(margin: 0)
+                self.backgroundColor = UIColor.clear
+                break
             }
         }
     }
@@ -172,6 +181,7 @@ open class LLIndicatorView: UIView {
             let minX = leftItemView.center.x - baseWidth/2
             let maxX = rightItemView.center.x - baseWidth/2
             targetWidth = percent * (maxX - minX - changeWidth) + baseWidth
+            
         case .stationary(let baseWidth):
             targetWidth = baseWidth
         }
@@ -179,6 +189,34 @@ open class LLIndicatorView: UIView {
         selfBounds.size.width = targetWidth
         self.bounds = selfBounds
         delegate?.indicatorView?(indicatorView: self, percent: leftItemView.percent)
+        
+        
+        self.handleQQMsgStyle(leftItemView: leftItemView)
+    }
+}
+
+extension LLIndicatorView{
+    func handleQQMsgStyle(leftItemView:LLSegmentBaseItemView) {
+        switch self.shapeStyle {
+        case .qqDragMsg(let color,let height):
+            self.backgroundColor = UIColor.clear
+            if qqShape == nil {
+                qqShape = CAShapeLayer()
+                qqShape?.backgroundColor = color.cgColor
+                qqShape?.lineWidth = 0
+                qqShape?.strokeColor = UIColor.clear.cgColor
+                qqShape?.fillColor = color.cgColor
+                layer.addSublayer(qqShape!)
+            }
+            
+            let baseRadius:CGFloat = 2
+            let leftRectRadius:CGFloat = 7 * leftItemView.percent + baseRadius
+            let leftRect = CGRect.init(x: 0, y: (bounds.height - leftRectRadius)/2, width: leftRectRadius, height: leftRectRadius)
+            let rightRect = CGRect.init(x: bounds.width - height, y: 0, width: height, height: height)
+            qqShape?.path = qqShapPath(smallRect: leftRect, bigRect: rightRect).cgPath
+        default:
+            qqShape?.removeFromSuperlayer()
+        }
     }
 }
 

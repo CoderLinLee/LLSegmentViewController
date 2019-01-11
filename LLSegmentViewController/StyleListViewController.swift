@@ -100,6 +100,8 @@ extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
                 ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .jdIqiyi(baseWidth: 10, changeWidth: 0), height: 10, shadowColor: nil)
                 ctl.segmentCtlView.indicatorView.centerYGradientStyle = .bottom(margin: 8)
                 ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.red
+            }else if indexPath.row == 17{
+                ctl.segmentCtlView.indicatorView.shapeStyle = .qqDragMsg(color: UIColor.red, height: 15)
             }
 
             ctl.titleViewStyle = titleViewStyle

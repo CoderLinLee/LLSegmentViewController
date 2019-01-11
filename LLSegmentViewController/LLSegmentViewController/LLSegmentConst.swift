@@ -35,6 +35,54 @@ public func interpolationColorFrom(fromColor:UIColor,toColor:UIColor,percent:CGF
 }
 
 
+//MARK: - 中间图形路径
+//https://github.com/wanhmr/QQMessageButton
+internal func qqShapPath(smallRect:CGRect,bigRect:CGRect) -> UIBezierPath  {
+    let center1 = CGPoint.init(x: smallRect.midX, y: smallRect.midY)
+    let r1 = smallRect.width/2
+    let center2 = CGPoint.init(x: bigRect.midX, y: bigRect.midY)
+    let r2 = bigRect.width/2
+    let d = pointToPointDistanceWithPoint(point1: center1, point2: center2)
+    
+    let path = UIBezierPath()
+    let smallRectPath = UIBezierPath.init(arcCenter: center1, radius: smallRect.width/2, startAngle: 0, endAngle: CGFloat.pi*2, clockwise: true)
+    let bigRectPath = UIBezierPath.init(arcCenter: center2, radius: bigRect.width/2, startAngle: 0, endAngle: CGFloat.pi*2, clockwise: true)
+    path.append(smallRectPath)
+    path.append(bigRectPath)
+    if d == 0 {
+        return path
+    }
+    
+    let x1 = center1.x
+    let x2 = center2.x
+    let y1 = center1.y
+    let y2 = center2.y
+    let cosθ = (y2 - y1) / d
+    let sinθ = (x2 - x1) / d
+    let A = CGPoint(x: x1 - r1 * cosθ, y: y1 + r1 * sinθ)
+    let B = CGPoint(x: x1 + r1 * cosθ, y: y1 - r1 * sinθ)
+    let C = CGPoint(x: x2 + r2 * cosθ, y: y2 - r2 * sinθ)
+    let D = CGPoint(x: x2 - r2 * cosθ, y: y2 + r2 * sinθ)
+    let O = CGPoint(x: A.x + sinθ * d / 2 , y:  A.y + cosθ * d / 2)
+    let P = CGPoint(x: B.x + sinθ * d / 2 , y:  B.y + cosθ * d / 2)
+    
+    path.move(to: A)
+    path.addLine(to: B)
+    path.addQuadCurve(to: C, controlPoint: P)
+    path.addLine(to: D)
+    path.addQuadCurve(to: A, controlPoint: O)
+    
+    return path
+}
+
+//MARK: - 两点之间距离
+private func pointToPointDistanceWithPoint(point1: CGPoint, point2: CGPoint) ->CGFloat {
+    let xDistance = point2.x - point1.x
+    let yDistance = point2.y - point1.y
+    return sqrt(xDistance * xDistance + yDistance * yDistance)
+}
+
+
 
 extension String {
     func LLGetStrSize(font: CGFloat, w: CGFloat, h: CGFloat) -> CGSize {
