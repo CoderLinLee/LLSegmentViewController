@@ -23,7 +23,7 @@ func factoryCtl(title:String,imageName:String,selectedImageNameStr:String) -> UI
 
 class TestViewController: UIViewController {
     var showTableView = true
-    let tableView = UITableView(frame: CGRect.zero, style: .plain)
+    var tableView:UITableView!
     typealias SwiftClosure = (_ oldContentOffset:CGPoint,_ newContentOffset:CGPoint) -> Void
     var tableViewDidScroll:SwiftClosure?
     override func viewDidLoad() {
@@ -37,15 +37,10 @@ class TestViewController: UIViewController {
 
 extension TestViewController {
     func initSubView() {
-        tableView.dataSource = self
+        tableView = addTableView()
         tableView.delegate = self
-        tableView.backgroundColor = UIColor.clear
-        tableView.frame = view.bounds
-        tableView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
-        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
-        self.view.addSubview(tableView)
+        tableView.dataSource = self
         tableView.addObserver(self, forKeyPath: "contentOffset", options: [.new,.old], context: nil)
-
     }
 }
 
@@ -74,4 +69,18 @@ extension TestViewController:UITableViewDelegate,UITableViewDataSource{
         self.tabBarItem.badgeValue = "99"
     }
 }
+
+extension UIViewController{
+    func addTableView()->UITableView {
+        let tableView = UITableView(frame: view.bounds, style: .plain)
+        tableView.backgroundColor = UIColor.white
+        tableView.tableFooterView = UIView()
+        tableView.frame = view.bounds
+        tableView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
+        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
+        self.view.addSubview(tableView)
+        return tableView
+    }
+}
+
 

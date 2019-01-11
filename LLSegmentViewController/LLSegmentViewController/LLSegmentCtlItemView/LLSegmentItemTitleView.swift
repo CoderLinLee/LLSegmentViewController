@@ -25,7 +25,6 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
     internal let maskTitleLabel = UILabel()
     private let maskTitleLabelMask = CAShapeLayer()
     private var itemTitleViewStyle = LLSegmentItemTitleViewStyle()
-    internal weak var indicatorView:UIView!
     required public init(frame: CGRect) {
         super.init(frame: frame)
         titleLabel.textAlignment = .center
@@ -110,6 +109,7 @@ extension LLSegmentItemTitleView{
             let maskTitleLabelHalfWidth = titleLabel.frame.width/2
             var centerX:CGFloat = titleLabel.frame.minX - maskTitleLabelHalfWidth
             if let indicatorView = indicatorView {
+                //正常情况
                 let indicatorFrame = indicatorView.convert(indicatorView.bounds,to:self)
                 if contentOffsetOnRight {
                     centerX = min(indicatorFrame.maxX - maskTitleLabelHalfWidth, titleLabel.center.x)
@@ -117,7 +117,24 @@ extension LLSegmentItemTitleView{
                     centerX = max(indicatorFrame.minX + maskTitleLabelHalfWidth, titleLabel.center.x)
                 }
                 
-                //TO:指示器的宽度小于maskTitleLabel的宽度
+                //指示器的宽度小于maskTitleLabel的宽度
+                let indicatorViewFinalWidth = indicatorView.finalWidthOn(itemView: self)
+                if indicatorViewFinalWidth < titleLabel.frame.width {
+                    if contentOffsetOnRight {
+                        centerX += (titleLabel.frame.width - indicatorViewFinalWidth)*percent/2
+                        centerX = min(centerX, titleLabel.center.x)
+                    }else{
+                        centerX -= (titleLabel.frame.width - indicatorViewFinalWidth)*percent/2
+                        centerX = max(centerX, titleLabel.center.x)
+                    }
+                }
+                
+                //点击的情况，指示器有动画切换
+                if percent == 0 {
+                    centerX = titleLabel.frame.minX - maskTitleLabelHalfWidth
+                }else if percent == 1{
+                    centerX = titleLabel.frame.minX + maskTitleLabelHalfWidth
+                }
             }
             var maskTitleLabelCenter = maskTitleLabel.center
             maskTitleLabelCenter.x = centerX
