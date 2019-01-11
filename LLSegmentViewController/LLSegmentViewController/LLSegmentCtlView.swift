@@ -257,6 +257,12 @@ extension LLSegmentCtlView{
         //边界,最右边和最左边的情况
         let basePercent = 1.0 / CGFloat(ctls.count)
         let drageRange = basePercent...1
+        if totalPercent < drageRange.lowerBound {
+            leftItemView.percentChange(percent: 0)
+        }
+        if totalPercent > drageRange.upperBound {
+            rightItemView.percentChange(percent: 1)
+        }
         if !drageRange.contains(totalPercent){
             return nil
         }
