@@ -116,8 +116,8 @@ extension LLSegmentedControl{
         if let defaultSelectedItemView = getItemView(atIndex: self.ctlViewStyle.defaultSelectedIndex) {
             defaultSelectedItemView.percentChange(percent: 1)
             currentSelectedItemView = defaultSelectedItemView
-            rightItemView = currentSelectedItemView
-            leftItemView = currentSelectedItemView
+            rightItemView = defaultSelectedItemView
+            leftItemView = defaultSelectedItemView
             
             segmentScrollerViewSrollerToCenter(itemView: defaultSelectedItemView, animated: false)
             if let associateScrollerView = associateScrollerView {
@@ -173,7 +173,7 @@ extension LLSegmentedControl{
     
     //ItemView响应
     private func checkOutItemViewAction(sourceItemView:LLSegmentBaseItemView,destinationItemView:LLSegmentBaseItemView){
-        currentSelectedItemView.percentChange(percent: 0)
+        sourceItemView.percentChange(percent: 0)
         destinationItemView.percentChange(percent: 1)
         leftItemView = destinationItemView
         rightItemView = destinationItemView
@@ -251,20 +251,17 @@ extension LLSegmentedControl{
             }
             
             //segMegmentScrollerView Follow rolling:segMegmentScrollerView跟随用户的滑动
-            var scrollerPageItemView:LLSegmentBaseItemView?
-            if leftItemView.percent >= 0.5 {
-                scrollerPageItemView = leftItemView
-            }else{
+            var scrollerPageItemView = leftItemView
+            if rightItemView.percent >= 0.5 {
                 scrollerPageItemView = rightItemView
             }
-            if let scrollerPageItemView = scrollerPageItemView {
-                segmentScrollerViewSrollerToCenter(itemView: scrollerPageItemView, animated: true)
-            }
-            
-            if scrollerPageItemView?.percent == 1 && scrollerPageItemView != currentSelectedItemView{
-                currentSelectedItemView = scrollerPageItemView
-                delegate?.segMegmentCtlView?(segMegmentCtlView: self, dragToSelected: currentSelectedItemView)
-            }
+            segmentScrollerViewSrollerToCenter(itemView: scrollerPageItemView, animated: true)
+        }
+        
+        //滚动选中
+        if leftItemView == rightItemView && rightItemView != currentSelectedItemView{
+            currentSelectedItemView = rightItemView
+            delegate?.segMegmentCtlView?(segMegmentCtlView: self, dragToSelected: currentSelectedItemView)
         }
 
         self.leftItemView = leftItemView
@@ -280,9 +277,13 @@ extension LLSegmentedControl{
         guard ctls != nil && ctls.count > 0 else {
             return nil
         }
+        
+        guard let associateScrollerView = associateScrollerView else {
+            return nil
+        }
 
         //边界,最右边和最左边的情况
-        let basePercent = 1.0 / CGFloat(ctls.count)
+        let basePercent = associateScrollerView.contentOffset.x/associateScrollerView.contentSize.width
         let drageRange = basePercent...1
         if totalPercent < drageRange.lowerBound {
             leftItemView.percentChange(percent: 1)
@@ -297,10 +298,10 @@ extension LLSegmentedControl{
         }
         
         //计算leftItemIndex,rightItemIndex
-        let index = totalPercent/basePercent - 1
-        let leftItemIndex = max(0, min(ctls.count - 1, Int(floor(index))))
+        let index = associateScrollerView.contentOffset.x/associateScrollerView.bounds.width
+        let leftItemIndex = max(0, min(ctls.count - 1, Int((index))))
         let rightItemIndex = max(0, min(ctls.count - 1, Int(ceil(index))))
-        var rightPercent = index - CGFloat(leftItemIndex)
+        var rightPercent = CGFloat(index) - CGFloat(leftItemIndex)
         var leftPercent = 1 - rightPercent
         if leftItemIndex == rightItemIndex {
             leftPercent = 1

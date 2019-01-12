@@ -136,11 +136,12 @@ extension LLSegmentItemTitleView{
             }
             var maskTitleLabelCenter = maskTitleLabel.center
             maskTitleLabelCenter.x = centerX
+            maskTitleLabelCenter = self.convert(maskTitleLabelCenter, to: maskTitleLabel)
             
             CATransaction.begin()
             CATransaction.setDisableActions(true)
             maskTitleLabelMask.bounds = maskTitleLabel.bounds
-            maskTitleLabelMask.position = self.convert(maskTitleLabelCenter, to: maskTitleLabel)
+            maskTitleLabelMask.position = maskTitleLabelCenter
             maskTitleLabel.isHidden = false
             CATransaction.commit()
         }else{
