@@ -39,7 +39,7 @@ public func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle)
 ----|------|
 LineView固定宽度  |  <img src="https://github.com/CoderLinLee/Screenshot/blob/master/LLSegmentViewController/lineView.gif" width="355" height="133"> |
 LineView京东风格  |  <img src="https://github.com/CoderLinLee/Screenshot/blob/master/LLSegmentViewController/jdlineView.gif" width="355" height="133"> |
-LineView爱奇艺风格  |  <img src="https://github.com/CoderLinLee/Screenshot/blob/master/LLSegmentViewController/aiqyLineViewlineView.gif" width="355" height="133"> |
+LineView爱奇艺风格  |  <img src="https://github.com/CoderLinLee/Screenshot/blob/master/LLSegmentViewController/aiqyLineView.gif" width="355" height="133"> |
 LineView回旋风格  |  <img src="https://github.com/CoderLinLee/Screenshot/blob/master/LLSegmentViewController/huigunLineView.gif" width="355" height="133"> |
 LineView与Item等宽  |  <img src="https://github.com/CoderLinLee/Screenshot/blob/master/LLSegmentViewController/equlWidthLineView.gif" width="355" height="133"> |
 
