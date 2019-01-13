@@ -42,8 +42,8 @@ class WangYiItemView: LLSegmentItemTitleView {
 class WangYiItemViewController: TitleViewController {
     override func setUpSegmentStyle() {
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-        if let indicatorViewWidthChangeStyle = indicatorViewWidthChangeStyle {
-            segmentCtlView.indicatorView.widthChangeStyle = indicatorViewWidthChangeStyle
+        if let indicatorWidthChangeStyle = indicatorViewWidthChangeStyle {
+            segmentCtlView.indicatorView.widthChangeStyle = indicatorWidthChangeStyle
         }
         var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = WangYiItemView.self

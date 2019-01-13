@@ -14,7 +14,6 @@ public class LLSegmentItemTabbarViewStyle:LLSegmentItemBadgeViewStyle {
     
     public var selectedColor = UIColor.init(red: 50/255.0, green: 50/255.0, blue:  50/255.0, alpha: 1)
     public var unSelectedColor = UIColor.init(red: 136/255.0, green: 136/255.0, blue: 136/255.0, alpha: 1)
-    public var selectedTitleScale:CGFloat = 1.2
     public var titleFontSize:CGFloat = 12
 }
 
@@ -58,6 +57,7 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
     }
     
     override public func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
+        super.setSegmentItemViewStyle(itemViewStyle: itemViewStyle)
         if let itemViewStyle = itemViewStyle as? LLSegmentItemTabbarViewStyle {
             self.tabbarViewStyle = itemViewStyle
             titleLabel.textAlignment = .center

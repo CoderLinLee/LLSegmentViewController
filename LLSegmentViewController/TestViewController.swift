@@ -33,9 +33,6 @@ class TestViewController: UIViewController {
             initSubView()
         }
     }
-    deinit {
-        print("TestViewController:deinit")
-    }
 }
 
 extension TestViewController {

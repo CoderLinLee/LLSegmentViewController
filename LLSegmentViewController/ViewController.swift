@@ -21,25 +21,25 @@ let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerCla
                             CellModel(title: "9椭圆形阴影样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "10文字遮罩无背景样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "11文字遮罩有背景样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "13文字遮罩有背景有阴影样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "14三角形样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "15小红点和数字样式", viewControllerClass: BadgeValueViewController.self),
-                            CellModel(title: "16点线效果样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "17网易新闻样式", viewControllerClass: WangYiItemViewController.self),
-                            CellModel(title: "18QQ红点样式", viewControllerClass: TitleViewController.self),]
+                            CellModel(title: "12文字遮罩有背景有阴影样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "13三角形样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "14小红点和数字样式", viewControllerClass: BadgeValueViewController.self),
+                            CellModel(title: "15点线效果样式", viewControllerClass: TitleViewController.self),
+                            CellModel(title: "16QQ红点样式", viewControllerClass: TitleViewController.self),]
 
-let customTab = [CellModel(title: "微信样式", viewControllerClass: SimpleTabViewController.self),
-                 CellModel(title: "微博样式", viewControllerClass: SinaViewController.self)]
+let customTab = [CellModel(title: "0微信样式", viewControllerClass: SimpleTabViewController.self),
+                 CellModel(title: "1微博样式", viewControllerClass: SinaViewController.self)]
 
-let specialTab = [CellModel(title: "1嵌套样式", viewControllerClass: NestViewController.self),
-                  CellModel(title: "2足球样式", viewControllerClass: FootballViewController.self),
-                  CellModel(title: "3插入样式", viewControllerClass: InsertViewController.self),
-                  CellModel(title: "4混合样式", viewControllerClass: MixViewController.self),
-                  CellModel(title: "5IndicatorImageView底部样式", viewControllerClass: ChangeImageViewViewController.self),]
+let specialTab = [CellModel(title: "0嵌套样式", viewControllerClass: NestViewController.self),
+                  CellModel(title: "1足球样式", viewControllerClass: FootballViewController.self),
+                  CellModel(title: "2插入样式", viewControllerClass: InsertViewController.self),
+                  CellModel(title: "3混合样式", viewControllerClass: MixViewController.self),
+                  CellModel(title: "4IndicatorImageView底部样式", viewControllerClass: ChangeImageViewViewController.self),]
 
-let customItemViewTab = [CellModel(title: "背景色渐变样式", viewControllerClass: BackgroundColorGradientItemViewController.self),
-                         CellModel(title: "富文本样式", viewControllerClass: AttributeItemViewController.self),
-                         CellModel(title: "title&image样式", viewControllerClass: TitleImageItemViewController.self)]
+let customItemViewTab = [CellModel(title: "0背景色渐变样式", viewControllerClass:       BackgroundColorGradientItemViewController.self),
+                         CellModel(title: "1富文本样式", viewControllerClass: AttributeItemViewController.self),
+                         CellModel(title: "2title&image样式", viewControllerClass: TitleImageItemViewController.self),
+                         CellModel(title: "3网易新闻样式", viewControllerClass: WangYiItemViewController.self),]
 
 class ViewController: UIViewController {
     var dataArr = ["指示器样式","特殊样式","自定义TabViewController","自定义ItemView"]

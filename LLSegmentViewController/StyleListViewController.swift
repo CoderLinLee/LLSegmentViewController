@@ -94,7 +94,7 @@ extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
                 ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .equalToItemWidth(margin:0), height: 20, shadowColor: UIColor.red)
                 ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.lightGray
             }else if indexPath.row == 13 {
-                ctl.segmentCtlView.indicatorView.shapeStyle = .triangle(size: CGSize.init(width: 30, height: 20),color:UIColor.blue)
+                ctl.segmentCtlView.indicatorView.shapeStyle = .triangle(size: CGSize.init(width: 15, height: 10),color:UIColor.blue)
             }else if indexPath.row == 14 {
                 ctl.segmentCtlView.indicatorView.shapeStyle = .triangle(size: CGSize.init(width: 30, height: 20),color:UIColor.blue)
             }else if indexPath.row == 15 {

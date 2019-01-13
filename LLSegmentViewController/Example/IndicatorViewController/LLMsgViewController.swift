@@ -42,6 +42,7 @@ class LLMsgViewController: LLSegmentViewController {
         titleViewStyle.selectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
         titleViewStyle.unSelectedColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
         titleViewStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
+        titleViewStyle.badgeValueLabelOffset = CGPoint.zero
         
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
         var ctlViewStyle = LLSegmentedControlStyle()

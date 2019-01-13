@@ -90,16 +90,16 @@ class NestSubViewController: LLSegmentViewController {
     }
     
     func setUpSegmentStyle() {
-        let titleViewStyle = LLSegmentItemTitleViewStyle()
-        titleViewStyle.selectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
-        titleViewStyle.unSelectedColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
-        titleViewStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
-        
+        let itemStyle = LLSegmentItemTitleViewStyle()
+        itemStyle.selectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
+        itemStyle.unSelectedColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
+        itemStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
+        itemStyle.badgeValueLabelOffset = CGPoint.zero
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
         
         var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = LLSegmentItemTitleView.self
-        ctlViewStyle.itemViewStyle = titleViewStyle
+        ctlViewStyle.itemViewStyle = itemStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
         
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)

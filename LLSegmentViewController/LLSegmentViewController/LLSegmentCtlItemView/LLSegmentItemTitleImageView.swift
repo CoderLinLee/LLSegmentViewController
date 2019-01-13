@@ -24,11 +24,11 @@ public enum LLTitleImageButtonStyle {
 }
 
 open class LLTitleImageModel{
-    var title = ""
-    var imgeStr = ""
-    var selecteImageStr = ""
-    var style = LLTitleImageButtonStyle.titleTop(margin: 0)
-    var imgViewSize = CGSize.init(width: 20, height: 20)
+    public var title = ""
+    public var imgeStr = ""
+    public var selecteImageStr = ""
+    public var style = LLTitleImageButtonStyle.titleTop(margin: 0)
+    public var imgViewSize = CGSize.init(width: 20, height: 20)
     public init(title:String,imgeStr:String,style:LLTitleImageButtonStyle) {
         self.title = title
         self.imgeStr = imgeStr
@@ -53,6 +53,7 @@ open class LLSegmentItemTitleImageView: LLSegmentBaseItemView {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override public weak var associateViewCtl: UIViewController?{
         didSet{
             if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol{

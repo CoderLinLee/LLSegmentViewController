@@ -45,11 +45,10 @@ class SinaViewController: LLSegmentViewController {
         let tabItemViewStyle = LLSegmentItemTabbarViewStyle()
         tabItemViewStyle.unSelectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
         tabItemViewStyle.selectedColor = UIColor.init(red: 0.7, green: 0.2, blue: 0.1, alpha: 1)
-        tabItemViewStyle.selectedTitleScale = 1
         tabItemViewStyle.itemWidth = itemWidth
         tabItemViewStyle.titleImgeGap = 0 //因为图片有空白的内容
         tabItemViewStyle.titleBottomGap = 2
-        tabItemViewStyle.badgeValueLabelOffset = CGPoint.init(x: -3, y: 10)
+        tabItemViewStyle.badgeValueLabelOffset = CGPoint.init(x: -5, y: 8)
         
         segmentCtlView.delegate = self
         var ctlViewStyle = LLSegmentedControlStyle()
@@ -84,8 +83,8 @@ extension SinaViewController {
 
 
 extension SinaViewController:LLSegmentedControlDelegate{
-    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, itemView: LLSegmentBaseItemView, extraGapAtIndex: NSInteger) -> CGFloat {
-        if extraGapAtIndex == 2 {
+    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, itemView: LLSegmentBaseItemView, itemSpacing atIndex: NSInteger) -> CGFloat {
+        if atIndex == 2 {
             return UIScreen.main.bounds.width/CGFloat(ctls.count+1)
         }
         return 0

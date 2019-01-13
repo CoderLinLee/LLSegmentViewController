@@ -39,11 +39,12 @@ class BadgeValueViewController: LLSegmentViewController {
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         segmentCtlView.indicatorView.widthChangeStyle = .equalToItemWidth(margin:0)
         
-        let titleStyle = LLSegmentItemTitleViewStyle()
-        titleStyle.selectedTitleScale = 1
+        let itemStyle = LLSegmentItemTitleViewStyle()
+        itemStyle.selectedTitleScale = 1
+        itemStyle.badgeValueLabelOffset = CGPoint.init(x: 0, y: 0)
         var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = LLSegmentItemTitleView.self
-        ctlViewStyle.itemViewStyle = titleStyle
+        ctlViewStyle.itemViewStyle = itemStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
     }
 }

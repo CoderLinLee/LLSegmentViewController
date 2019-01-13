@@ -59,8 +59,8 @@ extension LLSegmentViewController{
         }
     }
     
-    func selected(at Index:NSInteger,animation:Bool)  {
-        guard ctls != nil && ctls.count < Index else {
+    public func selected(at Index:NSInteger,animation:Bool)  {
+        guard ctls != nil && (ctls.count < Index && Index > 0) else {
             return
         }
         segmentCtlView.selected(at: Index, animation: animation)
@@ -91,8 +91,6 @@ extension LLSegmentViewController:UICollectionViewDelegate,UICollectionViewDataS
 extension LLSegmentViewController{
     private func initSubviews() {
         view.addSubview(segmentCtlView)
-        let tab = UITabBarController()
-        tab.selectedIndex = 1
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal

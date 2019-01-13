@@ -44,7 +44,7 @@ class AttributeItemView: LLSegmentBaseItemView {
                 titleLabel.attributedText = attributedText
             }
             
-            //方式二：ctl转化位自己的viewControler，
+            //方式二：ctl转化为自己的viewControler，
 //            if let ctl = associateViewCtl as? CustomViewControler{
 //                let model = ctl.model
 //            }

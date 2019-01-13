@@ -10,8 +10,8 @@ import UIKit
 
 
 @objc public protocol LLSegmentedControlDelegate : NSObjectProtocol {
-    
-    @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, itemView: LLSegmentBaseItemView,extraGapAtIndex:NSInteger) -> CGFloat
+    /********回调信息*****/
+    @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, itemView: LLSegmentBaseItemView,itemSpacing atIndex:NSInteger) -> CGFloat
     @objc optional func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl,totalPercent:CGFloat)
 
     
@@ -365,7 +365,7 @@ extension LLSegmentedControl{
             //origin
             if let lastItemView = lastItemView {
                 var itemGap = self.ctlViewStyle.itemSpacing
-                if let gap = delegate?.segMegmentCtlView?(segMegmentCtlView: self, itemView: segmentCtlItemView, extraGapAtIndex: index) {
+                if let gap = delegate?.segMegmentCtlView?(segMegmentCtlView: self, itemView: segmentCtlItemView, itemSpacing: index) {
                     itemGap += gap
                 }
                 segmentCtlItemViewFrame.origin.x = lastItemView.frame.maxX + itemGap

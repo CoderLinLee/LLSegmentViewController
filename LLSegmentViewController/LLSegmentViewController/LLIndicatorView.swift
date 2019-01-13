@@ -23,7 +23,7 @@ public enum LLIndicatorViewCenterYGradientStyle {
 }
 
 
-//指示器形状样式
+//指示器形状样式:这里只是给定了几种常见的样式
 public enum LLIndicatorViewShapeStyle{
     /*自定义类型,不做任何处理，由外部定义这个view的宽高*/
     case custom
@@ -190,7 +190,6 @@ open class LLIndicatorView: UIView {
         self.bounds = selfBounds
         delegate?.indicatorView?(indicatorView: self, percent: leftItemView.percent)
         
-        
         self.handleQQMsgStyle(leftItemView: leftItemView)
     }
 }
@@ -220,6 +219,10 @@ extension LLIndicatorView{
         }
     }
     
+}
+
+extension LLIndicatorView{
+    //最终停留不动下来的宽度
     internal func finalWidthOn(itemView:LLSegmentBaseItemView)->CGFloat{
         let itemViewWidth = itemView.frame.width
         var width:CGFloat = 0

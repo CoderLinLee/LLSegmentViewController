@@ -45,7 +45,6 @@ class SimpleTabViewController: LLSegmentViewController {
         let tabItemStyle = LLSegmentItemTabbarViewStyle()
         tabItemStyle.unSelectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
         tabItemStyle.selectedColor = UIColor.init(red: 0.7, green: 0.2, blue: 0.1, alpha: 1)
-        tabItemStyle.selectedTitleScale = 1
         tabItemStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
         tabItemStyle.badgeValueLabelOffset = CGPoint.init(x: 2, y: 5)
         

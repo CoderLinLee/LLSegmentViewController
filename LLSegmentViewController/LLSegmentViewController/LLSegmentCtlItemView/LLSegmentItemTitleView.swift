@@ -81,6 +81,7 @@ open class LLSegmentItemTitleView: LLSegmentItemBadgeView {
     }
     
     override public func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
+        super.setSegmentItemViewStyle(itemViewStyle: itemViewStyle)
         if let itemViewStyle = itemViewStyle as? LLSegmentItemTitleViewStyle {
             self.itemTitleViewStyle = itemViewStyle
             titleLabel.textColor = itemViewStyle.unSelectedColor

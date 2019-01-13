@@ -12,6 +12,7 @@ public class LLSegmentItemBadgeViewStyle:LLSegmentItemViewStyle {
     /*数字或红点Label.center偏离图片右上角*/
     public var badgeValueLabelOffset = CGPoint.init(x: 5, y: 5)
     public var badgeValueLabelColor = UIColor.red
+    public var badgeValueLabelTextColor = UIColor.white
     public var badgeValueMaxNum = 99
 }
 
@@ -48,8 +49,11 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
     }
     
     public override func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
+        super.setSegmentItemViewStyle(itemViewStyle: itemViewStyle)
         if let itemViewStyle = itemViewStyle as? LLSegmentItemBadgeViewStyle {
+            badgeItemViewStyle = itemViewStyle
             badgeValueLabel.backgroundColor = itemViewStyle.badgeValueLabelColor
+            badgeValueLabel.textColor = itemViewStyle.badgeValueLabelTextColor
         }
     }
     
@@ -78,7 +82,7 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
         }else{
             badgeValueLabel.isHidden = false
             badgeValueLabelFrame.size.width += 10
-            badgeValueLabelFrame.size.height += 5
+            badgeValueLabelFrame.size.height += 0
             badgeValueLabelFrame.size.width = max(badgeValueLabelFrame.width, badgeValueLabelFrame.height)
         }
         badgeValueLabel.frame = badgeValueLabelFrame
