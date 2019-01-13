@@ -1,20 +1,29 @@
 //
-//  LLSegmentItemBadgeTitleView.swift
+//  LLSegmentBadgeItemView.swift
 //  LLSegmentViewController
 //
-//  Created by lilin on 2018/12/20.
-//  Copyright © 2018年 lilin. All rights reserved.
+//  Created by apple on 2019/1/12.
+//  Copyright © 2019年 lilin. All rights reserved.
 //
 
 import UIKit
 
+public class LLSegmentItemBadgeViewStyle:LLSegmentItemViewStyle {
+    /*数字或红点Label.center偏离图片右上角*/
+    public var badgeValueLabelOffset = CGPoint.init(x: 5, y: 5)
+    public var badgeValueLabelColor = UIColor.red
+    public var badgeValueMaxNum = 99
+}
+
 public let LLSegmentRedBadgeValue = "redBadgeValue"
-open class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
+open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
     public let badgeValueLabel = UILabel()
     private let badgeValueObserverKeyPath = "badgeValue"
+    internal var badgeValueLabelLocationView:UIView?
+    private var badgeItemViewStyle = LLSegmentItemBadgeViewStyle()
     required public init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         badgeValueLabel.backgroundColor = UIColor.red
         badgeValueLabel.textAlignment = .center
         badgeValueLabel.textColor = UIColor.white
@@ -28,7 +37,7 @@ open class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public var associateViewCtl: UIViewController? {
+    override public weak var associateViewCtl: UIViewController? {
         didSet{
             associateViewCtl?.tabBarItem.addObserver(self, forKeyPath: badgeValueObserverKeyPath, options: [.new], context: nil)
         }
@@ -38,11 +47,24 @@ open class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
         associateViewCtl?.tabBarItem.removeObserver(self, forKeyPath: badgeValueObserverKeyPath)
     }
     
+    public override func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
+        if let itemViewStyle = itemViewStyle as? LLSegmentItemBadgeViewStyle {
+            badgeValueLabel.backgroundColor = itemViewStyle.badgeValueLabelColor
+        }
+    }
     
-    override open func layoutSubviews() {
-        super.layoutSubviews()
+    internal func layoutBadgeLabel() {
+        guard let badgeValueLabelLocationView = badgeValueLabelLocationView else {
+            return
+        }
         
-        badgeValueLabel.text = associateViewCtl?.tabBarItem.badgeValue
+        var badgeValueStr = associateViewCtl?.tabBarItem.badgeValue
+        if let badgeValue = badgeValueStr, let intValue = Int(badgeValue) {
+            if intValue > badgeItemViewStyle.badgeValueMaxNum {
+                badgeValueStr = "\(badgeItemViewStyle.badgeValueMaxNum)+"
+            }
+        }
+        badgeValueLabel.text = badgeValueStr
         badgeValueLabel.sizeToFit()
         
         var badgeValueLabelFrame = badgeValueLabel.frame
@@ -60,15 +82,15 @@ open class LLSegmentItemBadgeTitleView:LLSegmentItemTitleView {
             badgeValueLabelFrame.size.width = max(badgeValueLabelFrame.width, badgeValueLabelFrame.height)
         }
         badgeValueLabel.frame = badgeValueLabelFrame
-        badgeValueLabel.center = CGPoint.init(x: titleLabel.frame.maxX + 5, y: titleLabel.frame.minY - 5)
-        
+        badgeValueLabel.center = CGPoint.init(x: badgeValueLabelLocationView.frame.maxX + badgeItemViewStyle.badgeValueLabelOffset.x, y: badgeValueLabelLocationView.frame.minY + badgeItemViewStyle.badgeValueLabelOffset.y)
         badgeValueLabel.layer.cornerRadius = badgeValueLabel.bounds.height/2
         badgeValueLabel.clipsToBounds = true
     }
     
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if  keyPath ==  badgeValueObserverKeyPath{
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
 }

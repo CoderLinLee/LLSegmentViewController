@@ -28,7 +28,7 @@ import UIKit
 public struct LLSegmentedControlStyle{
     public var itemSpacing:CGFloat = 0
     public var segmentItemViewClass:LLSegmentBaseItemView.Type = LLSegmentItemTitleView.self
-    public var itemViewStyle:LLSegmentCtlItemViewStyle = LLSegmentCtlItemViewStyle()
+    public var itemViewStyle:LLSegmentItemViewStyle = LLSegmentItemViewStyle()
     public var defaultSelectedIndex:NSInteger = 0
 
     public init(){}
@@ -43,7 +43,7 @@ open class LLSegmentedControl: UIView {
     private var separatorViews = [UIView]()
 
     public var clickAnimation = true
-    public var delegate:LLSegmentedControlDelegate?
+    public weak var delegate:LLSegmentedControlDelegate?
     public private (set) var indicatorView = LLIndicatorView(frame:CGRect.init(x: 0, y: 0, width: 10, height: 3))
     public var currentSelectedItemView:LLSegmentBaseItemView!
     public var leftItemView:LLSegmentBaseItemView!

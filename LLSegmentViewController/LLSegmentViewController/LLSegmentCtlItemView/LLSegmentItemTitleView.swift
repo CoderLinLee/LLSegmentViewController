@@ -9,7 +9,7 @@
 import UIKit
 
 
-public class LLSegmentItemTitleViewStyle:LLSegmentCtlItemViewStyle {
+public class LLSegmentItemTitleViewStyle:LLSegmentItemBadgeViewStyle {
     public var selectedColor = UIColor.init(red: 50/255.0, green: 50/255.0, blue:  50/255.0, alpha: 1)
     public var unSelectedColor = UIColor.init(red: 136/255.0, green: 136/255.0, blue: 136/255.0, alpha: 1)
     public var selectedTitleScale:CGFloat = 1.2
@@ -20,7 +20,7 @@ public class LLSegmentItemTitleViewStyle:LLSegmentCtlItemViewStyle {
     public var titleLabelCenterOffsetY:CGFloat = 0
 }
 
-open class LLSegmentItemTitleView: LLSegmentBaseItemView {
+open class LLSegmentItemTitleView: LLSegmentItemBadgeView {
     public let titleLabel = UILabel()
     internal let maskTitleLabel = UILabel()
     private let maskTitleLabelMask = CAShapeLayer()
@@ -37,19 +37,17 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
         maskTitleLabelMask.backgroundColor = UIColor.red.cgColor
         maskTitleLabel.layer.mask = maskTitleLabelMask
         addSubview(maskTitleLabel)
+    
+        badgeValueLabelLocationView = maskTitleLabel
+        self.bringSubview(toFront: badgeValueLabel)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public var associateViewCtl: UIViewController? {
-        didSet{
-            titleLabel.text = associateViewCtl?.title
-            maskTitleLabel.text = titleLabel.text
-        }
-    }
-    
+
+
     override open func layoutSubviews() {
         super.layoutSubviews()
         titleLabel.sizeToFit()
@@ -58,11 +56,16 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
         maskTitleLabel.sizeToFit()
         maskTitleLabel.center = titleLabel.center
         maskTitleLabelMask.bounds = maskTitleLabel.bounds
+        layoutBadgeLabel()
+    }
+    
+    public override func titleChange(title: String) {
+        titleLabel.text = title
+        maskTitleLabel.text = title
     }
     
     override public func percentChange(percent: CGFloat) {
         super.percentChange(percent: percent)
-      
         titleLabelCalculation()
         titleLabelMaskCalculation()
     }
@@ -77,7 +80,7 @@ open class LLSegmentItemTitleView: LLSegmentBaseItemView {
         }
     }
     
-    override public func setSegmentItemViewStyle(itemViewStyle: LLSegmentCtlItemViewStyle) {
+    override public func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
         if let itemViewStyle = itemViewStyle as? LLSegmentItemTitleViewStyle {
             self.itemTitleViewStyle = itemViewStyle
             titleLabel.textColor = itemViewStyle.unSelectedColor

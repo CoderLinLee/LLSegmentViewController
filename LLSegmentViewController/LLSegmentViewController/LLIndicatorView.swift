@@ -47,7 +47,7 @@ public enum LLIndicatorViewShapeStyle{
 
 open class LLIndicatorView: UIView {
     public var contentView = UIView()
-    public var delegate:LLIndicatorViewDelegate?
+    public weak var delegate:LLIndicatorViewDelegate?
     private var qqShape:CAShapeLayer?
     public override init(frame: CGRect) {
         super.init(frame: frame)

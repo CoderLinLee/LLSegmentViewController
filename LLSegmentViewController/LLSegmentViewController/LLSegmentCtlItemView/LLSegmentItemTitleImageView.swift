@@ -53,7 +53,7 @@ open class LLSegmentItemTitleImageView: LLSegmentBaseItemView {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override public var associateViewCtl: UIViewController?{
+    override public weak var associateViewCtl: UIViewController?{
         didSet{
             if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol{
                 self.titleImageModel = ctl.model

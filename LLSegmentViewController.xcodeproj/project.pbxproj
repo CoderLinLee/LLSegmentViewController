@@ -12,8 +12,8 @@
 		185C1B8F21E64893000E8A16 /* LLSegmentItemTitleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185C1B8E21E64893000E8A16 /* LLSegmentItemTitleImageView.swift */; };
 		18AF01F321E255AF00FD5F14 /* MixViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF01F221E255AF00FD5F14 /* MixViewController.swift */; };
 		18AF01F521E39A9F00FD5F14 /* ChangeImageViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF01F421E39A9F00FD5F14 /* ChangeImageViewViewController.swift */; };
+		18D3489B21E9CC7100C284DE /* LLSegmentItemBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3489A21E9CC7100C284DE /* LLSegmentItemBadgeView.swift */; };
 		F2055B3421D0B5DE00FF961B /* LLSegmentBaseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B3221D0B5DE00FF961B /* LLSegmentBaseItemView.swift */; };
-		F2055B3521D0B5DE00FF961B /* LLSegmentItemBadgeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B3321D0B5DE00FF961B /* LLSegmentItemBadgeTitleView.swift */; };
 		F2055B3921D0F3A000FF961B /* LLSegmentItemTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B3821D0F3A000FF961B /* LLSegmentItemTitleView.swift */; };
 		F2055B3B21D34BFC00FF961B /* LLSegmentItemTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B3A21D34BFC00FF961B /* LLSegmentItemTabbarView.swift */; };
 		F2055B4121D3589200FF961B /* SimpleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B4021D3589200FF961B /* SimpleTabViewController.swift */; };
@@ -67,8 +67,8 @@
 		185C1B8E21E64893000E8A16 /* LLSegmentItemTitleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentItemTitleImageView.swift; sourceTree = "<group>"; };
 		18AF01F221E255AF00FD5F14 /* MixViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixViewController.swift; sourceTree = "<group>"; };
 		18AF01F421E39A9F00FD5F14 /* ChangeImageViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeImageViewViewController.swift; sourceTree = "<group>"; };
+		18D3489A21E9CC7100C284DE /* LLSegmentItemBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentItemBadgeView.swift; sourceTree = "<group>"; };
 		F2055B3221D0B5DE00FF961B /* LLSegmentBaseItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentBaseItemView.swift; sourceTree = "<group>"; };
-		F2055B3321D0B5DE00FF961B /* LLSegmentItemBadgeTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentItemBadgeTitleView.swift; sourceTree = "<group>"; };
 		F2055B3821D0F3A000FF961B /* LLSegmentItemTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentItemTitleView.swift; sourceTree = "<group>"; };
 		F2055B3A21D34BFC00FF961B /* LLSegmentItemTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentItemTabbarView.swift; sourceTree = "<group>"; };
 		F2055B4021D3589200FF961B /* SimpleTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTabViewController.swift; sourceTree = "<group>"; };
@@ -134,8 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				F2055B3221D0B5DE00FF961B /* LLSegmentBaseItemView.swift */,
+				18D3489A21E9CC7100C284DE /* LLSegmentItemBadgeView.swift */,
 				F2055B3821D0F3A000FF961B /* LLSegmentItemTitleView.swift */,
-				F2055B3321D0B5DE00FF961B /* LLSegmentItemBadgeTitleView.swift */,
 				F2055B3A21D34BFC00FF961B /* LLSegmentItemTabbarView.swift */,
 				185C1B8E21E64893000E8A16 /* LLSegmentItemTitleImageView.swift */,
 			);
@@ -407,7 +407,6 @@
 				1833537521DFAC86005331E7 /* InsertViewController.swift in Sources */,
 				F263034421D4E94E0067F8CA /* TitleViewController.swift in Sources */,
 				F23D2F7421CA27F00067B399 /* LLSegmentedControl.swift in Sources */,
-				F2055B3521D0B5DE00FF961B /* LLSegmentItemBadgeTitleView.swift in Sources */,
 				F2DE12E021E0887100D13738 /* AttributeItemView.swift in Sources */,
 				F2DE12E221E096E700D13738 /* TitleImageItemView.swift in Sources */,
 				F2055B4121D3589200FF961B /* SimpleTabViewController.swift in Sources */,
@@ -426,6 +425,7 @@
 				F2055B5021D4D6D200FF961B /* BaseNavigationController.swift in Sources */,
 				F271330C21C8E66F00F9D2AB /* TestViewController.swift in Sources */,
 				F2055B4E21D4D00100FF961B /* CellModel.swift in Sources */,
+				18D3489B21E9CC7100C284DE /* LLSegmentItemBadgeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

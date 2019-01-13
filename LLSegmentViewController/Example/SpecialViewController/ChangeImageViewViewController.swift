@@ -59,7 +59,7 @@ class ChangeImageViewViewController: LLSegmentViewController {
         
         var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.defaultSelectedIndex = 2
-        ctlViewStyle.segmentItemViewClass = LLSegmentItemBadgeTitleView.self
+        ctlViewStyle.segmentItemViewClass = LLSegmentItemTitleView.self
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
     }

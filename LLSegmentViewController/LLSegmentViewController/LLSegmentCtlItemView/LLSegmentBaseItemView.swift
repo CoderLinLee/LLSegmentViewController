@@ -9,7 +9,7 @@
 import UIKit
 
 public let LLSegmentAutomaticDimension:CGFloat = -1
-open class LLSegmentCtlItemViewStyle:NSObject {
+open class LLSegmentItemViewStyle:NSObject {
     public var itemWidth:CGFloat = LLSegmentAutomaticDimension
 }
 
@@ -26,11 +26,22 @@ open class LLSegmentBaseItemView: UIView {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    public var associateViewCtl:UIViewController?
+    public weak var associateViewCtl:UIViewController? {
+        didSet{
+            var title:String?
+            if associateViewCtl?.tabBarItem.title == nil {
+                title = associateViewCtl?.title
+            }else{
+                title = associateViewCtl?.tabBarItem.title
+            }
+            titleChange(title: title ?? "")
+        }
+    }
     public var percent:CGFloat = 0
     
     //override for subClass
+    public func titleChange(title:String){}
     public func percentChange(percent:CGFloat){ self.percent = percent}
     public func itemWidth() ->CGFloat { return 0 }
-    public func setSegmentItemViewStyle(itemViewStyle:LLSegmentCtlItemViewStyle) {}
+    public func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle) {}
 }

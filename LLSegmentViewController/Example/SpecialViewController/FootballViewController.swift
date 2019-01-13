@@ -53,7 +53,7 @@ class FootballViewController: LLSegmentViewController {
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         
         var ctlViewStyle = LLSegmentedControlStyle()
-        ctlViewStyle.segmentItemViewClass = LLSegmentItemBadgeTitleView.self
+        ctlViewStyle.segmentItemViewClass = LLSegmentItemTitleView.self
         ctlViewStyle.itemViewStyle = titleViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
     }

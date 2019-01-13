@@ -47,8 +47,8 @@ class SinaViewController: LLSegmentViewController {
         tabItemViewStyle.selectedColor = UIColor.init(red: 0.7, green: 0.2, blue: 0.1, alpha: 1)
         tabItemViewStyle.selectedTitleScale = 1
         tabItemViewStyle.itemWidth = itemWidth
-        tabItemViewStyle.titleImgeGap = -2 //因为图片有空白的内容
-        tabItemViewStyle.titleBottomGap = 3
+        tabItemViewStyle.titleImgeGap = 0 //因为图片有空白的内容
+        tabItemViewStyle.titleBottomGap = 2
         tabItemViewStyle.badgeValueLabelOffset = CGPoint.init(x: -3, y: 10)
         
         segmentCtlView.delegate = self
