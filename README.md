@@ -41,7 +41,7 @@ public func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle)
 LineView固定宽度  |  <img src="Screenshot/indicatorView/lineView.gif" width="355" height="133"> |
 LineView京东风格  |  <img src="Screenshot/indicatorView/jdLineView.gif" width="355" height="133"> |
 LineView爱奇艺风格  |  <img src="Screenshot/indicatorView/aiqyLineView.gif" width="355" height="133"> |
-LineView回旋风格  |  <img src="Screenshot/indicatorView/LLSegmentViewController/huigunLineView.gif" width="355" height="133"> |
+LineView回旋风格  |  <img src="Screenshot/indicatorView/huigunLineView.gif" width="355" height="133"> |
 LineView与Item等宽  |  <img src="Screenshot/indicatorView/equlWidthLineView.gif" width="355" height="133"> |
 LineView分割线  |  <img src="Screenshot/indicatorView/separatorLineView.gif" width="355" height="133"> |
 LineView背景  |  <img src="Screenshot/indicatorView/backgroundLineView.gif" width="355" height="133"> |
@@ -78,9 +78,9 @@ LineView网易新闻 |  <img src="Screenshot/custom/wangyicustomView.gif" width=
 
 说明 | Gif |
 ----|------|
-LineView微信  |  <img src="Screenshot/special/weixintabbarView.gif" width="355" height="133"> |
-LineView微博  |  <img src="Screenshot/special/sinatabbarView.gif" width="355" height="133"> |
-LineView图片做背景  |  <img src="Screenshot/special/backgroundtabbarView.gif" width="355" height="133"> |
+LineView微信  |  <img src="Screenshot/tabbar/weixintabbarView.gif" width="355" height="133"> |
+LineView微博  |  <img src="Screenshot/tabbar/sinatabbarView.gif" width="355" height="133"> |
+LineView图片做背景  |  <img src="Screenshot/tabbar/backgroundtabbarView.gif" width="355" height="133"> |
 
 邮箱：736764509@qq.com </br>
 QQ群： 142649183
