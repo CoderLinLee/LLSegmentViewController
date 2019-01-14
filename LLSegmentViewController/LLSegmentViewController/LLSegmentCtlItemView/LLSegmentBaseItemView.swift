@@ -8,9 +8,23 @@
 
 import UIKit
 
+//选中的变化位置
+public enum LLSegmentItemViewSelectedStyle {
+    /*从中间*/
+    case mid
+    /*从一开始0...1*/
+    case gradient
+    /*完全选中才变化*/
+    case totalSelected
+}
+
+//自动计算返回宽度
 public let LLSegmentAutomaticDimension:CGFloat = -1
 open class LLSegmentItemViewStyle:NSObject {
+    /*itemView的宽度*/
     public var itemWidth:CGFloat = LLSegmentAutomaticDimension
+    /*过渡变化*/
+    public var selectedStyle = LLSegmentItemViewSelectedStyle.gradient
 }
 
 
@@ -18,7 +32,10 @@ open class LLSegmentBaseItemView: UIView {
     public var isScrollerTarget = false
     public var contentOffsetOnRight = false
     public var index = 0
+    public var isSelected = false
+
     internal weak var indicatorView:LLIndicatorView!
+    private var itemViewStyle = LLSegmentItemViewStyle()
     public override required init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -26,6 +43,26 @@ open class LLSegmentBaseItemView: UIView {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public func percentConvert()->CGFloat{
+        switch itemViewStyle.selectedStyle {
+        case .gradient:
+            return percent
+        case .mid:
+            if percent >= 0.5 {
+                return 1
+            }else{
+                return 0
+            }
+        case .totalSelected:
+            if isSelected == true {
+                return 1
+            }else{
+                return 0
+            }
+        }
+    }
+
     public weak var associateViewCtl:UIViewController? {
         didSet{
             var title:String?
@@ -38,10 +75,20 @@ open class LLSegmentBaseItemView: UIView {
         }
     }
     public var percent:CGFloat = 0
+
+    
+    
     
     //override for subClass
     public func titleChange(title:String){}
-    public func percentChange(percent:CGFloat){ self.percent = percent}
+    public func percentChange(percent:CGFloat){
+        if percent == 1 {
+            self.isSelected = true
+        }else if percent == 0 {
+            self.isSelected = false
+        }
+        self.percent = percent
+    }
     public func itemWidth() ->CGFloat { return 0 }
-    public func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle) {}
+    public func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle) { self.itemViewStyle=itemViewStyle }
 }

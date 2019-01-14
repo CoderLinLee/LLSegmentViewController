@@ -93,8 +93,9 @@ open class LLSegmentItemTitleView: LLSegmentItemBadgeView {
 extension LLSegmentItemTitleView{
     //titleLabel
     private func titleLabelCalculation() {
-        titleLabel.textColor = interpolationColorFrom(fromColor:itemTitleViewStyle.unSelectedColor, toColor:itemTitleViewStyle.selectedColor, percent: percent)
-        let scale = 1 + (itemTitleViewStyle.selectedTitleScale - 1)*percent
+        let percentConvert = self.percentConvert()
+        titleLabel.textColor = interpolationColorFrom(fromColor:itemTitleViewStyle.unSelectedColor, toColor:itemTitleViewStyle.selectedColor, percent: percentConvert)
+        let scale = 1 + (itemTitleViewStyle.selectedTitleScale - 1)*percentConvert
         let font = UIFont.boldSystemFont(ofSize: itemTitleViewStyle.titleFontSize * scale)
         titleLabel.font = font
         titleLabel.sizeToFit()

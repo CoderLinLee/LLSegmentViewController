@@ -33,21 +33,27 @@ class LLMsgViewController: LLSegmentViewController {
         test2Ctl.showTableView = false
         test2Ctl.title = "通知"
         test2Ctl.tabBarItem.badgeValue = nil
-        let ctls =  [test1Ctl,test2Ctl]
+        
+        let test3Ctl = TestViewController()
+        test3Ctl.showTableView = false
+        test3Ctl.title = "消息"
+        test3Ctl.tabBarItem.badgeValue = nil
+        let ctls =  [test1Ctl,test2Ctl,test3Ctl]
         reloadViewControllers(ctls:ctls)
     }
     
     func setUpSegmentStyle() {
-        let titleViewStyle = LLSegmentItemTitleViewStyle()
-        titleViewStyle.selectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
-        titleViewStyle.unSelectedColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
-        titleViewStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
-        titleViewStyle.badgeValueLabelOffset = CGPoint.zero
+        let itemStyle = LLSegmentItemTitleViewStyle()
+        itemStyle.selectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
+        itemStyle.unSelectedColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.8, alpha: 1)
+        itemStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
+        itemStyle.badgeValueLabelOffset = CGPoint.zero
+        itemStyle.selectedStyle = .mid
         
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
         var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = LLSegmentItemTitleView.self
-        ctlViewStyle.itemViewStyle = titleViewStyle
+        ctlViewStyle.itemViewStyle = itemStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
     }

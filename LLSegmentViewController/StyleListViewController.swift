@@ -72,7 +72,7 @@ extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
                 ctl.indicatorViewWidthChangeStyle = .equalToItemWidth(margin:0)
             }else if indexPath.row == 6 {
                 ctl.segmentCtlView.separatorLineShowEnabled = true
-                ctl.segmentCtlView.separatorLineColor = UIColor.lightGray.withAlphaComponent(0.5)
+                ctl.segmentCtlView.separatorLineColor = UIColor.lightGray.withAlphaComponent(0.8)
                 ctl.segmentCtlView.separatorTopBottomMargin = (15,15)
             }else if indexPath.row == 7 {
                 ctl.segmentCtlView.indicatorView.shapeStyle = .background(color: UIColor.lightGray.withAlphaComponent(0.5), img: nil)
@@ -101,7 +101,7 @@ extension StyleListViewController:UITableViewDelegate,UITableViewDataSource{
                 ctl.segmentCtlView.indicatorView.shapeStyle = .ellipse(widthChangeStyle: .jdIqiyi(baseWidth: 10, changeWidth: 0), height: 10, shadowColor: nil)
                 ctl.segmentCtlView.indicatorView.centerYGradientStyle = .bottom(margin: 3)
                 ctl.segmentCtlView.indicatorView.backgroundColor = UIColor.red
-            }else if indexPath.row == 17{
+            }else if indexPath.row == 16{
                 ctl.segmentCtlView.indicatorView.shapeStyle = .qqDragMsg(color: UIColor.red, height: 15)
             }
 

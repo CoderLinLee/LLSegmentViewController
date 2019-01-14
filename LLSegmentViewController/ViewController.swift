@@ -28,17 +28,19 @@ let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerCla
                             CellModel(title: "16QQ红点样式", viewControllerClass: TitleViewController.self),]
 
 let customTab = [CellModel(title: "0微信样式", viewControllerClass: SimpleTabViewController.self),
-                 CellModel(title: "1微博样式", viewControllerClass: SinaViewController.self)]
+                 CellModel(title: "1微博样式", viewControllerClass: SinaViewController.self),
+                 CellModel(title: "2背景色或图片样式", viewControllerClass: BackColorViewController.self)]
 
 let specialTab = [CellModel(title: "0嵌套样式", viewControllerClass: NestViewController.self),
                   CellModel(title: "1足球样式", viewControllerClass: FootballViewController.self),
                   CellModel(title: "2插入样式", viewControllerClass: InsertViewController.self),
                   CellModel(title: "3混合样式", viewControllerClass: MixViewController.self),
-                  CellModel(title: "4IndicatorImageView底部样式", viewControllerClass: ChangeImageViewViewController.self),]
+                  CellModel(title: "4IndicatorImageView底部样式", viewControllerClass: ChangeImageViewViewController.self),
+                  CellModel(title: "5title&image样式", viewControllerClass: TitleImageItemViewController.self),]
 
-let customItemViewTab = [CellModel(title: "0背景色渐变样式", viewControllerClass:       BackgroundColorGradientItemViewController.self),
+let customItemViewTab = [CellModel(title: "0背景色渐变样式", viewControllerClass:
+    BackgroundColorGradientItemViewController.self),
                          CellModel(title: "1富文本样式", viewControllerClass: AttributeItemViewController.self),
-                         CellModel(title: "2title&image样式", viewControllerClass: TitleImageItemViewController.self),
                          CellModel(title: "3网易新闻样式", viewControllerClass: WangYiItemViewController.self),]
 
 class ViewController: UIViewController {
