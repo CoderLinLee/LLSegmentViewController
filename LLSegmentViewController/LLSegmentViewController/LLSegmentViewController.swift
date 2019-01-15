@@ -9,9 +9,9 @@
 import UIKit
 
  open class LLSegmentViewController: UIViewController {
-    var viewCtlContainerColView:UICollectionView!
-    let segmentCtlView = LLSegmentedControl(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-    var ctls:[UIViewController]!
+    public var viewCtlContainerColView:UICollectionView!
+    public let segmentCtlView = LLSegmentedControl(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+    public var ctls:[UIViewController]!
     private let cellIdentifier = "cellIdentifier"
     let layout = UICollectionViewFlowLayout()
     open override func viewDidLoad() {

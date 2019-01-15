@@ -38,7 +38,7 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public weak var associateViewCtl: UIViewController? {
+    override open weak var associateViewCtl: UIViewController? {
         didSet{
             associateViewCtl?.tabBarItem.addObserver(self, forKeyPath: badgeValueObserverKeyPath, options: [.new], context: nil)
         }
@@ -48,7 +48,7 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
         associateViewCtl?.tabBarItem.removeObserver(self, forKeyPath: badgeValueObserverKeyPath)
     }
     
-    public override func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
+    open override func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
         super.setSegmentItemViewStyle(itemViewStyle: itemViewStyle)
         if let itemViewStyle = itemViewStyle as? LLSegmentItemBadgeViewStyle {
             badgeItemViewStyle = itemViewStyle

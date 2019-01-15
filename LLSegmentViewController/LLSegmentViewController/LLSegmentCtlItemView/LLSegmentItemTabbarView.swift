@@ -38,7 +38,7 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
     }
     
     
-    override public func percentChange(percent: CGFloat) {
+    override open func percentChange(percent: CGFloat) {
         super.percentChange(percent: percent)
         titleLabel.textColor = interpolationColorFrom(fromColor:tabbarViewStyle.unSelectedColor, toColor:tabbarViewStyle.selectedColor, percent: percent)
         if percent == 1 {
@@ -48,15 +48,15 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
         }
     }
     
-    override public func itemWidth() -> CGFloat {
+    override open func itemWidth() -> CGFloat {
         return tabbarViewStyle.itemWidth
     }
     
-    override public func titleChange(title: String) {
+    override open func titleChange(title: String) {
         titleLabel.text = title
     }
     
-    override public func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
+    override open func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
         super.setSegmentItemViewStyle(itemViewStyle: itemViewStyle)
         if let itemViewStyle = itemViewStyle as? LLSegmentItemTabbarViewStyle {
             self.tabbarViewStyle = itemViewStyle

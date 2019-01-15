@@ -63,7 +63,7 @@ open class LLSegmentBaseItemView: UIView {
         }
     }
 
-    public weak var associateViewCtl:UIViewController? {
+    open weak var associateViewCtl:UIViewController? {
         didSet{
             var title:String?
             if associateViewCtl?.tabBarItem.title == nil {
@@ -80,8 +80,8 @@ open class LLSegmentBaseItemView: UIView {
     
     
     //override for subClass
-    public func titleChange(title:String){}
-    public func percentChange(percent:CGFloat){
+    open func titleChange(title:String){}
+    open func percentChange(percent:CGFloat){
         if percent == 1 {
             self.isSelected = true
         }else if percent == 0 {
@@ -89,6 +89,6 @@ open class LLSegmentBaseItemView: UIView {
         }
         self.percent = percent
     }
-    public func itemWidth() ->CGFloat { return 0 }
-    public func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle) { self.itemViewStyle=itemViewStyle }
+    open func itemWidth() ->CGFloat { return 0 }
+    open func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle) { self.itemViewStyle=itemViewStyle }
 }

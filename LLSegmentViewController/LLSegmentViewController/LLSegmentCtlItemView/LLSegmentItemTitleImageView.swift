@@ -54,7 +54,7 @@ open class LLSegmentItemTitleImageView: LLSegmentBaseItemView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public weak var associateViewCtl: UIViewController?{
+    override open weak var associateViewCtl: UIViewController?{
         didSet{
             if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol{
                 self.titleImageModel = ctl.model
@@ -64,7 +64,7 @@ open class LLSegmentItemTitleImageView: LLSegmentBaseItemView {
         }
     }
     
-    override public func itemWidth() -> CGFloat {
+    override open func itemWidth() -> CGFloat {
         if let model = titleImageModel{
             let layoutInfo = getLayoutInfo(model: model)
             return layoutInfo.contentSize.width + 2*10
@@ -83,7 +83,7 @@ open class LLSegmentItemTitleImageView: LLSegmentBaseItemView {
         }
     }
     
-    override public func percentChange(percent: CGFloat) {
+    override open func percentChange(percent: CGFloat) {
         super.percentChange(percent: percent)
         if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol{
             ctl.refreshWhenPercentChange(titleLabel:titleLabel, imageView: imageView, percent: percent)

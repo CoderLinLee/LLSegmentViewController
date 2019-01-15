@@ -9,12 +9,12 @@
 import UIKit
 
 
-internal func interpolationFrom(from:CGFloat,to:CGFloat,percent:CGFloat) -> CGFloat{
+public func interpolationFrom(from:CGFloat,to:CGFloat,percent:CGFloat) -> CGFloat{
     let ratio = max(0, min(1, percent))
     return from + (to - from)*ratio
 }
 
-internal func interpolationColorFrom(fromColor:UIColor,toColor:UIColor,percent:CGFloat) ->UIColor {
+public func interpolationColorFrom(fromColor:UIColor,toColor:UIColor,percent:CGFloat) ->UIColor {
     var fromR:CGFloat = 0
     var fromG:CGFloat = 0
     var fromB:CGFloat = 0

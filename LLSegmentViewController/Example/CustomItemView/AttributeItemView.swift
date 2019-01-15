@@ -23,32 +23,27 @@ class AttributeItemView: LLSegmentBaseItemView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var associateViewCtl: UIViewController?{
-        didSet{
-            //方式一：通过ctl.title传递数据
-            var titleStr1 = ""
-            if let titleStr = associateViewCtl?.title{
-                titleStr1 = titleStr
-            }
-            let titles = titleStr1.components(separatedBy: "\n")
-            if let fistTitle = titles.first,
-               let lastTitle = titles.last {
-                let contentStr = fistTitle + "\n" + lastTitle
-                let firstAttributes = [NSAttributedStringKey.foregroundColor:UIColor.blue]
-                let lastAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
-
-                let attributedText = NSMutableAttributedString(string: contentStr, attributes: nil)
-                attributedText.addAttributes(firstAttributes, range: NSRange.init(location: 0, length: fistTitle.count))
-                attributedText.addAttributes(lastAttributes, range: NSRange.init(location: contentStr.count - lastTitle.count, length: lastTitle.count))
-                attributedText.addAttributes([NSAttributedStringKey.font:UIFont.systemFont(ofSize: 15)], range: NSRange.init(location: 0, length: contentStr.count))
-                titleLabel.attributedText = attributedText
-            }
+    override func titleChange(title: String) {
+        //方式一：通过ctl.title传递数据
+        let titles = title.components(separatedBy: "\n")
+        if let fistTitle = titles.first,
+            let lastTitle = titles.last {
+            let contentStr = fistTitle + "\n" + lastTitle
+            let firstAttributes = [NSAttributedStringKey.foregroundColor:UIColor.blue]
+            let lastAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
             
-            //方式二：ctl转化为自己的viewControler，
-//            if let ctl = associateViewCtl as? CustomViewControler{
-//                let model = ctl.model
-//            }
+            let attributedText = NSMutableAttributedString(string: contentStr, attributes: nil)
+            attributedText.addAttributes(firstAttributes, range: NSRange.init(location: 0, length: fistTitle.count))
+            attributedText.addAttributes(lastAttributes, range: NSRange.init(location: contentStr.count - lastTitle.count, length: lastTitle.count))
+            attributedText.addAttributes([NSAttributedStringKey.font:UIFont.systemFont(ofSize: 15)], range: NSRange.init(location: 0, length: contentStr.count))
+            titleLabel.attributedText = attributedText
         }
+        
+        //方式二：ctl转化为自己的viewControler，
+        //            if let ctl = associateViewCtl as? CustomViewControler{
+        //                let model = ctl.model
+        //            }
+        
     }
     
     override func itemWidth() -> CGFloat {

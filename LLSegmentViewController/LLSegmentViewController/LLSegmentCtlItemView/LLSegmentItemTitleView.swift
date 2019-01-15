@@ -59,18 +59,18 @@ open class LLSegmentItemTitleView: LLSegmentItemBadgeView {
         layoutBadgeLabel()
     }
     
-    public override func titleChange(title: String) {
+    override open func titleChange(title: String) {
         titleLabel.text = title
         maskTitleLabel.text = title
     }
     
-    override public func percentChange(percent: CGFloat) {
+    override open func percentChange(percent: CGFloat) {
         super.percentChange(percent: percent)
         titleLabelCalculation()
         titleLabelMaskCalculation()
     }
     
-    override public func itemWidth() -> CGFloat {
+    override open func itemWidth() -> CGFloat {
         if itemTitleViewStyle.itemWidth == LLSegmentAutomaticDimension {
             var titleLableWidth = associateViewCtl?.title?.LLGetStrSize(font: itemTitleViewStyle.titleFontSize, w: 1000, h: 1000).width ?? 0
             titleLableWidth = titleLableWidth + 2*itemTitleViewStyle.extraTitleSpace
@@ -80,7 +80,7 @@ open class LLSegmentItemTitleView: LLSegmentItemBadgeView {
         }
     }
     
-    override public func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
+    override open func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
         super.setSegmentItemViewStyle(itemViewStyle: itemViewStyle)
         if let itemViewStyle = itemViewStyle as? LLSegmentItemTitleViewStyle {
             self.itemTitleViewStyle = itemViewStyle
