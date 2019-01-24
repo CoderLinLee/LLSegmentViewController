@@ -8,26 +8,84 @@
 
 import UIKit
 
+//下拉刷新控件的位置
+public enum LLDragRefreshType {
+    case container
+    case list
+}
+
+//分段控件的位置
+public enum LLSegmentedCtontrolPositionType {
+    case top(height:CGFloat)
+    case bottom(height:CGFloat)
+}
+
+//控件布局位置信息
+public class LLSubViewsLayoutInfo:NSObject{
+    public var minimumHeight:CGFloat = 64
+    public var progress:CGFloat = 1
+    public var segmentControlPositionType:LLSegmentedCtontrolPositionType = .top(height: 50)
+    public var refreshType = LLDragRefreshType.container
+    public var headView:UIView?
+}
+
  open class LLSegmentViewController: UIViewController {
-    public var viewCtlContainerColView:UICollectionView!
-    public let segmentCtlView = LLSegmentedControl(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-    public var ctls:[UIViewController]!
+    public let layoutInfo = LLSubViewsLayoutInfo()
+    public let segmentCtlView = LLSegmentedControl(frame: CGRect.zero)
+    public var ctls = [UIViewController]()
     private let cellIdentifier = "cellIdentifier"
+    public var pageView:LLCtlPageView!
+    public var containerScrView:LLContainerScrollView!
+
     let layout = UICollectionViewFlowLayout()
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         initSubviews()
+        relayoutSubViews()
+        if let screenEdgePanGestureRecognizer = getScreenEdgePanGestureRecognizer() {
+            pageView.containerScrollView.panGestureRecognizer.require(toFail: screenEdgePanGestureRecognizer)
+        }
     }
 }
 
 extension LLSegmentViewController{
-    public func layout(segmentCtlFrame:CGRect,containerFrame:CGRect) {
-        segmentCtlView.frame = segmentCtlFrame
-        viewCtlContainerColView.frame = containerFrame
-        viewCtlContainerColView.reloadData()
-    }
+    func relayoutSubViews() {
+        let screenW = UIScreen.main.bounds.width
+        let screenH = UIScreen.main.bounds.height
+        
+        var segmentControlHeight:CGFloat = 0
+        var containerFrameY:CGFloat = 0
+        var segmentCtlViewY:CGFloat = 0
+        var containerHeight:CGFloat = 0
+
+        switch layoutInfo.segmentControlPositionType {
+        case .top(let height):
+            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + height)
+            containerFrameY = height
+            
+            segmentControlHeight = height
+            segmentCtlViewY = 0
+            
+        case .bottom(let height):
+            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + height)
+            containerFrameY = 0
+            
+            segmentControlHeight = height
+            segmentCtlViewY = containerHeight
+        }
     
+
+        let segmentCtlFrame = CGRect.init(origin: CGPoint.init(x: 0, y: segmentCtlViewY), size: CGSize.init(width: screenW, height: segmentControlHeight))
+        segmentCtlView.frame = segmentCtlFrame
+        
+        let containerFrame = CGRect.init(x: 0, y: containerFrameY, width: screenW, height: containerHeight)
+        pageView.frame = containerFrame
+        
+        containerScrView.contentSize = CGSize.init(width: screenW, height: screenH - (containerScrView.paralaxHeader.minimumHeight))
+        containerScrView.layoutParalaxHeader()
+    }
+        
     public func reloadViewControllers(ctls:[UIViewController]) {
         segmentCtlView.ctls = ctls
         self.ctls = ctls
@@ -36,9 +94,8 @@ extension LLSegmentViewController{
             addChildViewController(ctl)
         }
         
-        let contentSizeWidth = viewCtlContainerColView.bounds.size.width * CGFloat(ctls.count)
-        viewCtlContainerColView.contentSize = CGSize.init(width: contentSizeWidth, height: 0)
-        viewCtlContainerColView.reloadData()
+        pageView.reloadData()
+        pageView.reloadCurrentIndex(index: 0)
     }
     
     public func insertOneViewController(ctl:UIViewController,index:NSInteger){
@@ -47,69 +104,75 @@ extension LLSegmentViewController{
             let itemIndex = max(0, min(index, ctls.count))
             self.ctls.insert(ctl, at: itemIndex)
             
-            let contentSizeWidth = viewCtlContainerColView.bounds.size.width * CGFloat(ctls.count)
-            viewCtlContainerColView.contentSize = CGSize.init(width: contentSizeWidth, height: 0)
-            viewCtlContainerColView.reloadData()
-            viewCtlContainerColView.scrollToItem(at: IndexPath.init(item: itemIndex, section: 0), at: .centeredHorizontally, animated: false)
+            pageView.reloadData()
+            pageView.reloadCurrentIndex(index: itemIndex)
             
             segmentCtlView.ctls = ctls
-            
             segmentCtlView.ctlViewStyle.defaultSelectedIndex = itemIndex
             segmentCtlView.reloadData()
         }
     }
     
     public func selected(at Index:NSInteger,animation:Bool)  {
-        guard ctls != nil && (ctls.count < Index && Index > 0) else {
+        guard (ctls.count < Index && Index > 0) else {
             return
         }
         segmentCtlView.selected(at: Index, animation: animation)
     }
 }
 
-extension LLSegmentViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension LLSegmentViewController :LLContainerScrollViewDagDelegate{
+    public func scrollView(scrollView: LLContainerScrollView, dragTop progress: CGFloat) {
+        print(progress)
+    }
+    
+    public func scrollView(scrollView: LLContainerScrollView, shouldScrollWithSubView subView: UIScrollView) -> Bool {
+        if subView == pageView.containerScrollView {
+            return false
+        }
+        return true
+    }
+}
+
+extension LLSegmentViewController :LLCtlPageViewDataSource{
+    public func numberOfItems(in pageView: LLCtlPageView) -> Int {
         return ctls.count
     }
     
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
-        let ctl = ctls[indexPath.item]
-        for subView in cell.contentView.subviews {
-            subView.removeFromSuperview()
-        }
-        ctl.view.frame = cell.contentView.bounds
-        cell.contentView.addSubview(ctl.view)
-        return cell
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-        return viewCtlContainerColView.bounds.size
+    public func pageView(_ pageView: LLCtlPageView, viewForItemAt index: NSInteger) -> UIView {
+        return ctls[index].view
     }
 }
 
 extension LLSegmentViewController{
     private func initSubviews() {
-        view.addSubview(segmentCtlView)
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.scrollDirection = .horizontal
+        layoutInfo.minimumHeight = (self.navigationController?.navigationBar.isHidden == true) ? 0 : 64
         
-        let colView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
-        colView.backgroundColor = UIColor.clear
-        colView.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: cellIdentifier)
-        colView.delegate = self
-        colView.dataSource = self
-        colView.showsHorizontalScrollIndicator = false
-        viewCtlContainerColView = colView
+        containerScrView = LLContainerScrollView(frame: view.bounds)
+        containerScrView.dragDeleage = self
+        containerScrView.paralaxHeader = self.layoutInfo
+        containerScrView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
+        view.addSubview(containerScrView)
         
-        view.addSubview(viewCtlContainerColView)
-        viewCtlContainerColView.isPagingEnabled = true
-        segmentCtlView.associateScrollerView = viewCtlContainerColView
-        if #available(iOS 11.0, *) {
-            viewCtlContainerColView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
+        pageView = LLCtlPageView(frame: CGRect.zero, ctls: [UIViewController]())
+        pageView.dataSoure = self
+        containerScrView.addSubview(pageView)
+
+        containerScrView.addSubview(segmentCtlView)
+        segmentCtlView.associateScrollerView = pageView.containerScrollView
     }
 }
+
+extension LLSegmentViewController{
+    fileprivate func getScreenEdgePanGestureRecognizer() -> UIScreenEdgePanGestureRecognizer? {
+        if let gestureRecognizers = self.navigationController?.view.gestureRecognizers {
+            for recognizer in gestureRecognizers {
+                if let recognizer = recognizer as? UIScreenEdgePanGestureRecognizer {
+                    return recognizer
+                }
+            }
+        }
+        return nil;
+    }
+}
+

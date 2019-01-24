@@ -15,8 +15,8 @@ func LLRandomRGB() -> UIColor {
 func factoryCtl(title:String,imageName:String,selectedImageNameStr:String) -> UIViewController {
     let test2Ctl = TestViewController()
     test2Ctl.title = title
-    test2Ctl.tabBarItem.image = UIImage.init(named: imageName)
-    test2Ctl.tabBarItem.selectedImage = UIImage.init(named: selectedImageNameStr)
+    test2Ctl.tabBarItem.image = imageName.isEmpty ? nil : UIImage.init(named: imageName)
+    test2Ctl.tabBarItem.selectedImage = selectedImageNameStr.isEmpty ? nil : UIImage.init(named: selectedImageNameStr)
     return test2Ctl
 }
 
@@ -41,6 +41,16 @@ extension TestViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.addObserver(self, forKeyPath: "contentOffset", options: [.new,.old], context: nil)
+        tableView.refreshControl = UIRefreshControl(frame: CGRect.init(x: 0, y: 0, width: 44, height: 44))
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlAction), for: .valueChanged)
+    }
+    
+    @objc func refreshControlAction(){
+        if tableView.refreshControl?.isRefreshing == true {
+            DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute:{ [weak self] in
+                self?.tableView.refreshControl?.endRefreshing()
+            })
+        }
     }
 }
 

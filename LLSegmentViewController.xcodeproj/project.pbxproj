@@ -37,6 +37,9 @@
 		F27132EF21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132EE21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.swift */; };
 		F27132FA21C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132F921C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift */; };
 		F271330C21C8E66F00F9D2AB /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F271330B21C8E66F00F9D2AB /* TestViewController.swift */; };
+		F28F1C6E21F9599700153A61 /* LLContainerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F1C6C21F9599700153A61 /* LLContainerScrollView.swift */; };
+		F28F1C6F21F9599700153A61 /* LLCtlPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F1C6D21F9599700153A61 /* LLCtlPageView.swift */; };
+		F28F1C7221F9B77500153A61 /* PersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F1C7121F9B77500153A61 /* PersonDetailViewController.swift */; };
 		F2C6F88821E73EEC0049BC68 /* WangYiItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C6F88721E73EEC0049BC68 /* WangYiItemView.swift */; };
 		F2DE12C121DCC23500D13738 /* NestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12C021DCC23500D13738 /* NestViewController.swift */; };
 		F2DE12D621DF6DFB00D13738 /* FootballViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */; };
@@ -99,6 +102,9 @@
 		F27132F921C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentViewControllerUITests.swift; sourceTree = "<group>"; };
 		F27132FB21C8DD7F00F9D2AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F271330B21C8E66F00F9D2AB /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		F28F1C6C21F9599700153A61 /* LLContainerScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLContainerScrollView.swift; sourceTree = "<group>"; };
+		F28F1C6D21F9599700153A61 /* LLCtlPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLCtlPageView.swift; sourceTree = "<group>"; };
+		F28F1C7121F9B77500153A61 /* PersonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailViewController.swift; sourceTree = "<group>"; };
 		F2C6F88721E73EEC0049BC68 /* WangYiItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WangYiItemView.swift; sourceTree = "<group>"; };
 		F2DE12C021DCC23500D13738 /* NestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestViewController.swift; sourceTree = "<group>"; };
 		F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootballViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				F2055B4D21D4D00100FF961B /* CellModel.swift */,
+				F28F1C7021F9B75400153A61 /* DetailViewController */,
 				F2DE12D821E0588400D13738 /* CustomItemView */,
 				F2DE12BF21DCC1E100D13738 /* SpecialViewController */,
 				F2055B4421D39CB300FF961B /* IndicatorViewController */,
@@ -183,6 +190,7 @@
 				F23D2F6F21CA27F00067B399 /* LLSegmentedControl.swift */,
 				F23D2F7021CA27F00067B399 /* LLIndicatorView.swift */,
 				F23D2F7A21CA53830067B399 /* LLToolFunc.swift */,
+				F28F1C6B21F9598C00153A61 /* LLPageView */,
 				F2055B3121D0B5DE00FF961B /* LLSegmentCtlItemView */,
 			);
 			path = LLSegmentViewController;
@@ -243,6 +251,23 @@
 				F27132FB21C8DD7F00F9D2AB /* Info.plist */,
 			);
 			path = LLSegmentViewControllerUITests;
+			sourceTree = "<group>";
+		};
+		F28F1C6B21F9598C00153A61 /* LLPageView */ = {
+			isa = PBXGroup;
+			children = (
+				F28F1C6C21F9599700153A61 /* LLContainerScrollView.swift */,
+				F28F1C6D21F9599700153A61 /* LLCtlPageView.swift */,
+			);
+			path = LLPageView;
+			sourceTree = "<group>";
+		};
+		F28F1C7021F9B75400153A61 /* DetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F28F1C7121F9B77500153A61 /* PersonDetailViewController.swift */,
+			);
+			path = DetailViewController;
 			sourceTree = "<group>";
 		};
 		F2DE12BF21DCC1E100D13738 /* SpecialViewController */ = {
@@ -401,10 +426,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2DE12C121DCC23500D13738 /* NestViewController.swift in Sources */,
+				F28F1C6F21F9599700153A61 /* LLCtlPageView.swift in Sources */,
 				18AF01F321E255AF00FD5F14 /* MixViewController.swift in Sources */,
 				F23D2F7B21CA53830067B399 /* LLToolFunc.swift in Sources */,
 				F2055B3B21D34BFC00FF961B /* LLSegmentItemTabbarView.swift in Sources */,
 				F23D2F7521CA27F00067B399 /* LLIndicatorView.swift in Sources */,
+				F28F1C6E21F9599700153A61 /* LLContainerScrollView.swift in Sources */,
 				F2055B3921D0F3A000FF961B /* LLSegmentItemTitleView.swift in Sources */,
 				F27132DC21C8DD7C00F9D2AB /* ViewController.swift in Sources */,
 				1833537521DFAC86005331E7 /* InsertViewController.swift in Sources */,
@@ -412,6 +439,7 @@
 				1813AAEF21ECD1EA0005FA4A /* BackColorViewController.swift in Sources */,
 				F23D2F7421CA27F00067B399 /* LLSegmentedControl.swift in Sources */,
 				F2DE12E021E0887100D13738 /* AttributeItemView.swift in Sources */,
+				F28F1C7221F9B77500153A61 /* PersonDetailViewController.swift in Sources */,
 				F2055B4121D3589200FF961B /* SimpleTabViewController.swift in Sources */,
 				F27132DA21C8DD7C00F9D2AB /* AppDelegate.swift in Sources */,
 				F23D2F7221CA27F00067B399 /* LLSegmentViewController.swift in Sources */,
@@ -603,7 +631,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 33ZULGS6X3;
+				DEVELOPMENT_TEAM = AT942ZRU45;
 				INFOPLIST_FILE = LLSegmentViewController/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -622,7 +650,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 33ZULGS6X3;
+				DEVELOPMENT_TEAM = AT942ZRU45;
 				INFOPLIST_FILE = LLSegmentViewController/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = (

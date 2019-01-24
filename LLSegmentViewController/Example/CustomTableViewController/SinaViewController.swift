@@ -11,7 +11,7 @@ import UIKit
 class SinaViewController: LLSegmentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewCtlContainerColView.isScrollEnabled = false
+        self.pageView.containerScrollView.isScrollEnabled = false
         layoutSegmentView()
         loadCtls()
         setUpSegmentStyle()
@@ -19,10 +19,8 @@ class SinaViewController: LLSegmentViewController {
     }
     
     func layoutSegmentView() {
-        let segmentCtlFrameHeight:CGFloat = 49
-        let containerFrame = CGRect.init(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height - segmentCtlFrameHeight)
-        let segmentCtlFrame =  CGRect.init(x: 0, y: containerFrame.maxY, width: view.bounds.width, height: segmentCtlFrameHeight)
-        layout(segmentCtlFrame:segmentCtlFrame, containerFrame: containerFrame)
+        layoutInfo.segmentControlPositionType = .bottom(height: 49)
+        relayoutSubViews()
     }
     
     func loadCtls() {

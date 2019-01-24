@@ -12,7 +12,7 @@ class SimpleTabViewController: LLSegmentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewCtlContainerColView.isScrollEnabled = false
+        self.pageView.containerScrollView.isScrollEnabled = false
         
         layoutContentView()
         loadCtls()
@@ -20,10 +20,8 @@ class SimpleTabViewController: LLSegmentViewController {
     }
     
     func layoutContentView() {
-        let segmentCtlFrameHeight:CGFloat = 49
-        let containerFrame = CGRect.init(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height - segmentCtlFrameHeight)
-        let segmentCtlFrame =  CGRect.init(x: 0, y: containerFrame.maxY, width: view.bounds.width, height: segmentCtlFrameHeight)
-        layout(segmentCtlFrame:segmentCtlFrame, containerFrame: containerFrame)
+        self.layoutInfo.segmentControlPositionType = .bottom(height: 50)
+        self.relayoutSubViews()
     }
     
     func loadCtls() {

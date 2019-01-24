@@ -43,8 +43,13 @@ let customItemViewTab = [CellModel(title: "0背景色渐变样式", viewControll
                          CellModel(title: "1富文本样式", viewControllerClass: AttributeItemViewController.self),
                          CellModel(title: "3网易新闻样式", viewControllerClass: WangYiItemViewController.self),]
 
+
+let detailItemViewTab = [CellModel(title: "0个人中心", viewControllerClass:PersonDetailViewController.self),
+                         CellModel(title: "1富文本样式", viewControllerClass: AttributeItemViewController.self),
+                         CellModel(title: "3网易新闻样式", viewControllerClass: WangYiItemViewController.self),]
+
 class ViewController: UIViewController {
-    var dataArr = ["指示器样式","特殊样式","自定义TabViewController","自定义ItemView"]
+    var dataArr = ["指示器样式","特殊样式","自定义TabViewController","自定义ItemView","详情页"]
     let tableView = UITableView(frame: CGRect.zero, style: .plain)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +99,8 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             styleListCtl.customTabs = customTab
         }else if indexPath.row == 3{
             styleListCtl.customTabs = customItemViewTab
+        }else if indexPath.row == 4{
+            styleListCtl.customTabs = detailItemViewTab
         }
         self.navigationController?.pushViewController(styleListCtl, animated: true)
 

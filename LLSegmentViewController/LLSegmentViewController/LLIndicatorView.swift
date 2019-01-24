@@ -112,6 +112,7 @@ open class LLIndicatorView: UIView {
                 self.autoresizingMask = [.flexibleHeight]
             case .crossBar(let widthChangeStyle,let height):
                 self.widthChangeStyle = widthChangeStyle
+                self.centerYGradientStyle = .bottom(margin: 0)
                 var selfBounds = self.bounds
                 selfBounds.size.height = height
                 self.bounds = selfBounds
@@ -218,7 +219,6 @@ extension LLIndicatorView{
             qqShape?.removeFromSuperlayer()
         }
     }
-    
 }
 
 extension LLIndicatorView{

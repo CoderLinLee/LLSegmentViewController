@@ -23,9 +23,8 @@ class ChangeImageViewViewController: LLSegmentViewController {
     }
 
     func layoutContentView() {
-        let segmentCtlFrame =  CGRect.init(x: edgeInsets.left, y: 64 + edgeInsets.top, width: view.bounds.width - edgeInsets.left - edgeInsets.right, height:50)
-        let containerFrame = CGRect.init(x: 0, y: segmentCtlFrame.maxY + edgeInsets.bottom, width: view.bounds.width, height: view.bounds.height - segmentCtlFrame.maxY - edgeInsets.bottom)
-        layout(segmentCtlFrame:segmentCtlFrame, containerFrame: containerFrame)
+        self.layoutInfo.segmentControlPositionType = .top(height: 50)
+        self.relayoutSubViews()
     }
     
     func loadCtls() {
@@ -77,7 +76,7 @@ class ChangeImageViewViewController: LLSegmentViewController {
     }
     
     func setUpImgeViews() {
-        leftImageView.frame = CGRect.init(x: 0, y: 64, width: view.bounds.width, height: edgeInsets.top + edgeInsets.bottom + segmentCtlView.bounds.height)
+        leftImageView.frame = CGRect.init(x: 0, y: 0, width: view.bounds.width, height: edgeInsets.top + edgeInsets.bottom + segmentCtlView.bounds.height)
         rightImageView.frame = leftImageView.frame
         self.view.insertSubview(leftImageView, at: 0)
         self.view.insertSubview(rightImageView, at: 0)

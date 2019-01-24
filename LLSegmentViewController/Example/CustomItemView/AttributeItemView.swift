@@ -62,11 +62,10 @@ class AttributeItemViewController: LLSegmentViewController {
     }
     
     func layoutContentView() {
-        let segmentCtlFrame =  CGRect.init(x: 0, y: 64, width: view.bounds.width, height: 50)
-        let containerFrame = CGRect.init(x: 0, y: segmentCtlFrame.maxY, width: view.bounds.width, height: view.bounds.height - segmentCtlFrame.maxY)
-        layout(segmentCtlFrame:segmentCtlFrame, containerFrame: containerFrame)
+        self.layoutInfo.segmentControlPositionType = .top(height: 50)
+        self.relayoutSubViews()
     }
-
+    
     func loadCtls() {
         let titles = ["周一\n8月20号","周二\n8月21号","周三\n8月22号","周四\n8月23号","周五\n8月24号","周六\n8月25号","周七\n8月26号"]
         var ctls = [UIViewController]()
