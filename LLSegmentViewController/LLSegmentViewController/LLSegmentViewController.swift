@@ -50,7 +50,15 @@ public class LLSubViewsLayoutInfo:NSObject{
 }
 
 extension LLSegmentViewController{
-    func relayoutSubViews() {
+    public func closeAutomaticallyAdjusts() {
+        if #available(iOS 11.0, *) {
+            self.containerScrView.contentInsetAdjustmentBehavior = .never
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = false
+        }
+    }
+    
+    public func relayoutSubViews() {
         let screenW = UIScreen.main.bounds.width
         let screenH = UIScreen.main.bounds.height
         
@@ -93,9 +101,8 @@ extension LLSegmentViewController{
         for ctl in ctls{
             addChildViewController(ctl)
         }
-        
-        pageView.reloadData()
         pageView.reloadCurrentIndex(index: 0)
+        pageView.reloadData()
     }
     
     public func insertOneViewController(ctl:UIViewController,index:NSInteger){
@@ -104,8 +111,8 @@ extension LLSegmentViewController{
             let itemIndex = max(0, min(index, ctls.count))
             self.ctls.insert(ctl, at: itemIndex)
             
-            pageView.reloadData()
             pageView.reloadCurrentIndex(index: itemIndex)
+            pageView.reloadData()
             
             segmentCtlView.ctls = ctls
             segmentCtlView.ctlViewStyle.defaultSelectedIndex = itemIndex

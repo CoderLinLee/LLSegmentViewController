@@ -49,6 +49,16 @@ open class LLSegmentedControl: UIView {
     public var leftItemView:LLSegmentBaseItemView!
     public var rightItemView:LLSegmentBaseItemView!
     public var ctlViewStyle = LLSegmentedControlStyle()
+    public var bottomSeparatorSyle:(height:CGFloat,color:UIColor) = (1,UIColor.black){
+        didSet{
+            self.bottomSeparatorLineView.backgroundColor = bottomSeparatorSyle.color
+            
+            var bottomSeparatorLineViewFrame = bottomSeparatorLineView.frame
+            bottomSeparatorLineViewFrame.size.height = bottomSeparatorSyle.height
+            bottomSeparatorLineViewFrame.origin.y = bounds.height - bottomSeparatorSyle.height
+            bottomSeparatorLineView.frame = bottomSeparatorLineViewFrame
+        }
+    }
     
     //----------------------private-----------------------//
     private let associateScrollerViewObserverKeyPath = "contentOffset"
@@ -56,7 +66,7 @@ open class LLSegmentedControl: UIView {
     private var totalPercent:CGFloat = 0
     internal var ctls:[UIViewController]!
     private let segMegmentScrollerView = UIScrollView(frame: CGRect.zero)
-
+    private let bottomSeparatorLineView = UIView()
     public weak var associateScrollerView:UIScrollView? {
         didSet{
             associateScrollerView?.addObserver(self, forKeyPath: associateScrollerViewObserverKeyPath, options: [.new,.old], context: nil)
@@ -416,6 +426,11 @@ extension LLSegmentedControl{
 
         indicatorView.backgroundColor = UIColor.black
         segMegmentScrollerView.addSubview(indicatorView)
+        
+        bottomSeparatorLineView.backgroundColor = bottomSeparatorSyle.color
+        bottomSeparatorLineView.frame = CGRect.init(x: 0, y: bounds.height - bottomSeparatorSyle.height, width: bounds.width, height: bottomSeparatorSyle.height)
+        bottomSeparatorLineView.autoresizingMask = [.flexibleWidth,.flexibleTopMargin]
+        addSubview(bottomSeparatorLineView)
     }
     
     private func getItemView(atIndex:NSInteger) -> LLSegmentBaseItemView? {

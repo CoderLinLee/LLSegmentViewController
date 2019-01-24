@@ -53,8 +53,8 @@ open class LLContainerScrollView: UIScrollView {
         if let headView = paralaxHeader.headView  {
             self.contentInset = UIEdgeInsetsMake(headView.bounds.height, 0, 0, 0)
             headView.center = CGPoint.init(x: bounds.width/2, y: -headView.bounds.height/2)
-            addSubview(headView)
-            self.scrollView(scrollView: self, contentOffset: CGPoint.init(x: 0, y: -self.contentInset.top))
+            insertSubview(headView, at: 0)
+            self.contentOffset = CGPoint.init(x: 0, y: -self.contentInset.top)
         }
                 
         switch paralaxHeader.refreshType {
@@ -147,8 +147,15 @@ extension LLContainerScrollView {
             let contentInsetTop = self.contentInset.top
             let progress = fabs(self.contentOffset.y + self.paralaxHeader.minimumHeight + contentInsetTop)/contentInsetTop
             self.dragDeleage?.scrollView(scrollView: self, dragTop: progress)
-
+        }else{
+            self.dragDeleage?.scrollView(scrollView: self, dragTop: 0)
         }
+        
+        var progress:CGFloat = 0
+        if self.contentInset.top != self.paralaxHeader.minimumHeight {
+            progress = (self.contentOffset.y + self.paralaxHeader.minimumHeight) / (-self.contentInset.top + self.paralaxHeader.minimumHeight)
+        }
+        print(self.contentOffset.y,progress)
     }
 }
 

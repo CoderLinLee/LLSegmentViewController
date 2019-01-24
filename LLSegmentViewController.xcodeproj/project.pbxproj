@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1813AAEF21ECD1EA0005FA4A /* BackColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813AAEE21ECD1EA0005FA4A /* BackColorViewController.swift */; };
 		1813AAF121ECE3AE0005FA4A /* TitleImageItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813AAF021ECE3AE0005FA4A /* TitleImageItemViewController.swift */; };
+		181A970621FA0E0D0093FA41 /* HidenNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181A970521FA0E0D0093FA41 /* HidenNavViewController.swift */; };
 		1833537521DFAC86005331E7 /* InsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833537421DFAC86005331E7 /* InsertViewController.swift */; };
 		1833537721E104A0005331E7 /* LLSegmentViewController.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 1833537621E104A0005331E7 /* LLSegmentViewController.podspec */; };
 		185C1B8F21E64893000E8A16 /* LLSegmentItemTitleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185C1B8E21E64893000E8A16 /* LLSegmentItemTitleImageView.swift */; };
@@ -68,6 +69,7 @@
 /* Begin PBXFileReference section */
 		1813AAEE21ECD1EA0005FA4A /* BackColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackColorViewController.swift; sourceTree = "<group>"; };
 		1813AAF021ECE3AE0005FA4A /* TitleImageItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleImageItemViewController.swift; sourceTree = "<group>"; };
+		181A970521FA0E0D0093FA41 /* HidenNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HidenNavViewController.swift; sourceTree = "<group>"; };
 		1833537421DFAC86005331E7 /* InsertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertViewController.swift; sourceTree = "<group>"; };
 		1833537621E104A0005331E7 /* LLSegmentViewController.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LLSegmentViewController.podspec; sourceTree = "<group>"; };
 		185C1B8E21E64893000E8A16 /* LLSegmentItemTitleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentItemTitleImageView.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				F28F1C7121F9B77500153A61 /* PersonDetailViewController.swift */,
+				181A970521FA0E0D0093FA41 /* HidenNavViewController.swift */,
 			);
 			path = DetailViewController;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				F28F1C7221F9B77500153A61 /* PersonDetailViewController.swift in Sources */,
 				F2055B4121D3589200FF961B /* SimpleTabViewController.swift in Sources */,
 				F27132DA21C8DD7C00F9D2AB /* AppDelegate.swift in Sources */,
+				181A970621FA0E0D0093FA41 /* HidenNavViewController.swift in Sources */,
 				F23D2F7221CA27F00067B399 /* LLSegmentViewController.swift in Sources */,
 				F2055B3421D0B5DE00FF961B /* LLSegmentBaseItemView.swift in Sources */,
 				18AF01F521E39A9F00FD5F14 /* ChangeImageViewViewController.swift in Sources */,

@@ -9,7 +9,7 @@
 import UIKit
 
 class PersonDetailViewController: LLSegmentViewController {
-    let lufeiImageViewHeight:CGFloat = 310
+    let lufeiImageViewHeight:CGFloat = 315
     var lufeiImageView:UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,17 +17,12 @@ class PersonDetailViewController: LLSegmentViewController {
         loadCtls()
         setUpSegmentStyle()
         
-        if #available(iOS 11.0, *) {
-            self.containerScrView.contentInsetAdjustmentBehavior = .never
-        } else {
-            self.automaticallyAdjustsScrollViewInsets = false
-        }
+        segmentCtlView.bottomSeparatorSyle = (0.5,UIColor.black)
+        closeAutomaticallyAdjusts()
     }
     
     func layoutContentView() {
-        lufeiImageView = UIImageView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: lufeiImageViewHeight))
-        lufeiImageView.image = #imageLiteral(resourceName: "lufei")
-        lufeiImageView.contentMode = .scaleAspectFit
+        loadLufeiImageView()
         
         self.layoutInfo.headView = lufeiImageView
         self.layoutInfo.segmentControlPositionType = .top(height: 50)
@@ -47,8 +42,6 @@ class PersonDetailViewController: LLSegmentViewController {
     
     func setUpSegmentStyle() {
         let tabItemStyle = LLSegmentItemTitleViewStyle()
-        tabItemStyle.unSelectedColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
-        tabItemStyle.selectedColor = UIColor.init(red: 0.7, green: 0.2, blue: 0.1, alpha: 1)
         tabItemStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
         tabItemStyle.titleFontSize = 15
         
@@ -57,14 +50,35 @@ class PersonDetailViewController: LLSegmentViewController {
         segmentCtlStyle.itemViewStyle = tabItemStyle
         segmentCtlView.reloadData(ctlViewStyle: segmentCtlStyle)
         segmentCtlView.clickAnimation = false
-        segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+        segmentCtlView.backgroundColor = UIColor.white
         
         segmentCtlView.indicatorView.shapeStyle = .crossBar(widthChangeStyle: .stationary(baseWidth: 10), height: 3)
     }
     
     override func scrollView(scrollView: LLContainerScrollView, dragTop progress: CGFloat) {
-        var lufeiImageViewBounds = lufeiImageView.bounds
-        lufeiImageViewBounds.size.height = lufeiImageViewHeight*(1+progress)
-        lufeiImageView.bounds = lufeiImageViewBounds
+        var lufeiImageViewFrame = lufeiImageView.frame
+        let maxY = lufeiImageViewFrame.maxY
+        lufeiImageViewFrame.size.height = lufeiImageViewHeight*(1+progress)
+        lufeiImageViewFrame.origin.y = maxY - lufeiImageViewFrame.size.height
+        lufeiImageView.frame = lufeiImageViewFrame
     }
 }
+
+extension PersonDetailViewController{
+    func loadLufeiImageView() {
+        lufeiImageView = UIImageView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: lufeiImageViewHeight))
+        lufeiImageView.image = #imageLiteral(resourceName: "lufei")
+        lufeiImageView.contentMode = .scaleAspectFill
+        lufeiImageView.backgroundColor = UIColor.red
+        
+        let titleLabel = UILabel(frame: CGRect.init(x: 20, y: lufeiImageView.bounds.height - 40, width: 150, height: 20))
+        titleLabel.text = "路飞----戴草帽的少年"
+        titleLabel.font = UIFont.systemFont(ofSize: 15)
+        titleLabel.textColor = UIColor.red
+        titleLabel.autoresizingMask = [.flexibleRightMargin,.flexibleTopMargin]
+        lufeiImageView.addSubview(titleLabel)
+    }
+}
+
+
+

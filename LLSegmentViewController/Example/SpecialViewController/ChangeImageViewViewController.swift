@@ -19,7 +19,7 @@ class ChangeImageViewViewController: LLSegmentViewController {
         loadCtls()
         setUpSegmentStyle()
         setUpBoatView()
-        setUpImgeViews()
+//        setUpImgeViews()
     }
 
     func layoutContentView() {
@@ -47,14 +47,13 @@ class ChangeImageViewViewController: LLSegmentViewController {
         titleViewStyle.titleLabelCenterOffsetY = -10
         titleViewStyle.selectedTitleScale = 1
         
-        
         segmentCtlView.delegate = self
         segmentCtlView.indicatorView.bounds = CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 30, height: 30))
         
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
         segmentCtlView.indicatorView.centerYGradientStyle = .bottom(margin: 0)
         segmentCtlView.indicatorView.backgroundColor = UIColor.clear
-        segmentCtlView.backgroundColor = UIColor.white.withAlphaComponent(0.6)
+        segmentCtlView.backgroundColor = UIColor.red.withAlphaComponent(0.6)
         
         var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.defaultSelectedIndex = 2
@@ -80,10 +79,6 @@ class ChangeImageViewViewController: LLSegmentViewController {
         rightImageView.frame = leftImageView.frame
         self.view.insertSubview(leftImageView, at: 0)
         self.view.insertSubview(rightImageView, at: 0)
-        
-        //方法一可以不用写下面这两行
-        leftImageView.image = getImgAt(index: segmentCtlView.ctlViewStyle.defaultSelectedIndex)
-        rightImageView.image = getImgAt(index: segmentCtlView.ctlViewStyle.defaultSelectedIndex)
     }
     
     func getImgAt(index:NSInteger) -> UIImage {
@@ -93,7 +88,6 @@ class ChangeImageViewViewController: LLSegmentViewController {
 
 
 extension ChangeImageViewViewController:LLSegmentedControlDelegate{
-    //方法一：
     func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, totalPercent: CGFloat) {
         let leftIndex = segMegmentCtlView.leftItemView.index
         let rightIndex = segMegmentCtlView.rightItemView.index
@@ -109,24 +103,4 @@ extension ChangeImageViewViewController:LLSegmentedControlDelegate{
     func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, dragToSelected itemView: LLSegmentBaseItemView) {
         print(itemView.index)
     }
-    
-    //方法二
-//    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, dragToScroll leftItemView: LLSegmentBaseItemView, rightItemView: LLSegmentBaseItemView) {
-//        let leftIndex = max(0, min(ctls.count - 1, leftItemView.index))
-//        let rightIndex = max(0, min(ctls.count - 1, rightItemView.index))
-//        let leftPercent = leftItemView.percent
-//        let rightPercent = 1 - leftPercent
-//
-//        leftImageView.image = getImgAt(index: leftIndex)
-//        leftImageView.alpha = max(0, leftPercent)
-//        rightImageView.image = getImgAt(index: rightIndex)
-//        rightImageView.alpha = max(0, rightPercent)
-//
-//    }
-//    func segMegmentCtlView(segMegmentCtlView: LLSegmentedControl, clickItemAt sourceItemView: LLSegmentBaseItemView, to destinationItemView: LLSegmentBaseItemView) {
-//        leftImageView.image = getImgAt(index: destinationItemView.index)
-//        rightImageView.image = getImgAt(index: destinationItemView.index)
-//        rightImageView.alpha = 0
-//        leftImageView.alpha = 1
-//    }
 }
