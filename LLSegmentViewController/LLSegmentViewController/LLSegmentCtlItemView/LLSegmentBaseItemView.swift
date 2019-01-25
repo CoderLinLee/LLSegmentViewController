@@ -66,18 +66,15 @@ open class LLSegmentBaseItemView: UIView {
     open weak var associateViewCtl:UIViewController? {
         didSet{
             var title:String?
-            if associateViewCtl?.tabBarItem.title == nil {
+            if associateViewCtl?.title != nil {
                 title = associateViewCtl?.title
-            }else{
+            }else if associateViewCtl?.tabBarItem.title != nil{
                 title = associateViewCtl?.tabBarItem.title
             }
             titleChange(title: title ?? "")
         }
     }
     public var percent:CGFloat = 0
-
-    
-    
     
     //override for subClass
     open func titleChange(title:String){}

@@ -14,8 +14,7 @@ public protocol LLCtlPageViewDataSource:NSObjectProtocol {
 }
 
 
-open class LLCtlPageView: UIView {
-    var containerScrollView:UIScrollView!
+open class LLCtlPageView: UIScrollView {
     var preLoadRange = 0...10
     private var itemCount = 0
     var dataSoure:LLCtlPageViewDataSource!{
@@ -33,31 +32,28 @@ open class LLCtlPageView: UIView {
     }
     
     func initSubViews() {
-        containerScrollView = UIScrollView(frame: bounds)
-        containerScrollView.delegate = self
-        containerScrollView.backgroundColor = UIColor.black
-        containerScrollView.isPagingEnabled = true
-        containerScrollView.bounces = false
-        containerScrollView.contentInset = UIEdgeInsets.zero
-        containerScrollView.showsHorizontalScrollIndicator = false
-        containerScrollView.showsVerticalScrollIndicator = false
-        containerScrollView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
-        containerScrollView.isDirectionalLockEnabled = true
-        addSubview(containerScrollView)
+        self.delegate = self
+        self.backgroundColor = UIColor.black
+        self.isPagingEnabled = true
+        self.bounces = false
+        self.contentInset = UIEdgeInsets.zero
+        self.showsHorizontalScrollIndicator = false
+        self.showsVerticalScrollIndicator = false
+        self.isDirectionalLockEnabled = true
         if #available(iOS 11.0, *) {
-            containerScrollView.contentInsetAdjustmentBehavior = .never
+            self.contentInsetAdjustmentBehavior = .never
         }
     }
 }
 
 extension LLCtlPageView{
     internal func reloadCurrentIndex(index:NSInteger){
-        containerScrollView.contentOffset = CGPoint.init(x: CGFloat(index)*self.bounds.width, y: 0)
+        self.contentOffset = CGPoint.init(x: CGFloat(index)*self.bounds.width, y: 0)
     }
     
     internal func reloadData() {
         itemCount = dataSoure.numberOfItems(in: self)
-        self.containerScrollView.contentSize = CGSize.init(width: CGFloat(itemCount)*self.bounds.width, height: self.bounds.height)
+        self.contentSize = CGSize.init(width: CGFloat(itemCount)*self.bounds.width, height: self.bounds.height)
         
         reloadCurrentShowView()
     }
@@ -65,7 +61,7 @@ extension LLCtlPageView{
     fileprivate func reloadCurrentShowView() {
         guard itemCount > 0 else { return }
         
-        let showPages = containerScrollView.getShowPageIndex(maxCount: itemCount - 1)
+        let showPages = getShowPageIndex(maxCount: itemCount - 1)
         var pages = [NSInteger]()
         let left = showPages.leftIndex - preLoadRange.lowerBound
         let right = showPages.rightIndex + preLoadRange.upperBound
@@ -78,13 +74,44 @@ extension LLCtlPageView{
         for index in pages {
             let showView = dataSoure.pageView(self, viewForItemAt: index)
             showView.frame = CGRect.init(x: CGFloat(index)*bounds.width, y: 0, width: bounds.width, height: bounds.height)
-            if !containerScrollView.subviews.contains(showView){
-                containerScrollView.addSubview(showView)
+            if !subviews.contains(showView){
+                addSubview(showView)
             }
         }
     }
 }
 
+extension LLCtlPageView:UIGestureRecognizerDelegate{
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if !gestureRecognizer.isKind(of: UIPanGestureRecognizer.classForCoder()) || !otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.classForCoder()){
+            return false
+        }
+        
+        guard let gestureView = gestureRecognizer.view as? LLCtlPageView else{
+            return false
+        }
+        
+        guard let otherGestureView = otherGestureRecognizer.view as? LLCtlPageView else{
+            return false
+        }
+
+        if gestureView != self {
+            return false
+        }
+        
+        let currentIndex = Int(gestureView.contentOffset.x / gestureView.bounds.width)
+        let subIndex = Int(otherGestureView.contentOffset.x / otherGestureView.bounds.width)
+        if subIndex > 0 {
+            return false
+        }else if subIndex == 0 {
+            if currentIndex == gestureView.itemCount - 1 {
+                return true
+            }
+            return false
+        }
+        return false
+    }
+}
 
 extension LLCtlPageView:UIScrollViewDelegate{
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -65,8 +65,8 @@ open class LLSegmentItemTitleImageView: LLSegmentBaseItemView {
     }
     
     override open func itemWidth() -> CGFloat {
-        if let model = titleImageModel{
-            let layoutInfo = getLayoutInfo(model: model)
+        if let titleImageModel = titleImageModel{
+            let layoutInfo = getLayoutInfo(model: titleImageModel)
             return layoutInfo.contentSize.width + 2*10
         }
         return 0
@@ -74,10 +74,10 @@ open class LLSegmentItemTitleImageView: LLSegmentBaseItemView {
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-        if let model = titleImageModel{
-            titleLabel.text = model.title
+        if let titleImageModel = titleImageModel{
+            titleLabel.text = titleImageModel.title
             
-            let layoutInfo = getLayoutInfo(model: model)
+            let layoutInfo = getLayoutInfo(model: titleImageModel)
             titleLabel.frame = layoutInfo.titleLabelFrame
             imageView.frame = layoutInfo.imageViewFrame
         }

@@ -83,7 +83,12 @@ class NestSubViewController: LLSegmentViewController {
         test2Ctl.showTableView = false
         test2Ctl.title = "通知"
         test2Ctl.tabBarItem.badgeValue = nil
-        let ctls =  [test1Ctl,test2Ctl]
+        
+        let test3Ctl = TestViewController()
+        test3Ctl.showTableView = false
+        test3Ctl.title = "消息"
+        test3Ctl.tabBarItem.badgeValue = nil
+        let ctls =  [test1Ctl,test2Ctl,test3Ctl]
         reloadViewControllers(ctls:ctls)
     }
     

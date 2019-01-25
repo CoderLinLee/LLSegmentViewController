@@ -51,7 +51,7 @@ public class LLSubViewsLayoutInfo:NSObject{
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         if let screenEdgePanGestureRecognizer = getScreenEdgePanGestureRecognizer() {
             containerScrView.panGestureRecognizer.require(toFail: screenEdgePanGestureRecognizer)
-            pageView.containerScrollView.panGestureRecognizer.require(toFail: screenEdgePanGestureRecognizer)
+            pageView.panGestureRecognizer.require(toFail: screenEdgePanGestureRecognizer)
         }
     }
 }
@@ -157,7 +157,7 @@ extension LLSegmentViewController :LLContainerScrollViewDagDelegate{
     }
 
     public func scrollView(scrollView: LLContainerScrollView, shouldScrollWithSubView subView: UIScrollView) -> Bool {
-        if subView == pageView.containerScrollView {
+        if subView == pageView {
             return false
         }
         return true
@@ -176,7 +176,7 @@ extension LLSegmentViewController :LLCtlPageViewDataSource{
 
 extension LLSegmentViewController{
     private func initSubviews() {
-        layoutInfo.minimumHeight = (self.navigationController?.navigationBar.isHidden == true) ? 0 : 64
+        layoutInfo.minimumHeight = (self.navigationController?.navigationBar.isHidden == true) ? 0 : mTopHeight()
         
         containerScrView.frame =  view.bounds
         containerScrView.dragDeleage = self
@@ -189,7 +189,7 @@ extension LLSegmentViewController{
         containerScrView.addSubview(pageView)
 
         containerScrView.addSubview(segmentCtlView)
-        segmentCtlView.associateScrollerView = pageView.containerScrollView
+        segmentCtlView.associateScrollerView = pageView
     }
 }
 

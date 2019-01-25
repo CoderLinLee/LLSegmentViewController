@@ -12,7 +12,7 @@ class SimpleTabViewController: LLSegmentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.pageView.containerScrollView.isScrollEnabled = false
+        self.pageView.isScrollEnabled = false
         
         layoutContentView()
         loadCtls()
