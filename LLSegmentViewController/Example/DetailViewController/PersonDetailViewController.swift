@@ -9,15 +9,17 @@
 import UIKit
 
 class PersonDetailViewController: LLSegmentViewController {
-    let lufeiImageViewHeight:CGFloat = 315
+    let lufeiImageViewHeight:CGFloat = 250
     var lufeiImageView:UIImageView!
+    let customNavBar = UIView()
+    let backButtom = UIButton(type: .custom)
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutContentView()
         loadCtls()
         setUpSegmentStyle()
         
-        segmentCtlView.bottomSeparatorSyle = (0.5,UIColor.black)
+        segmentCtlView.bottomSeparatorSyle = (0.5,UIColor.black.withAlphaComponent(0.3))
         closeAutomaticallyAdjusts()
     }
     
@@ -25,7 +27,7 @@ class PersonDetailViewController: LLSegmentViewController {
         loadLufeiImageView()
         
         self.layoutInfo.headView = lufeiImageView
-        self.layoutInfo.segmentControlPositionType = .top(height: 50)
+        self.layoutInfo.segmentControlPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50))
         self.relayoutSubViews()
     }
     
@@ -41,13 +43,15 @@ class PersonDetailViewController: LLSegmentViewController {
     }
     
     func setUpSegmentStyle() {
-        let tabItemStyle = LLSegmentItemTitleViewStyle()
-        tabItemStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)
-        tabItemStyle.titleFontSize = 15
+        let contentInset = UIEdgeInsets.init(top: 0, left: 30, bottom: 0, right: 30)
+        let itemStyle = LLSegmentItemTitleViewStyle()
+        itemStyle.itemWidth = (UIScreen.main.bounds.width - contentInset.left - contentInset.right)/CGFloat(ctls.count)
+        itemStyle.titleFontSize = 15
         
         var segmentCtlStyle = LLSegmentedControlStyle()
+        segmentCtlStyle.contentInset = contentInset
         segmentCtlStyle.segmentItemViewClass = LLSegmentItemTitleView.self
-        segmentCtlStyle.itemViewStyle = tabItemStyle
+        segmentCtlStyle.itemViewStyle = itemStyle
         segmentCtlView.reloadData(ctlViewStyle: segmentCtlStyle)
         segmentCtlView.clickAnimation = false
         segmentCtlView.backgroundColor = UIColor.white
@@ -55,10 +59,10 @@ class PersonDetailViewController: LLSegmentViewController {
         segmentCtlView.indicatorView.shapeStyle = .crossBar(widthChangeStyle: .stationary(baseWidth: 10), height: 3)
     }
     
-    override func scrollView(scrollView: LLContainerScrollView, dragTop progress: CGFloat) {
+    override func scrollView(scrollView: LLContainerScrollView, dragTop offsetY: CGFloat) {
         var lufeiImageViewFrame = lufeiImageView.frame
         let maxY = lufeiImageViewFrame.maxY
-        lufeiImageViewFrame.size.height = lufeiImageViewHeight*(1+progress)
+        lufeiImageViewFrame.size.height = lufeiImageViewHeight + offsetY
         lufeiImageViewFrame.origin.y = maxY - lufeiImageViewFrame.size.height
         lufeiImageView.frame = lufeiImageViewFrame
     }
@@ -80,5 +84,32 @@ extension PersonDetailViewController{
     }
 }
 
+
+extension PersonDetailViewController{
+    func initCustomNavBar() {
+        let navHeight:CGFloat = 44
+        let topHeight = mTopHeight(mNavBarHeight: navHeight)
+        customNavBar.frame = CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: topHeight)
+        customNavBar.backgroundColor = UIColor.white
+        view.addSubview(customNavBar)
+        
+        let titleLabel = UILabel()
+        titleLabel.text = self.title
+        titleLabel.sizeToFit()
+        titleLabel.center = CGPoint.init(x: customNavBar.bounds.width/2, y: topHeight - navHeight/2)
+        customNavBar.addSubview(titleLabel)
+        
+        let backButtomHeight:CGFloat = 30
+        backButtom.contentHorizontalAlignment = .left
+        backButtom.setImage(#imageLiteral(resourceName: "pop-icon-back-normal"), for: .normal)
+        backButtom.frame = CGRect.init(x: 20, y: topHeight - navHeight/2 - backButtomHeight/2, width: 50, height: backButtomHeight)
+        view.addSubview(backButtom)
+        backButtom.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
+    }
+    
+    @objc func backBtnClick(){
+        self.navigationController?.popViewController(animated: true)
+    }
+}
 
 

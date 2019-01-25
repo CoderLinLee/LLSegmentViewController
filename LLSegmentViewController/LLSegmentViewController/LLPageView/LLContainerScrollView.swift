@@ -13,7 +13,8 @@ import UIKit
 
 @objc public protocol LLContainerScrollViewDagDelegate:NSObjectProtocol {
     func scrollView(scrollView:LLContainerScrollView,shouldScrollWithSubView subView:UIScrollView) -> Bool
-    func scrollView(scrollView:LLContainerScrollView,dragTop progress:CGFloat)
+    func scrollView(scrollView:LLContainerScrollView,dragTop offsetY:CGFloat)
+    func scrollView(scrollView:LLContainerScrollView,dragToMinimumHeight progress:CGFloat)
 }
 
 open class LLContainerScrollView: UIScrollView {
@@ -141,21 +142,21 @@ extension LLContainerScrollView {
             self.scrollView(scrollView: self, contentOffset: CGPoint.init(x: self.contentOffset.x, y: minimumHeight))
         }
         
-        if self.contentOffset.y + self.paralaxHeader.minimumHeight <= -self.contentInset.top,
-            let _ = paralaxHeader.headView,
-            self.contentInset.top > 0{
-            let contentInsetTop = self.contentInset.top
-            let progress = fabs(self.contentOffset.y + self.paralaxHeader.minimumHeight + contentInsetTop)/contentInsetTop
-            self.dragDeleage?.scrollView(scrollView: self, dragTop: progress)
-        }else{
-            self.dragDeleage?.scrollView(scrollView: self, dragTop: 0)
-        }
         
-        var progress:CGFloat = 0
+        guard let _ = paralaxHeader.headView else { return }
+        
+        //顶部下拉
+        let contentInsetTop = self.contentInset.top
+        let dragTopOffsetY = min(self.contentOffset.y + contentInsetTop,0)
+        self.dragDeleage?.scrollView(scrollView: self, dragTop: fabs(dragTopOffsetY))
+
+        //拉到最小距离的进度
+        var minProgress:CGFloat = 0
         if self.contentInset.top != self.paralaxHeader.minimumHeight {
-            progress = (self.contentOffset.y + self.paralaxHeader.minimumHeight) / (-self.contentInset.top + self.paralaxHeader.minimumHeight)
+            minProgress = (self.contentOffset.y + self.paralaxHeader.minimumHeight) / (-self.contentInset.top + self.paralaxHeader.minimumHeight)
         }
-        print(self.contentOffset.y,progress)
+        minProgress = 1 - min(minProgress, 1)
+        self.dragDeleage?.scrollView(scrollView: self, dragToMinimumHeight: minProgress)
     }
 }
 

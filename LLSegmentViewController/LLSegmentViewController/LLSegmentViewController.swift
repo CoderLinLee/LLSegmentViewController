@@ -16,18 +16,23 @@ public enum LLDragRefreshType {
 
 //分段控件的位置
 public enum LLSegmentedCtontrolPositionType {
-    case top(height:CGFloat)
-    case bottom(height:CGFloat)
+    case nav(size:CGSize)
+    case top(size:CGSize)
+    case bottom(size:CGSize)
 }
 
 //控件布局位置信息
 public class LLSubViewsLayoutInfo:NSObject{
     public var minimumHeight:CGFloat = 64
     public var progress:CGFloat = 1
-    public var segmentControlPositionType:LLSegmentedCtontrolPositionType = .top(height: 50)
+    public var segmentControlPositionType:LLSegmentedCtontrolPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50))
     public var refreshType = LLDragRefreshType.container
     public var headView:UIView?
 }
+
+
+
+
 
  open class LLSegmentViewController: UIViewController {
     public let layoutInfo = LLSubViewsLayoutInfo()
@@ -35,7 +40,7 @@ public class LLSubViewsLayoutInfo:NSObject{
     public var ctls = [UIViewController]()
     private let cellIdentifier = "cellIdentifier"
     public var pageView:LLCtlPageView!
-    public var containerScrView:LLContainerScrollView!
+    public var containerScrView = LLContainerScrollView()
 
     let layout = UICollectionViewFlowLayout()
     open override func viewDidLoad() {
@@ -43,7 +48,9 @@ public class LLSubViewsLayoutInfo:NSObject{
         view.backgroundColor = UIColor.white
         initSubviews()
         relayoutSubViews()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         if let screenEdgePanGestureRecognizer = getScreenEdgePanGestureRecognizer() {
+            containerScrView.panGestureRecognizer.require(toFail: screenEdgePanGestureRecognizer)
             pageView.containerScrollView.panGestureRecognizer.require(toFail: screenEdgePanGestureRecognizer)
         }
     }
@@ -62,29 +69,37 @@ extension LLSegmentViewController{
         let screenW = UIScreen.main.bounds.width
         let screenH = UIScreen.main.bounds.height
         
-        var segmentControlHeight:CGFloat = 0
+        var segmentControlSize:CGSize = CGSize.zero
         var containerFrameY:CGFloat = 0
         var segmentCtlViewY:CGFloat = 0
         var containerHeight:CGFloat = 0
 
         switch layoutInfo.segmentControlPositionType {
-        case .top(let height):
+        case .nav(let size):
+            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight)
+            containerFrameY = 0
+            
+            segmentControlSize = size
+            segmentCtlViewY = 0
+            
+        case .top(let size):
+            let height = size.height
             containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + height)
             containerFrameY = height
             
-            segmentControlHeight = height
+            segmentControlSize = size
             segmentCtlViewY = 0
             
-        case .bottom(let height):
-            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + height)
+        case .bottom(let size):
+            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + size.height)
             containerFrameY = 0
             
-            segmentControlHeight = height
+            segmentControlSize = size
             segmentCtlViewY = containerHeight
         }
     
 
-        let segmentCtlFrame = CGRect.init(origin: CGPoint.init(x: 0, y: segmentCtlViewY), size: CGSize.init(width: screenW, height: segmentControlHeight))
+        let segmentCtlFrame = CGRect.init(origin: CGPoint.init(x: 0, y: segmentCtlViewY), size: segmentControlSize)
         segmentCtlView.frame = segmentCtlFrame
         
         let containerFrame = CGRect.init(x: 0, y: containerFrameY, width: screenW, height: containerHeight)
@@ -93,7 +108,13 @@ extension LLSegmentViewController{
         containerScrView.contentSize = CGSize.init(width: screenW, height: screenH - (containerScrView.paralaxHeader.minimumHeight))
         containerScrView.layoutParalaxHeader()
     }
-        
+    
+    //对于一些特殊的需要自己指定位置信息
+    public func relayoutSegmentControlAndPageViewFrame(segmentControlFrame:CGRect,pageViewFrame:CGRect) {
+        segmentCtlView.frame = segmentControlFrame
+        pageView.frame = pageViewFrame
+    }
+    
     public func reloadViewControllers(ctls:[UIViewController]) {
         segmentCtlView.ctls = ctls
         self.ctls = ctls
@@ -129,10 +150,12 @@ extension LLSegmentViewController{
 }
 
 extension LLSegmentViewController :LLContainerScrollViewDagDelegate{
-    public func scrollView(scrollView: LLContainerScrollView, dragTop progress: CGFloat) {
-        print(progress)
+    public func scrollView(scrollView: LLContainerScrollView, dragTop offsetY: CGFloat) {
     }
     
+    public func scrollView(scrollView: LLContainerScrollView, dragToMinimumHeight progress: CGFloat) {
+    }
+
     public func scrollView(scrollView: LLContainerScrollView, shouldScrollWithSubView subView: UIScrollView) -> Bool {
         if subView == pageView.containerScrollView {
             return false
@@ -155,7 +178,7 @@ extension LLSegmentViewController{
     private func initSubviews() {
         layoutInfo.minimumHeight = (self.navigationController?.navigationBar.isHidden == true) ? 0 : 64
         
-        containerScrView = LLContainerScrollView(frame: view.bounds)
+        containerScrView.frame =  view.bounds
         containerScrView.dragDeleage = self
         containerScrView.paralaxHeader = self.layoutInfo
         containerScrView.autoresizingMask = [.flexibleHeight,.flexibleWidth]

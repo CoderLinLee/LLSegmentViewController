@@ -36,7 +36,8 @@ let specialTab = [CellModel(title: "0嵌套样式", viewControllerClass: NestVie
                   CellModel(title: "2插入样式", viewControllerClass: InsertViewController.self),
                   CellModel(title: "3混合样式", viewControllerClass: MixViewController.self),
                   CellModel(title: "4IndicatorImageView底部样式", viewControllerClass: ChangeImageViewViewController.self),
-                  CellModel(title: "5title&image样式", viewControllerClass: TitleImageItemViewController.self),]
+                  CellModel(title: "5title&image样式", viewControllerClass: TitleImageItemViewController.self),
+                  CellModel(title: "6上拉隐藏导航栏下拉显示导航栏", viewControllerClass: NavHidenChangeLayoutViewController.self)]
 
 let customItemViewTab = [CellModel(title: "0背景色渐变样式", viewControllerClass:
     BackgroundColorGradientItemViewController.self),
@@ -45,8 +46,9 @@ let customItemViewTab = [CellModel(title: "0背景色渐变样式", viewControll
 
 
 let detailItemViewTab = [CellModel(title: "0个人中心", viewControllerClass:PersonDetailViewController.self),
-                         CellModel(title: "1富文本样式", viewControllerClass: AttributeItemViewController.self),
-                         CellModel(title: "3网易新闻样式", viewControllerClass: WangYiItemViewController.self),]
+                         CellModel(title: "1导航栏隐藏", viewControllerClass: HidenNavViewController.self),
+                         CellModel(title: "3列表刷新", viewControllerClass: ListRefreshViewController.self),
+                         CellModel(title: "4顶部刷新", viewControllerClass: TopRefreshViewController.self),]
 
 class ViewController: UIViewController {
     var dataArr = ["指示器样式","特殊样式","自定义TabViewController","自定义ItemView","详情页"]

@@ -19,12 +19,14 @@ class ChangeImageViewViewController: LLSegmentViewController {
         loadCtls()
         setUpSegmentStyle()
         setUpBoatView()
-//        setUpImgeViews()
+        setUpImgeViews()
     }
 
     func layoutContentView() {
-        self.layoutInfo.segmentControlPositionType = .top(height: 50)
-        self.relayoutSubViews()
+        let frame = CGRect.init(x: 0, y: 64, width: UIScreen.main.bounds.width, height: 100)
+        let segmentControlFrame = CGRect.init(x: edgeInsets.left, y: frame.minY + edgeInsets.top, width: frame.width - edgeInsets.left - edgeInsets.right, height: frame.height - edgeInsets.top - edgeInsets.bottom)
+        let pageViewFrame = CGRect.init(x: 0, y: frame.maxY, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - frame.maxY)
+        relayoutSegmentControlAndPageViewFrame(segmentControlFrame: segmentControlFrame, pageViewFrame: pageViewFrame)
     }
     
     func loadCtls() {
@@ -53,7 +55,7 @@ class ChangeImageViewViewController: LLSegmentViewController {
         segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 30)
         segmentCtlView.indicatorView.centerYGradientStyle = .bottom(margin: 0)
         segmentCtlView.indicatorView.backgroundColor = UIColor.clear
-        segmentCtlView.backgroundColor = UIColor.red.withAlphaComponent(0.6)
+        segmentCtlView.backgroundColor = UIColor.white.withAlphaComponent(0.6)
         
         var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.defaultSelectedIndex = 2
@@ -70,12 +72,13 @@ class ChangeImageViewViewController: LLSegmentViewController {
         boatImageView.image = boatImg
         boatImageView.frame = CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 20, height: 20))
         indicatorViewContentView.addSubview(boatImageView)
+        
         boatImageView.center = CGPoint.init(x: indicatorViewContentView.bounds.width/2, y: indicatorViewContentView.bounds.height/2)
         boatImageView.autoresizingMask = [.flexibleTopMargin,.flexibleLeftMargin,.flexibleBottomMargin,.flexibleRightMargin]
     }
     
     func setUpImgeViews() {
-        leftImageView.frame = CGRect.init(x: 0, y: 0, width: view.bounds.width, height: edgeInsets.top + edgeInsets.bottom + segmentCtlView.bounds.height)
+        leftImageView.frame = CGRect.init(x: 0, y: 64, width: view.bounds.width, height: edgeInsets.top + edgeInsets.bottom + segmentCtlView.bounds.height)
         rightImageView.frame = leftImageView.frame
         self.view.insertSubview(leftImageView, at: 0)
         self.view.insertSubview(rightImageView, at: 0)

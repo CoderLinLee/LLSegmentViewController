@@ -20,7 +20,7 @@ class NestViewController: LLSegmentViewController {
     }
     
     func layoutContentView() {
-        self.layoutInfo.segmentControlPositionType = .top(height: 50)
+        self.layoutInfo.segmentControlPositionType = .nav(size: CGSize.init(width: segmentItemWidth*2, height: segmentViewHeight))
         self.relayoutSubViews()
     }
     
@@ -69,7 +69,7 @@ class NestSubViewController: LLSegmentViewController {
     }
     
     func layoutContentView() {
-        self.layoutInfo.segmentControlPositionType = .top(height: 50)
+        self.layoutInfo.segmentControlPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50))
         self.relayoutSubViews()
     }
     

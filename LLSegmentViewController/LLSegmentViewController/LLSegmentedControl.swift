@@ -30,7 +30,7 @@ public struct LLSegmentedControlStyle{
     public var segmentItemViewClass:LLSegmentBaseItemView.Type = LLSegmentItemTitleView.self
     public var itemViewStyle:LLSegmentItemViewStyle = LLSegmentItemViewStyle()
     public var defaultSelectedIndex:NSInteger = 0
-
+    public var contentInset = UIEdgeInsets.zero
     public init(){}
 }
 
@@ -41,7 +41,7 @@ open class LLSegmentedControl: UIView {
     public var separatorLineWidth = 1/UIScreen.main.scale
     public var separatorTopBottomMargin:(top:CGFloat,bottom:CGFloat) = (0,0)
     private var separatorViews = [UIView]()
-
+    
     public var clickAnimation = true
     public weak var delegate:LLSegmentedControlDelegate?
     public private (set) var indicatorView = LLIndicatorView(frame:CGRect.init(x: 0, y: 0, width: 10, height: 3))
@@ -49,7 +49,7 @@ open class LLSegmentedControl: UIView {
     public var leftItemView:LLSegmentBaseItemView!
     public var rightItemView:LLSegmentBaseItemView!
     public var ctlViewStyle = LLSegmentedControlStyle()
-    public var bottomSeparatorSyle:(height:CGFloat,color:UIColor) = (1,UIColor.black){
+    public var bottomSeparatorSyle:(height:CGFloat,color:UIColor) = (1,UIColor.clear){
         didSet{
             self.bottomSeparatorLineView.backgroundColor = bottomSeparatorSyle.color
             
@@ -338,7 +338,7 @@ extension LLSegmentedControl{
         if let convertCenter = itemView.superview?.convert(targetCenter, to: self){
             offsetX -= (boundsCenterX - convertCenter.x)
             offsetX = max(0, min(offsetX, segMegmentScrollerView.contentSize.width - bounds.width))
-            segMegmentScrollerView.setContentOffset(CGPoint.init(x: offsetX, y: 0), animated: animated)
+            segMegmentScrollerView.setContentOffset(CGPoint.init(x: offsetX - ctlViewStyle.contentInset.left, y: 0), animated: animated)
         }
     }
 }
@@ -385,7 +385,6 @@ extension LLSegmentedControl{
             segmentCtlItemView.frame = segmentCtlItemViewFrame
             segMegmentScrollerView.addSubview(segmentCtlItemView)
             itemViews.append(segmentCtlItemView)
-            
             //分割线
             if lastItemView != nil {
                 let separatorView = UIView()
@@ -397,6 +396,8 @@ extension LLSegmentedControl{
             lastItemView = segmentCtlItemView
         }
         segMegmentScrollerView.contentSize = CGSize.init(width: lastItemView?.frame.maxX ?? bounds.width, height: bounds.height)
+        segMegmentScrollerView.contentInset = ctlViewStyle.contentInset
+        segMegmentScrollerView.contentOffset = CGPoint.init(x: -ctlViewStyle.contentInset.left, y: 0)
     }
 }
 

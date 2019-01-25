@@ -20,7 +20,7 @@ class TitleImageItemViewController: LLSegmentViewController {
     }
     
     func layoutContentView() {
-        self.layoutInfo.segmentControlPositionType = .top(height: 50)
+        self.layoutInfo.segmentControlPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50))
         self.relayoutSubViews()
     }
 

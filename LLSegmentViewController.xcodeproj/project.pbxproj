@@ -41,6 +41,9 @@
 		F28F1C6E21F9599700153A61 /* LLContainerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F1C6C21F9599700153A61 /* LLContainerScrollView.swift */; };
 		F28F1C6F21F9599700153A61 /* LLCtlPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F1C6D21F9599700153A61 /* LLCtlPageView.swift */; };
 		F28F1C7221F9B77500153A61 /* PersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F1C7121F9B77500153A61 /* PersonDetailViewController.swift */; };
+		F28F1C7421FAFC5800153A61 /* ListRefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F1C7321FAFC5800153A61 /* ListRefreshViewController.swift */; };
+		F28F1C7621FAFF8900153A61 /* NavHidenChangeLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F1C7521FAFF8900153A61 /* NavHidenChangeLayoutViewController.swift */; };
+		F28F1C7821FB1DE200153A61 /* TopRefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F1C7721FB1DE200153A61 /* TopRefreshViewController.swift */; };
 		F2C6F88821E73EEC0049BC68 /* WangYiItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C6F88721E73EEC0049BC68 /* WangYiItemView.swift */; };
 		F2DE12C121DCC23500D13738 /* NestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12C021DCC23500D13738 /* NestViewController.swift */; };
 		F2DE12D621DF6DFB00D13738 /* FootballViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */; };
@@ -107,6 +110,9 @@
 		F28F1C6C21F9599700153A61 /* LLContainerScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLContainerScrollView.swift; sourceTree = "<group>"; };
 		F28F1C6D21F9599700153A61 /* LLCtlPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLCtlPageView.swift; sourceTree = "<group>"; };
 		F28F1C7121F9B77500153A61 /* PersonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailViewController.swift; sourceTree = "<group>"; };
+		F28F1C7321FAFC5800153A61 /* ListRefreshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRefreshViewController.swift; sourceTree = "<group>"; };
+		F28F1C7521FAFF8900153A61 /* NavHidenChangeLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavHidenChangeLayoutViewController.swift; sourceTree = "<group>"; };
+		F28F1C7721FB1DE200153A61 /* TopRefreshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRefreshViewController.swift; sourceTree = "<group>"; };
 		F2C6F88721E73EEC0049BC68 /* WangYiItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WangYiItemView.swift; sourceTree = "<group>"; };
 		F2DE12C021DCC23500D13738 /* NestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestViewController.swift; sourceTree = "<group>"; };
 		F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootballViewController.swift; sourceTree = "<group>"; };
@@ -269,6 +275,8 @@
 			children = (
 				F28F1C7121F9B77500153A61 /* PersonDetailViewController.swift */,
 				181A970521FA0E0D0093FA41 /* HidenNavViewController.swift */,
+				F28F1C7321FAFC5800153A61 /* ListRefreshViewController.swift */,
+				F28F1C7721FB1DE200153A61 /* TopRefreshViewController.swift */,
 			);
 			path = DetailViewController;
 			sourceTree = "<group>";
@@ -282,6 +290,7 @@
 				18AF01F221E255AF00FD5F14 /* MixViewController.swift */,
 				18AF01F421E39A9F00FD5F14 /* ChangeImageViewViewController.swift */,
 				1813AAF021ECE3AE0005FA4A /* TitleImageItemViewController.swift */,
+				F28F1C7521FAFF8900153A61 /* NavHidenChangeLayoutViewController.swift */,
 			);
 			path = SpecialViewController;
 			sourceTree = "<group>";
@@ -443,6 +452,8 @@
 				F23D2F7421CA27F00067B399 /* LLSegmentedControl.swift in Sources */,
 				F2DE12E021E0887100D13738 /* AttributeItemView.swift in Sources */,
 				F28F1C7221F9B77500153A61 /* PersonDetailViewController.swift in Sources */,
+				F28F1C7821FB1DE200153A61 /* TopRefreshViewController.swift in Sources */,
+				F28F1C7621FAFF8900153A61 /* NavHidenChangeLayoutViewController.swift in Sources */,
 				F2055B4121D3589200FF961B /* SimpleTabViewController.swift in Sources */,
 				F27132DA21C8DD7C00F9D2AB /* AppDelegate.swift in Sources */,
 				181A970621FA0E0D0093FA41 /* HidenNavViewController.swift in Sources */,
@@ -460,6 +471,7 @@
 				F2C6F88821E73EEC0049BC68 /* WangYiItemView.swift in Sources */,
 				F2055B5021D4D6D200FF961B /* BaseNavigationController.swift in Sources */,
 				F271330C21C8E66F00F9D2AB /* TestViewController.swift in Sources */,
+				F28F1C7421FAFC5800153A61 /* ListRefreshViewController.swift in Sources */,
 				F2055B4E21D4D00100FF961B /* CellModel.swift in Sources */,
 				18D3489B21E9CC7100C284DE /* LLSegmentItemBadgeView.swift in Sources */,
 			);

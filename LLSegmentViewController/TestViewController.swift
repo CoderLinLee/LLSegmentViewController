@@ -24,8 +24,9 @@ func factoryCtl(title:String,imageName:String,selectedImageNameStr:String) -> UI
 class TestViewController: UIViewController {
     var showTableView = true
     var tableView:UITableView!
-    typealias SwiftClosure = (_ oldContentOffset:CGPoint,_ newContentOffset:CGPoint) -> Void
-    var tableViewDidScroll:SwiftClosure?
+    
+    typealias scrollViewEndDragClosure =  (_ isScrollToTop:Bool)-> Void
+    var scrollViewEndDragBlock:scrollViewEndDragClosure?
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = LLRandomRGB()
@@ -40,7 +41,6 @@ extension TestViewController {
         tableView = addTableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.addObserver(self, forKeyPath: "contentOffset", options: [.new,.old], context: nil)
         tableView.refreshControl = UIRefreshControl(frame: CGRect.init(x: 0, y: 0, width: 44, height: 44))
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlAction), for: .valueChanged)
     }
@@ -50,16 +50,6 @@ extension TestViewController {
             DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute:{ [weak self] in
                 self?.tableView.refreshControl?.endRefreshing()
             })
-        }
-    }
-}
-
-extension TestViewController {
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "contentOffset" ,
-            let oldContentOffset = change?[NSKeyValueChangeKey.oldKey] as? CGPoint,
-            let newContentOffset = change?[NSKeyValueChangeKey.newKey] as? CGPoint{
-            tableViewDidScroll?(oldContentOffset,newContentOffset)
         }
     }
 }
@@ -77,6 +67,10 @@ extension TestViewController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tabBarItem.badgeValue = "99"
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        scrollViewEndDragBlock?(velocity.y > 0)
     }
 }
 
