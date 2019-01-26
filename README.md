@@ -37,14 +37,14 @@ public func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle)
 ### 详情页效果预览
 
 说明 | Gif | Code |
-----|------|
+----|------|------|
 个人中心头部放大  |  <img src="Screenshot/detail/personCenter.gif" width="355" height="630"> | `    override func scrollView(scrollView: LLContainerScrollView, dragToMinimumHeight progress: CGFloat) {
 self.progress = progress
 customNavBar.alpha = progress
 }
 ` |
-个人中心列表刷新  |  <img src="Screenshot/detail/personCenterListRefresh.gif" width="355" height="630"> |
-商品详情  |  <img src="Screenshot/detail/goodsDetail.gif" width="355" height="630"> |
+个人中心列表刷新  |  <img src="Screenshot/detail/personCenterListRefresh.gif" width="355" height="630"> | `  `  |
+商品详情  |  <img src="Screenshot/detail/goodsDetail.gif" width="355" height="630"> | `  `  |
 
 ### 指示器效果预览
 
