@@ -14,7 +14,4 @@ class ListRefreshViewController: PersonDetailViewController {
         super.viewDidLoad()
         self.layoutInfo.refreshType = .list
     }
-    
-
-
 }

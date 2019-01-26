@@ -19,7 +19,7 @@ class PersonDetailViewController: LLSegmentViewController {
         loadCtls()
         setUpSegmentStyle()
         
-        segmentCtlView.bottomSeparatorSyle = (0.5,UIColor.black.withAlphaComponent(0.3))
+        segmentCtlView.bottomSeparatorStyle = (0.5,UIColor.black.withAlphaComponent(0.3))
         closeAutomaticallyAdjusts()
     }
     

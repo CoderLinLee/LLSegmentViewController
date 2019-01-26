@@ -34,7 +34,7 @@ open class LLContainerScrollView: UIScrollView {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func initialize() {
+    private func initialize() {
         self.showsVerticalScrollIndicator = false
         self.isDirectionalLockEnabled = true
         self.bounces = true
@@ -96,7 +96,7 @@ extension LLContainerScrollView{
 }
 
 extension LLContainerScrollView {
-    func listRefreshOtherScrollViewHandle(scrollView:UIScrollView, newContentOffset:CGPoint,oldContentOffset:CGPoint) {
+    fileprivate func listRefreshOtherScrollViewHandle(scrollView:UIScrollView, newContentOffset:CGPoint,oldContentOffset:CGPoint) {
         lock = (scrollView.contentOffset.y > -scrollView.contentInset.top)
         //Manage scroll up
         let minimumHeight = -paralaxHeader.minimumHeight
@@ -105,7 +105,7 @@ extension LLContainerScrollView {
         }
     }
     
-    func listRefreshSelfHandle(newContentOffset:CGPoint,oldContentOffset:CGPoint) {
+    fileprivate func listRefreshSelfHandle(newContentOffset:CGPoint,oldContentOffset:CGPoint) {
         let diff = oldContentOffset.y - newContentOffset.y
         if diff > 0 && lock {
             self.scrollView(scrollView: self, contentOffset: oldContentOffset)
@@ -118,7 +118,7 @@ extension LLContainerScrollView {
 }
 
 extension LLContainerScrollView {
-    func containerRefreshOtherScrollViewHandle(scrollView:UIScrollView, newContentOffset:CGPoint,oldContentOffset:CGPoint) {
+    fileprivate func containerRefreshOtherScrollViewHandle(scrollView:UIScrollView, newContentOffset:CGPoint,oldContentOffset:CGPoint) {
         //Adjust the observed scrollview's content offset
         lock = (scrollView.contentOffset.y > -scrollView.contentInset.top)
         
@@ -128,7 +128,7 @@ extension LLContainerScrollView {
         }
     }
     
-    func containerRefreshSelfHandle(newContentOffset:CGPoint,oldContentOffset:CGPoint) {
+    fileprivate func containerRefreshSelfHandle(newContentOffset:CGPoint,oldContentOffset:CGPoint) {
         let diff = oldContentOffset.y - newContentOffset.y
         let minimumHeight = -self.paralaxHeader.minimumHeight
         //Adjust self scroll offset when scroll down
@@ -160,7 +160,7 @@ extension LLContainerScrollView {
 
 
 extension LLContainerScrollView{
-    func scrollView(scrollView:UIScrollView,contentOffset:CGPoint) {
+    fileprivate func scrollView(scrollView:UIScrollView,contentOffset:CGPoint) {
         isObserving = false
         scrollView.contentOffset = contentOffset
         isObserving = true
@@ -169,14 +169,14 @@ extension LLContainerScrollView{
 
 //observedViewManager
 extension LLContainerScrollView{
-    func removeObservedViews() {
+    fileprivate func removeObservedViews() {
         for scrollView in observedViews{
             scrollView.removeObserver(self, forKeyPath: observerKeyPath, context: &observerContext)
         }
         observedViews.removeAll()
     }
     
-    func addObservedView(scrollView:UIScrollView)  {
+    fileprivate func addObservedView(scrollView:UIScrollView)  {
         if !self.observedViews.contains(scrollView) {
             self.observedViews.append(scrollView)
             lock = (scrollView.contentOffset.y > -scrollView.contentInset.top)

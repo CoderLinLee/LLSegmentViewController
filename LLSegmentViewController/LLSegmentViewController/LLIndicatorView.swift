@@ -162,7 +162,36 @@ open class LLIndicatorView: UIView {
             }
         }
     }
-    
+}
+
+extension LLIndicatorView{
+    fileprivate func handleQQMsgStyle(leftItemView:LLSegmentBaseItemView) {
+        switch self.shapeStyle {
+        case .qqDragMsg(let color,let height):
+            self.backgroundColor = UIColor.clear
+            if qqShape == nil {
+                let qqShape = CAShapeLayer()
+                qqShape.backgroundColor = color.cgColor
+                qqShape.lineWidth = 0
+                qqShape.strokeColor = UIColor.clear.cgColor
+                qqShape.fillColor = color.cgColor
+                layer.addSublayer(qqShape)
+                self.qqShape = qqShape
+            }
+            
+            let baseRadius:CGFloat = 2
+            let leftRectRadius:CGFloat = 7 * leftItemView.percent + baseRadius
+            let leftRect = CGRect.init(x: 0, y: (bounds.height - leftRectRadius)/2, width: leftRectRadius, height: leftRectRadius)
+            let rightRect = CGRect.init(x: bounds.width - height, y: 0, width: height, height: height)
+            qqShape?.path = qqShapPath(smallRect: leftRect, bigRect: rightRect).cgPath
+        default:
+            qqShape?.removeFromSuperlayer()
+        }
+    }
+}
+
+extension LLIndicatorView{
+    //滚动时变化宽度
     internal func reloadLayout(leftItemView: LLSegmentBaseItemView,rightItemView:LLSegmentBaseItemView){
         //center.X
         var selfCenter = self.center
@@ -193,35 +222,7 @@ open class LLIndicatorView: UIView {
         
         self.handleQQMsgStyle(leftItemView: leftItemView)
     }
-}
-
-extension LLIndicatorView{
-    func handleQQMsgStyle(leftItemView:LLSegmentBaseItemView) {
-        switch self.shapeStyle {
-        case .qqDragMsg(let color,let height):
-            self.backgroundColor = UIColor.clear
-            if qqShape == nil {
-                let qqShape = CAShapeLayer()
-                qqShape.backgroundColor = color.cgColor
-                qqShape.lineWidth = 0
-                qqShape.strokeColor = UIColor.clear.cgColor
-                qqShape.fillColor = color.cgColor
-                layer.addSublayer(qqShape)
-                self.qqShape = qqShape
-            }
-            
-            let baseRadius:CGFloat = 2
-            let leftRectRadius:CGFloat = 7 * leftItemView.percent + baseRadius
-            let leftRect = CGRect.init(x: 0, y: (bounds.height - leftRectRadius)/2, width: leftRectRadius, height: leftRectRadius)
-            let rightRect = CGRect.init(x: bounds.width - height, y: 0, width: height, height: height)
-            qqShape?.path = qqShapPath(smallRect: leftRect, bigRect: rightRect).cgPath
-        default:
-            qqShape?.removeFromSuperlayer()
-        }
-    }
-}
-
-extension LLIndicatorView{
+    
     //最终停留不动下来的宽度
     internal func finalWidthOn(itemView:LLSegmentBaseItemView)->CGFloat{
         let itemViewWidth = itemView.frame.width

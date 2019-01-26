@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1813AAEF21ECD1EA0005FA4A /* BackColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813AAEE21ECD1EA0005FA4A /* BackColorViewController.swift */; };
 		1813AAF121ECE3AE0005FA4A /* TitleImageItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813AAF021ECE3AE0005FA4A /* TitleImageItemViewController.swift */; };
+		1818A8A321FC48D900588CB4 /* GoodsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1818A8A221FC48D900588CB4 /* GoodsDetailViewController.swift */; };
 		181A970621FA0E0D0093FA41 /* HidenNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181A970521FA0E0D0093FA41 /* HidenNavViewController.swift */; };
 		1833537521DFAC86005331E7 /* InsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833537421DFAC86005331E7 /* InsertViewController.swift */; };
 		1833537721E104A0005331E7 /* LLSegmentViewController.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 1833537621E104A0005331E7 /* LLSegmentViewController.podspec */; };
@@ -16,6 +17,7 @@
 		18AF01F321E255AF00FD5F14 /* MixViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF01F221E255AF00FD5F14 /* MixViewController.swift */; };
 		18AF01F521E39A9F00FD5F14 /* ChangeImageViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF01F421E39A9F00FD5F14 /* ChangeImageViewViewController.swift */; };
 		18D3489B21E9CC7100C284DE /* LLSegmentItemBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3489A21E9CC7100C284DE /* LLSegmentItemBadgeView.swift */; };
+		9D1B99E78E4091E7FC691C33 /* Pods_LLSegmentViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80CBF918097B5FBD4588698B /* Pods_LLSegmentViewController.framework */; };
 		F2055B3421D0B5DE00FF961B /* LLSegmentBaseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B3221D0B5DE00FF961B /* LLSegmentBaseItemView.swift */; };
 		F2055B3921D0F3A000FF961B /* LLSegmentItemTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B3821D0F3A000FF961B /* LLSegmentItemTitleView.swift */; };
 		F2055B3B21D34BFC00FF961B /* LLSegmentItemTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B3A21D34BFC00FF961B /* LLSegmentItemTabbarView.swift */; };
@@ -72,6 +74,7 @@
 /* Begin PBXFileReference section */
 		1813AAEE21ECD1EA0005FA4A /* BackColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackColorViewController.swift; sourceTree = "<group>"; };
 		1813AAF021ECE3AE0005FA4A /* TitleImageItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleImageItemViewController.swift; sourceTree = "<group>"; };
+		1818A8A221FC48D900588CB4 /* GoodsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailViewController.swift; sourceTree = "<group>"; };
 		181A970521FA0E0D0093FA41 /* HidenNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HidenNavViewController.swift; sourceTree = "<group>"; };
 		1833537421DFAC86005331E7 /* InsertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertViewController.swift; sourceTree = "<group>"; };
 		1833537621E104A0005331E7 /* LLSegmentViewController.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LLSegmentViewController.podspec; sourceTree = "<group>"; };
@@ -79,6 +82,9 @@
 		18AF01F221E255AF00FD5F14 /* MixViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixViewController.swift; sourceTree = "<group>"; };
 		18AF01F421E39A9F00FD5F14 /* ChangeImageViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeImageViewViewController.swift; sourceTree = "<group>"; };
 		18D3489A21E9CC7100C284DE /* LLSegmentItemBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentItemBadgeView.swift; sourceTree = "<group>"; };
+		409E3CFB73D76E65D46ADB7F /* Pods-LLSegmentViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LLSegmentViewController.release.xcconfig"; path = "Pods/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController.release.xcconfig"; sourceTree = "<group>"; };
+		80CBF918097B5FBD4588698B /* Pods_LLSegmentViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LLSegmentViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDFA1D1750488976A5B9CCE2 /* Pods-LLSegmentViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LLSegmentViewController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController.debug.xcconfig"; sourceTree = "<group>"; };
 		F2055B3221D0B5DE00FF961B /* LLSegmentBaseItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentBaseItemView.swift; sourceTree = "<group>"; };
 		F2055B3821D0F3A000FF961B /* LLSegmentItemTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentItemTitleView.swift; sourceTree = "<group>"; };
 		F2055B3A21D34BFC00FF961B /* LLSegmentItemTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentItemTabbarView.swift; sourceTree = "<group>"; };
@@ -126,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D1B99E78E4091E7FC691C33 /* Pods_LLSegmentViewController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +153,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15666768D7EE40A6F80634EF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				80CBF918097B5FBD4588698B /* Pods_LLSegmentViewController.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D4DCDDB2A1A8FAB0AACF4EC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BDFA1D1750488976A5B9CCE2 /* Pods-LLSegmentViewController.debug.xcconfig */,
+				409E3CFB73D76E65D46ADB7F /* Pods-LLSegmentViewController.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F2055B3121D0B5DE00FF961B /* LLSegmentCtlItemView */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +236,8 @@
 				F27132ED21C8DD7F00F9D2AB /* LLSegmentViewControllerTests */,
 				F27132F821C8DD7F00F9D2AB /* LLSegmentViewControllerUITests */,
 				F27132D721C8DD7C00F9D2AB /* Products */,
+				4D4DCDDB2A1A8FAB0AACF4EC /* Pods */,
+				15666768D7EE40A6F80634EF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -277,6 +303,7 @@
 				181A970521FA0E0D0093FA41 /* HidenNavViewController.swift */,
 				F28F1C7321FAFC5800153A61 /* ListRefreshViewController.swift */,
 				F28F1C7721FB1DE200153A61 /* TopRefreshViewController.swift */,
+				1818A8A221FC48D900588CB4 /* GoodsDetailViewController.swift */,
 			);
 			path = DetailViewController;
 			sourceTree = "<group>";
@@ -312,9 +339,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F27132FE21C8DD7F00F9D2AB /* Build configuration list for PBXNativeTarget "LLSegmentViewController" */;
 			buildPhases = (
+				D8246FDB4DB3DC38E0C01F10 /* [CP] Check Pods Manifest.lock */,
 				F27132D221C8DD7C00F9D2AB /* Sources */,
 				F27132D321C8DD7C00F9D2AB /* Frameworks */,
 				F27132D421C8DD7C00F9D2AB /* Resources */,
+				91FCB1D46C2566390FCFBE86 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -432,6 +461,51 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		91FCB1D46C2566390FCFBE86 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/RollingNotice/RollingNotice.framework",
+				"${BUILT_PRODUCTS_DIR}/SDCycleScrollView/SDCycleScrollView.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RollingNotice.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDCycleScrollView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8246FDB4DB3DC38E0C01F10 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LLSegmentViewController-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F27132D221C8DD7C00F9D2AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -455,6 +529,7 @@
 				F28F1C7821FB1DE200153A61 /* TopRefreshViewController.swift in Sources */,
 				F28F1C7621FAFF8900153A61 /* NavHidenChangeLayoutViewController.swift in Sources */,
 				F2055B4121D3589200FF961B /* SimpleTabViewController.swift in Sources */,
+				1818A8A321FC48D900588CB4 /* GoodsDetailViewController.swift in Sources */,
 				F27132DA21C8DD7C00F9D2AB /* AppDelegate.swift in Sources */,
 				181A970621FA0E0D0093FA41 /* HidenNavViewController.swift in Sources */,
 				F23D2F7221CA27F00067B399 /* LLSegmentViewController.swift in Sources */,
@@ -644,6 +719,7 @@
 		};
 		F27132FF21C8DD7F00F9D2AB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDFA1D1750488976A5B9CCE2 /* Pods-LLSegmentViewController.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -663,6 +739,7 @@
 		};
 		F271330021C8DD7F00F9D2AB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 409E3CFB73D76E65D46ADB7F /* Pods-LLSegmentViewController.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

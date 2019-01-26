@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 func LLRandomRGB() -> UIColor {
     return UIColor.init(red: CGFloat(arc4random()%256)/255.0, green: CGFloat(arc4random()%256)/255.0, blue: CGFloat(arc4random()%256)/255.0, alpha: 1)
@@ -41,17 +42,26 @@ extension TestViewController {
         tableView = addTableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.refreshControl = UIRefreshControl(frame: CGRect.init(x: 0, y: 0, width: 44, height: 44))
-        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlAction), for: .valueChanged)
+        tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headRefreshAction))
+        tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerRefreshAction))
     }
     
-    @objc func refreshControlAction(){
-        if tableView.refreshControl?.isRefreshing == true {
+    @objc func headRefreshAction(){
+        if tableView.mj_header?.isRefreshing == true {
             DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute:{ [weak self] in
-                self?.tableView.refreshControl?.endRefreshing()
+                self?.tableView.mj_header?.endRefreshing()
             })
         }
     }
+    
+    @objc func footerRefreshAction(){
+        if tableView.mj_footer?.isRefreshing == true {
+            DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute:{ [weak self] in
+                self?.tableView.mj_footer?.endRefreshing()
+            })
+        }
+    }
+
 }
 
 extension TestViewController:UITableViewDelegate,UITableViewDataSource{
@@ -66,7 +76,7 @@ extension TestViewController:UITableViewDelegate,UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tabBarItem.badgeValue = "99"
+        self.tabBarItem.badgeValue = "\(indexPath.row)"
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

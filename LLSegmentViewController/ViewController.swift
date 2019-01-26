@@ -48,7 +48,8 @@ let customItemViewTab = [CellModel(title: "0背景色渐变样式", viewControll
 let detailItemViewTab = [CellModel(title: "0个人中心", viewControllerClass:PersonDetailViewController.self),
                          CellModel(title: "1导航栏隐藏", viewControllerClass: HidenNavViewController.self),
                          CellModel(title: "3列表刷新", viewControllerClass: ListRefreshViewController.self),
-                         CellModel(title: "4顶部刷新", viewControllerClass: TopRefreshViewController.self),]
+                         CellModel(title: "4顶部刷新", viewControllerClass: TopRefreshViewController.self),
+                         CellModel(title: "5商品详情", viewControllerClass: GoodsDetailViewController.self),]
 
 class ViewController: UIViewController {
     var dataArr = ["指示器样式","特殊样式","自定义TabViewController","自定义ItemView","详情页"]

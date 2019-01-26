@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class TopRefreshViewController: PersonDetailViewController,UIGestureRecognizerDelegate {
 
@@ -17,9 +18,8 @@ class TopRefreshViewController: PersonDetailViewController,UIGestureRecognizerDe
         customNavBar.alpha = 0
         lufeiImageView.contentMode = .scaleToFill
         
-        containerScrView.refreshControl = UIRefreshControl(frame: CGRect.init(x: 0, y: -containerScrView.contentInset.top - 44, width: 44, height: 44))
-        containerScrView.refreshControl?.addTarget(self, action: #selector(refreshControlAction), for: .valueChanged)
-        containerScrView.refreshControl?.tintColor = UIColor.black
+        containerScrView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(refreshControlAction))
+        containerScrView.mj_header.ignoredScrollViewContentInsetTop = lufeiImageViewHeight
     }
     
     //重写方法，不让图片缩放
@@ -32,9 +32,9 @@ class TopRefreshViewController: PersonDetailViewController,UIGestureRecognizerDe
     }
     
     @objc func refreshControlAction(){
-        if containerScrView.refreshControl?.isRefreshing == true {
+        if containerScrView.mj_header?.isRefreshing == true {
             DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute:{ [weak self] in
-                self?.containerScrView.refreshControl?.endRefreshing()
+                self?.containerScrView.mj_header?.endRefreshing()
             })
         }
     }

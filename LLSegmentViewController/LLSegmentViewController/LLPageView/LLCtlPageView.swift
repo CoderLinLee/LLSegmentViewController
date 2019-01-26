@@ -15,9 +15,11 @@ public protocol LLCtlPageViewDataSource:NSObjectProtocol {
 
 
 open class LLCtlPageView: UIScrollView {
-    var preLoadRange = 0...10
+    //预加载范围，当前view前面几个，后面几个
+    public var preLoadRange = 0...0
+    
     private var itemCount = 0
-    var dataSoure:LLCtlPageViewDataSource!{
+    internal weak var dataSoure:LLCtlPageViewDataSource!{
         didSet{
             reloadData()
         }
@@ -31,7 +33,7 @@ open class LLCtlPageView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initSubViews() {
+    fileprivate func initSubViews() {
         self.delegate = self
         self.backgroundColor = UIColor.black
         self.isPagingEnabled = true
@@ -120,7 +122,7 @@ extension LLCtlPageView:UIScrollViewDelegate{
 }
 
 extension UIScrollView{
-    func getShowPageIndex(maxCount:NSInteger) -> (leftIndex:NSInteger,rightIndex:NSInteger) {
+    fileprivate func getShowPageIndex(maxCount:NSInteger) -> (leftIndex:NSInteger,rightIndex:NSInteger) {
         let index = self.contentOffset.x/self.bounds.width
         let leftItemIndex = max(0, min(maxCount, Int((index))))
         let rightItemIndex = max(0, min(maxCount, Int(ceil(index))))

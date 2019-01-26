@@ -42,20 +42,21 @@ open class LLSegmentedControl: UIView {
     public var separatorTopBottomMargin:(top:CGFloat,bottom:CGFloat) = (0,0)
     private var separatorViews = [UIView]()
     
+    //----------------------public设置属性-----------------------//
     public var clickAnimation = true
     public weak var delegate:LLSegmentedControlDelegate?
     public private (set) var indicatorView = LLIndicatorView(frame:CGRect.init(x: 0, y: 0, width: 10, height: 3))
-    public var currentSelectedItemView:LLSegmentBaseItemView!
-    public var leftItemView:LLSegmentBaseItemView!
-    public var rightItemView:LLSegmentBaseItemView!
+    public private (set) var currentSelectedItemView:LLSegmentBaseItemView!
+    public private (set) var leftItemView:LLSegmentBaseItemView!
+    public private (set) var rightItemView:LLSegmentBaseItemView!
     public var ctlViewStyle = LLSegmentedControlStyle()
-    public var bottomSeparatorSyle:(height:CGFloat,color:UIColor) = (1,UIColor.clear){
+    public var bottomSeparatorStyle:(height:CGFloat,color:UIColor) = (1,UIColor.clear){
         didSet{
-            self.bottomSeparatorLineView.backgroundColor = bottomSeparatorSyle.color
+            self.bottomSeparatorLineView.backgroundColor = bottomSeparatorStyle.color
             
             var bottomSeparatorLineViewFrame = bottomSeparatorLineView.frame
-            bottomSeparatorLineViewFrame.size.height = bottomSeparatorSyle.height
-            bottomSeparatorLineViewFrame.origin.y = bounds.height - bottomSeparatorSyle.height
+            bottomSeparatorLineViewFrame.size.height = bottomSeparatorStyle.height
+            bottomSeparatorLineViewFrame.origin.y = bounds.height - bottomSeparatorStyle.height
             bottomSeparatorLineView.frame = bottomSeparatorLineViewFrame
         }
     }
@@ -202,6 +203,7 @@ extension LLSegmentedControl{
         }
     }
     
+    //IndicatorView响应
     private func checkOutItemIndicatorViewAction(sourceItemView:LLSegmentBaseItemView,destinationItemView:LLSegmentBaseItemView){
         var leftItemView = sourceItemView
         var rightItemView = destinationItemView
@@ -428,8 +430,8 @@ extension LLSegmentedControl{
         indicatorView.backgroundColor = UIColor.black
         segMegmentScrollerView.addSubview(indicatorView)
         
-        bottomSeparatorLineView.backgroundColor = bottomSeparatorSyle.color
-        bottomSeparatorLineView.frame = CGRect.init(x: 0, y: bounds.height - bottomSeparatorSyle.height, width: bounds.width, height: bottomSeparatorSyle.height)
+        bottomSeparatorLineView.backgroundColor = bottomSeparatorStyle.color
+        bottomSeparatorLineView.frame = CGRect.init(x: 0, y: bounds.height - bottomSeparatorStyle.height, width: bounds.width, height: bottomSeparatorStyle.height)
         bottomSeparatorLineView.autoresizingMask = [.flexibleWidth,.flexibleTopMargin]
         addSubview(bottomSeparatorLineView)
     }
