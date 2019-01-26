@@ -34,6 +34,18 @@ public func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle)
 
 ## 效果预览
 
+### 详情页效果预览
+
+说明 | Gif | Code |
+----|------|
+个人中心头部放大  |  <img src="Screenshot/detail/personCenter.gif" width="355" height="630"> | `    override func scrollView(scrollView: LLContainerScrollView, dragToMinimumHeight progress: CGFloat) {
+self.progress = progress
+customNavBar.alpha = progress
+}
+` |
+个人中心列表刷新  |  <img src="Screenshot/detail/personCenterListRefresh.gif" width="355" height="630"> |
+商品详情  |  <img src="Screenshot/detail/goodsDetail.gif" width="355" height="630"> |
+
 ### 指示器效果预览
 
 说明 | Gif |
@@ -81,6 +93,8 @@ LineView网易新闻 |  <img src="Screenshot/custom/wangyicustomView.gif" width=
 LineView微信  |  <img src="Screenshot/tabbar/weixintabbarView.gif" width="355" height="133"> |
 LineView微博  |  <img src="Screenshot/tabbar/sinatabbarView.gif" width="355" height="133"> |
 LineView图片做背景  |  <img src="Screenshot/tabbar/backgroundtabbarView.gif" width="355" height="133"> |
+
+
 
 邮箱：736764509@qq.com </br>
 QQ群： 142649183
