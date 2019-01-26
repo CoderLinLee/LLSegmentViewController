@@ -21,7 +21,7 @@ pod 'LLSegmentViewController'
 -  1、继承LLSegmentBaseItemView；
 -  2、实现LLSegmentBaseItemView以下方法（有些方法可实现可不实现）
 
-```
+```Swift
 //1、设置标题
 public func titleChange(title:String)
 //2、滚动时会调用这个方法，percent的取值范围是0...1
@@ -36,11 +36,11 @@ public func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle)
 
 ### 详情页效果预览
 
-说明 | Gif | Code |
-----|-------|----|
-个人中心头部放大  |  <img src="Screenshot/detail/personCenter.gif" width="355" height="630"> | ` override func scrollView(scrollView: LLContainerScrollView, dragToMinimumHeight progress: CGFloat) { \n self.progress = progress \n customNavBar.alpha = progress \n}` |
-个人中心列表刷新  |  <img src="Screenshot/detail/personCenterListRefresh.gif" width="355" height="630"> | `  `  |
-商品详情  |  <img src="Screenshot/detail/goodsDetail.gif" width="355" height="630"> | `  `  |
+说明 | Gif |
+----|-------|
+个人中心头部放大  |  <img src="Screenshot/detail/personCenter.gif" width="385" height="630"> | 
+个人中心列表刷新  |  <img src="Screenshot/detail/personCenterListRefresh.gif" width="385" height="630"> | 
+商品详情  |  <img src="Screenshot/detail/goodsDetail.gif" width="385" height="630"> | 
 
 ### 指示器效果预览
 
