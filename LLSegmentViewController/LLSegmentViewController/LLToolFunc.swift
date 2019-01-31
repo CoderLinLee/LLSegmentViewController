@@ -100,3 +100,16 @@ public func mTopHeight(mNavBarHeight:CGFloat = 44)->CGFloat {
     return mStatusBarHeight + mNavBarHeight
 }
 
+
+extension UIViewController{
+    internal func ctlTitle()->String{
+        var title = ""
+        if self.title != nil {
+            title = self.title ?? ""
+        }else if self.tabBarItem.title != nil{
+            title = self.tabBarItem.title ?? ""
+        }
+        return title
+    }
+}
+

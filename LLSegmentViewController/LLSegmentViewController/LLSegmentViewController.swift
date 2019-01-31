@@ -24,7 +24,6 @@ public enum LLSegmentedCtontrolPositionType {
 //控件布局位置信息
 public class LLSubViewsLayoutInfo:NSObject{
     public var minimumHeight:CGFloat = 64
-    public var progress:CGFloat = 1
     public var segmentControlPositionType:LLSegmentedCtontrolPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50))
     public var refreshType = LLDragRefreshType.container
     public var headView:UIView?
@@ -32,17 +31,15 @@ public class LLSubViewsLayoutInfo:NSObject{
 
 
 
-
-
  open class LLSegmentViewController: UIViewController {
     public let layoutInfo = LLSubViewsLayoutInfo()
-    public let segmentCtlView = LLSegmentedControl(frame: CGRect.zero)
-    public var ctls = [UIViewController]()
-    private let cellIdentifier = "cellIdentifier"
-    public var pageView:LLCtlPageView!
-    public var containerScrView = LLContainerScrollView()
+    public let segmentCtlView = LLViewControllerSegmentControl(frame: CGRect.zero, titles: [String]())
+    public let pageView:LLCtlPageView = LLCtlPageView(frame: CGRect.zero, ctls: [UIViewController]())
+    public let containerScrView = LLContainerScrollView()
+    public private (set) var ctls = [UIViewController]()
 
-    let layout = UICollectionViewFlowLayout()
+    private let cellIdentifier = "cellIdentifier"
+    private let layout = UICollectionViewFlowLayout()
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -116,12 +113,18 @@ extension LLSegmentViewController{
     }
     
     public func reloadViewControllers(ctls:[UIViewController]) {
-        segmentCtlView.ctls = ctls
         self.ctls = ctls
         
+        var titles = [String]()
         for ctl in ctls{
             addChildViewController(ctl)
+            let title = ctl.ctlTitle()
+            titles.append(title)
         }
+        segmentCtlView.titles = titles
+        segmentCtlView.ctls = ctls
+        segmentCtlView.reloadData()
+
         pageView.reloadCurrentIndex(index: 0)
         pageView.reloadData()
     }
@@ -135,8 +138,9 @@ extension LLSegmentViewController{
             pageView.reloadCurrentIndex(index: itemIndex)
             pageView.reloadData()
             
-            segmentCtlView.ctls = ctls
+            segmentCtlView.titles.insert(ctl.ctlTitle(), at: index)
             segmentCtlView.ctlViewStyle.defaultSelectedIndex = itemIndex
+            segmentCtlView.ctls = ctls
             segmentCtlView.reloadData()
         }
     }
@@ -184,7 +188,6 @@ extension LLSegmentViewController{
         containerScrView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         view.addSubview(containerScrView)
         
-        pageView = LLCtlPageView(frame: CGRect.zero, ctls: [UIViewController]())
         pageView.dataSoure = self
         containerScrView.addSubview(pageView)
 
@@ -206,3 +209,21 @@ extension LLSegmentViewController{
     }
 }
 
+open class LLViewControllerSegmentControl: LLSegmentedControl {
+    var ctls = [UIViewController]()
+    override public func reloadData(ctlViewStyle: LLSegmentedControlStyle? = nil) {
+        if let ctlViewStyle = ctlViewStyle {
+            self.ctlViewStyle = ctlViewStyle
+        }
+        
+        removeItemViews()
+        reloadItemViews()
+        for (index,ctl) in ctls.enumerated() {
+            if let itemView = itemViews[index] as? LLSegmentItemBadgeView{
+                itemView.associateViewCtl = ctl
+            }
+        }
+        reLayoutItemViews()
+        setDefaultSelectedAtIndexStatu()
+    }
+}

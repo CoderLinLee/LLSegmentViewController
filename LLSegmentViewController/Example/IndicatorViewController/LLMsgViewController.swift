@@ -53,6 +53,7 @@ class LLMsgViewController: LLSegmentViewController {
         var ctlViewStyle = LLSegmentedControlStyle()
         ctlViewStyle.segmentItemViewClass = LLSegmentItemTitleView.self
         ctlViewStyle.itemViewStyle = itemStyle
+        segmentCtlView.ctlViewStyle = ctlViewStyle
         segmentCtlView.reloadData(ctlViewStyle: ctlViewStyle)
         segmentCtlView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
     }

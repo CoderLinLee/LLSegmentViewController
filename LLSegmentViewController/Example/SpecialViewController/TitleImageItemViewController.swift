@@ -15,7 +15,6 @@ class TitleImageItemViewController: LLSegmentViewController {
         layoutContentView()
         loadCtls(style: nil)
         setUpSegmentStyle()
-        
         chooseStyleBtn()
     }
     
@@ -54,14 +53,10 @@ class TitleImageItemViewController: LLSegmentViewController {
     @objc func chooseStyleClick() {
         let ctl = ChooseTitleImageStyleViewController()
         self.navigationController?.pushViewController(ctl, animated: true)
-        ctl.chooseStyleBlock = { (style) in
-            self.reload(style: style)
+        ctl.chooseStyleBlock = { [weak self](style) in
+            self?.loadCtls(style: style)
+            self?.segmentCtlView.reloadData()
         }
-    }
-    
-    func reload(style:LLTitleImageButtonStyle?) {
-        loadCtls(style: style)
-        segmentCtlView.reloadData()
     }
 }
 

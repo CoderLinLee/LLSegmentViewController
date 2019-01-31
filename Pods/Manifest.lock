@@ -1,0 +1,30 @@
+PODS:
+  - MJRefresh (3.1.15.7)
+  - RollingNotice (1.0.6)
+  - SDCycleScrollView (1.75):
+    - SDWebImage (>= 4.0.0)
+  - SDWebImage (4.4.4):
+    - SDWebImage/Core (= 4.4.4)
+  - SDWebImage/Core (4.4.4)
+
+DEPENDENCIES:
+  - MJRefresh
+  - RollingNotice
+  - SDCycleScrollView
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MJRefresh
+    - RollingNotice
+    - SDCycleScrollView
+    - SDWebImage
+
+SPEC CHECKSUMS:
+  MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
+  RollingNotice: a4919e3e79f420f7bb8ee9d22ee509470b7ccdce
+  SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
+  SDWebImage: c00ec18ab25d10e5ffac109b0f78d1b4341c9691
+
+PODFILE CHECKSUM: 99426821e385f841400e18a451d57a9e6e412d87
+
+COCOAPODS: 1.5.3
