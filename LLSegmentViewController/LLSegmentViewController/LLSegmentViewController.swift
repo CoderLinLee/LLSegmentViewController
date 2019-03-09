@@ -31,7 +31,7 @@ public class LLSubViewsLayoutInfo:NSObject{
 
 
 
- open class LLSegmentViewController: UIViewController {
+open class LLSegmentViewController: UIViewController {
     public let layoutInfo = LLSubViewsLayoutInfo()
     public let segmentCtlView = LLViewControllerSegmentControl(frame: CGRect.zero, titles: [String]())
     public let pageView:LLCtlPageView = LLCtlPageView(frame: CGRect.zero, ctls: [UIViewController]())

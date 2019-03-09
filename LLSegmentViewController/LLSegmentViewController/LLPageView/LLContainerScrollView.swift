@@ -26,6 +26,7 @@ open class LLContainerScrollView: UIScrollView {
     
     private var isObserving = true
     private var lock = false
+    private var tapAtScrollerToTopLock = false
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -42,6 +43,7 @@ open class LLContainerScrollView: UIScrollView {
         self.panGestureRecognizer.cancelsTouchesInView = false
         self.addObserver(self, forKeyPath: observerKeyPath, options: observerOptions, context: &observerContext)
     }
+    
     
     deinit {
         self.removeObservedViews()
@@ -70,7 +72,7 @@ extension LLContainerScrollView{
         guard let scrollView = object as? UIScrollView else {
             return
         }
-
+        
         if keyPath == observerKeyPath ,
         let newContentOffset = change?[NSKeyValueChangeKey.newKey] as? CGPoint,
         let oldContentOffset = change?[NSKeyValueChangeKey.oldKey] as? CGPoint{
@@ -161,6 +163,9 @@ extension LLContainerScrollView {
 
 extension LLContainerScrollView{
     fileprivate func scrollView(scrollView:UIScrollView,contentOffset:CGPoint) {
+        if tapAtScrollerToTopLock == true && scrollView == self{
+            return
+        }
         isObserving = false
         scrollView.contentOffset = contentOffset
         isObserving = true
@@ -197,6 +202,17 @@ extension LLContainerScrollView : UIScrollViewDelegate {
             self.removeObservedViews()
         }
     }
+    
+    public func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        tapAtScrollerToTopLock = true
+        return (contentOffset.y > -(contentInset.top + paralaxHeader.minimumHeight) && contentOffset.y < -paralaxHeader.minimumHeight)
+    }
+    
+    public func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        tapAtScrollerToTopLock = false
+    }
+    
+    
 }
 
 extension LLContainerScrollView : UIGestureRecognizerDelegate {
