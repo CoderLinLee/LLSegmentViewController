@@ -19,7 +19,7 @@ class SinaViewController: LLSegmentViewController {
     }
     
     func layoutSegmentView() {
-        self.layoutInfo.segmentControlPositionType = .bottom(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50))
+        self.layoutInfo.segmentControlPositionType = .bottom(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50),offset:0)
         relayoutSubViews()
     }
     

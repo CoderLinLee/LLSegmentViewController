@@ -17,14 +17,14 @@ public enum LLDragRefreshType {
 //分段控件的位置
 public enum LLSegmentedCtontrolPositionType {
     case nav(size:CGSize)
-    case top(size:CGSize)
-    case bottom(size:CGSize)
+    case top(size:CGSize,offset:CGFloat)
+    case bottom(size:CGSize,offset:CGFloat)
 }
 
 //控件布局位置信息
 public class LLSubViewsLayoutInfo:NSObject{
     public var minimumHeight:CGFloat = 64
-    public var segmentControlPositionType:LLSegmentedCtontrolPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50))
+    public var segmentControlPositionType:LLSegmentedCtontrolPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50), offset: 0)
     public var refreshType = LLDragRefreshType.container
     public var headView:UIView?
 }
@@ -79,16 +79,16 @@ extension LLSegmentViewController{
             segmentControlSize = size
             segmentCtlViewY = 0
             
-        case .top(let size):
+        case .top(let size,let offset):
             let height = size.height
-            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + height)
-            containerFrameY = height
+            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + height + offset)
+            containerFrameY = height + offset
             
             segmentControlSize = size
-            segmentCtlViewY = 0
+            segmentCtlViewY = offset
             
-        case .bottom(let size):
-            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + size.height)
+        case .bottom(let size,let offset):
+            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + size.height + offset)
             containerFrameY = 0
             
             segmentControlSize = size
