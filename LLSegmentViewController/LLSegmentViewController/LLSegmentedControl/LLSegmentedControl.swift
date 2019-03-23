@@ -65,6 +65,7 @@ open class LLSegmentedControl: UIView {
     private let associateScrollerViewObserverKeyPath = "contentOffset"
     private var totalPercent:CGFloat = 0
     internal var titles:[String]!
+    internal var ctls = [UIViewController]()
     private let segMegmentScrollerView = UIScrollView(frame: CGRect.zero)
     private let bottomSeparatorLineView = UIView()
     private var itemAndSeparatorViews = [(itemView:LLSegmentBaseItemView,separatorView:UIView)]()
@@ -185,7 +186,7 @@ extension LLSegmentedControl{
     }
     
     private func checkOutItemView(sourceItemView:LLSegmentBaseItemView,destinationItemView:LLSegmentBaseItemView){
-        //有些类型要处理点击一样的情况
+        //有些类型要处理点击的情况
         delegate?.segMegmentCtlView?(segMegmentCtlView: self, clickItemAt: sourceItemView, to: destinationItemView)
         
         //点击的是当前的
@@ -392,6 +393,9 @@ extension LLSegmentedControl{
         for (index,title) in titles.enumerated() {
             //ItemView
             let segmentCtlItemView = ItemViewClass.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: bounds.height))
+            if ctls.count > index {
+                segmentCtlItemView.bindAssociateViewCtl(ctl: ctls[index])
+            }
             segmentCtlItemView.setSegmentItemViewStyle(itemViewStyle: self.ctlViewStyle.itemViewStyle)
             segmentCtlItemView.titleChange(title: title)
             segmentCtlItemView.percentChange(percent: 0)

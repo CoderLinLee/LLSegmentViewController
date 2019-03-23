@@ -7,6 +7,7 @@
 //
 
 import UIKit
+let simpleTabs = [CellModel(title: "0简单的样式", viewControllerClass: SimpDemoViewController.self)]
 
 
 let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerClass: LLMsgViewController.self),
@@ -52,7 +53,7 @@ let detailItemViewTab = [CellModel(title: "0个人中心", viewControllerClass:P
                          CellModel(title: "5商品详情", viewControllerClass: GoodsDetailViewController.self),]
 
 class ViewController: UIViewController {
-    var dataArr = ["指示器样式","特殊样式","自定义TabViewController","自定义ItemView","详情页"]
+    var dataArr = ["简单的例子","指示器样式","特殊样式","自定义TabViewController","自定义ItemView","详情页"]
     let tableView = UITableView(frame: CGRect.zero, style: .plain)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,14 +96,16 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         let styleListCtl = StyleListViewController()
         styleListCtl.title = dataArr[indexPath.row]
         if indexPath.row == 0 {
-            styleListCtl.customTabs = indicatiorcustomTabs
+            styleListCtl.customTabs = simpleTabs
         }else if indexPath.row == 1 {
-            styleListCtl.customTabs = specialTab
+            styleListCtl.customTabs = indicatiorcustomTabs
         }else if indexPath.row == 2 {
+            styleListCtl.customTabs = specialTab
+        }else if indexPath.row == 3 {
             styleListCtl.customTabs = customTab
-        }else if indexPath.row == 3{
-            styleListCtl.customTabs = customItemViewTab
         }else if indexPath.row == 4{
+            styleListCtl.customTabs = customItemViewTab
+        }else if indexPath.row == 5{
             styleListCtl.customTabs = detailItemViewTab
         }
         self.navigationController?.pushViewController(styleListCtl, animated: true)

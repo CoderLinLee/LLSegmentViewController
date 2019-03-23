@@ -29,11 +29,13 @@ open class LLSegmentItemViewStyle:NSObject {
 
 
 open class LLSegmentBaseItemView: UIView {
-    public var isScrollerTarget = false
+    open var associateViewCtl:UIViewController?
+
     public var contentOffsetOnRight = false
     public var index = 0
     public var isSelected = false
-
+    public var percent:CGFloat = 0
+    public var title:String = ""
     internal weak var indicatorView:LLIndicatorView!
     private var itemViewStyle = LLSegmentItemViewStyle()
     public override required init(frame: CGRect) {
@@ -42,6 +44,10 @@ open class LLSegmentBaseItemView: UIView {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func bindAssociateViewCtl(ctl:UIViewController){
+        associateViewCtl = ctl
     }
     
     public func percentConvert()->CGFloat{
@@ -63,8 +69,6 @@ open class LLSegmentBaseItemView: UIView {
         }
     }
 
-    public var percent:CGFloat = 0
-    public var title:String = ""
     open func percentChange(percent:CGFloat){
         if percent == 1 {
             self.isSelected = true

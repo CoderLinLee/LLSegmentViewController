@@ -10,15 +10,23 @@ import UIKit
 
 //下拉刷新控件的位置
 public enum LLDragRefreshType {
+    //整体下拉
     case container
+    //列表下拉
     case list
 }
 
 //分段控件的位置
 public enum LLSegmentedCtontrolPositionType {
+    //在导航条上面的
     case nav(size:CGSize)
+    //在顶部
     case top(size:CGSize,offset:CGFloat)
+    //在底部
     case bottom(size:CGSize,offset:CGFloat)
+    
+    //在底部
+    case customFrame(segmentCtlFrame:CGRect,containerFrame:CGRect)
 }
 
 //控件布局位置信息
@@ -30,10 +38,9 @@ public class LLSubViewsLayoutInfo:NSObject{
 }
 
 
-
 open class LLSegmentViewController: UIViewController {
     public let layoutInfo = LLSubViewsLayoutInfo()
-    public let segmentCtlView = LLViewControllerSegmentControl(frame: CGRect.zero, titles: [String]())
+    public let segmentCtlView = LLSegmentedControl(frame: CGRect.zero, titles: [String]())
     public let pageView:LLCtlPageView = LLCtlPageView(frame: CGRect.zero, ctls: [UIViewController]())
     public let containerScrView = LLContainerScrollView()
     public private (set) var ctls = [UIViewController]()
@@ -93,6 +100,12 @@ extension LLSegmentViewController{
             
             segmentControlSize = size
             segmentCtlViewY = containerHeight
+        case .customFrame(let segmentCtlFrame, let containerFrame):
+            segmentCtlView.frame = segmentCtlFrame
+            pageView.frame = containerFrame
+            containerScrView.contentSize = CGSize.init(width: screenW, height: screenH - (containerScrView.paralaxHeader.minimumHeight))
+            containerScrView.layoutParalaxHeader()
+            return
         }
     
 
@@ -121,8 +134,8 @@ extension LLSegmentViewController{
             let title = ctl.ctlTitle()
             titles.append(title)
         }
-        segmentCtlView.titles = titles
         segmentCtlView.ctls = ctls
+        segmentCtlView.titles = titles
         segmentCtlView.reloadData()
 
         pageView.reloadCurrentIndex(index: 0)
@@ -206,24 +219,5 @@ extension LLSegmentViewController{
             }
         }
         return nil;
-    }
-}
-
-open class LLViewControllerSegmentControl: LLSegmentedControl {
-    var ctls = [UIViewController]()
-    override public func reloadData(ctlViewStyle: LLSegmentedControlStyle? = nil) {
-        if let ctlViewStyle = ctlViewStyle {
-            self.ctlViewStyle = ctlViewStyle
-        }
-        
-        removeItemViews()
-        reloadItemViews()
-        for (index,ctl) in ctls.enumerated() {
-            if let itemView = itemViews[index] as? LLSegmentItemBadgeView{
-                itemView.associateViewCtl = ctl
-            }
-        }
-        reLayoutItemViews()
-        setDefaultSelectedAtIndexStatu()
     }
 }

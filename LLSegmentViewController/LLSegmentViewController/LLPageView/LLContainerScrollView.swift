@@ -69,10 +69,12 @@ open class LLContainerScrollView: UIScrollView {
 
 extension LLContainerScrollView{
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if paralaxHeader.headView == nil {
+            return
+        }
         guard let scrollView = object as? UIScrollView else {
             return
         }
-        
         if keyPath == observerKeyPath ,
         let newContentOffset = change?[NSKeyValueChangeKey.newKey] as? CGPoint,
         let oldContentOffset = change?[NSKeyValueChangeKey.oldKey] as? CGPoint{

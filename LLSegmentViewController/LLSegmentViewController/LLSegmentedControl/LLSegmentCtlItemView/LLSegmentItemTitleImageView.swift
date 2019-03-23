@@ -55,13 +55,12 @@ open class LLSegmentItemTitleImageView: LLSegmentItemBadgeView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override open weak var associateViewCtl: UIViewController?{
-        didSet{
+    public override func bindAssociateViewCtl(ctl: UIViewController) {
+        super.bindAssociateViewCtl(ctl: ctl)
+        if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol{
+            self.titleImageModel = ctl.model
             if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol{
-                self.titleImageModel = ctl.model
-                if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol{
-                    ctl.refreshWhenPercentChange(titleLabel:titleLabel, imageView: imageView, percent: percent)
-                }
+                ctl.refreshWhenPercentChange(titleLabel:titleLabel, imageView: imageView, percent: percent)
             }
         }
     }

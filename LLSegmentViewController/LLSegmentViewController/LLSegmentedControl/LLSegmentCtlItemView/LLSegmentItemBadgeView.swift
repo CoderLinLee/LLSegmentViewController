@@ -38,11 +38,11 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open weak var associateViewCtl:UIViewController? {
-        didSet{
-            associateViewCtl?.tabBarItem.addObserver(self, forKeyPath: badgeValueObserverKeyPath, options: [.new], context: nil)
-        }
+    public override func bindAssociateViewCtl(ctl: UIViewController) {
+        super.bindAssociateViewCtl(ctl: ctl)
+        associateViewCtl?.tabBarItem.addObserver(self, forKeyPath: badgeValueObserverKeyPath, options: [.new], context: nil)
     }
+    
 
     deinit {
         associateViewCtl?.tabBarItem.removeObserver(self, forKeyPath: badgeValueObserverKeyPath)
