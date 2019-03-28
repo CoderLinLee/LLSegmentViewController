@@ -29,7 +29,7 @@ extension SimpDemoViewController{
     }
     
     func loadCtls() {
-        let introCtl = TestViewController()
+        let introCtl = WebViewController()
         introCtl.title = "简介"
         introCtl.view.backgroundColor = UIColor.yellow
         
