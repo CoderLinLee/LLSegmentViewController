@@ -9,7 +9,7 @@
 import UIKit
 
 class ChangeImageViewViewController: LLSegmentViewController {
-    let edgeInsets = UIEdgeInsetsMake(20, 20, 20, 20)
+    let edgeInsets = UIEdgeInsets.init(top: 20, left: 20, bottom: 20, right: 20)
     let leftImageView = UIImageView()
     let rightImageView = UIImageView()
     let images = [#imageLiteral(resourceName: "lotus"),#imageLiteral(resourceName: "river"),#imageLiteral(resourceName: "seaWave"),#imageLiteral(resourceName: "city")]

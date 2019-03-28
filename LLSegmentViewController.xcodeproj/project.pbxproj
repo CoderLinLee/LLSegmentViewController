@@ -416,13 +416,16 @@
 				TargetAttributes = {
 					F27132D521C8DD7C00F9D2AB = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 					};
 					F27132E921C8DD7F00F9D2AB = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = F27132D521C8DD7C00F9D2AB;
 					};
 					F27132F421C8DD7F00F9D2AB = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = F27132D521C8DD7C00F9D2AB;
 					};
 				};
@@ -748,7 +751,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -768,7 +771,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -787,7 +790,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LLSegmentViewController.app/LLSegmentViewController";
 			};
@@ -807,7 +810,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LLSegmentViewController.app/LLSegmentViewController";
 			};
@@ -826,7 +829,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = LLSegmentViewController;
 			};
@@ -845,7 +848,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = LLSegmentViewController;
 			};

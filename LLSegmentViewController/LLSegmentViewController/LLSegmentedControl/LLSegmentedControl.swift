@@ -224,7 +224,7 @@ extension LLSegmentedControl{
     
     //associateScrollerView响应
     private func checkOutItemContentViewAction(sourceItemView:LLSegmentBaseItemView,destinationItemView:LLSegmentBaseItemView){
-        let gap = fabs(CGFloat(sourceItemView.index - destinationItemView.index))
+        let gap = abs(CGFloat(sourceItemView.index - destinationItemView.index))
         let offsetX = CGFloat(destinationItemView.index) * associateScrollerView!.bounds.width
         let offset = CGPoint.init(x: offsetX, y: 0)
         if gap == 1 && clickAnimation{

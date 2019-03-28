@@ -93,7 +93,7 @@ extension SinaViewController:LLSegmentedControlDelegate{
         keyAnimation.duration = 0.25;
         keyAnimation.values = [1.0,0.4,1.0];
         //动画均匀进行
-        keyAnimation.calculationMode = kCAAnimationCubicPaced;
+        keyAnimation.calculationMode = CAAnimationCalculationMode.cubicPaced;
         //将帧动画添加到当前图层
         destinationItemView.layer.add(keyAnimation, forKey: "keyAnimation")
     }

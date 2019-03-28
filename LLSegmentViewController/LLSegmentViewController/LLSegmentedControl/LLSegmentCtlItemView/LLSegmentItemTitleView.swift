@@ -39,7 +39,7 @@ open class LLSegmentItemTitleView: LLSegmentItemBadgeView {
         addSubview(maskTitleLabel)
     
         badgeValueLabelLocationView = maskTitleLabel
-        self.bringSubview(toFront: badgeValueLabel)
+        self.bringSubviewToFront(badgeValueLabel)
     }
     
     required public init?(coder aDecoder: NSCoder) {

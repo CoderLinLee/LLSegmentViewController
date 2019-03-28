@@ -30,7 +30,7 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
         
         imageView.contentMode = .bottom
         badgeValueLabelLocationView = imageView
-        self.bringSubview(toFront: badgeValueLabel)
+        self.bringSubviewToFront(badgeValueLabel)
     }
     
     required public init?(coder aDecoder: NSCoder) {

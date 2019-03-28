@@ -130,7 +130,7 @@ extension LLSegmentViewController{
         
         var titles = [String]()
         for ctl in ctls{
-            addChildViewController(ctl)
+            addChild(ctl)
             let title = ctl.ctlTitle()
             titles.append(title)
         }
@@ -143,8 +143,8 @@ extension LLSegmentViewController{
     }
     
     public func insertOneViewController(ctl:UIViewController,index:NSInteger){
-        if !self.childViewControllers.contains(ctl) {
-            addChildViewController(ctl)
+        if !self.children.contains(ctl) {
+            addChild(ctl)
             let itemIndex = max(0, min(index, ctls.count))
             self.ctls.insert(ctl, at: itemIndex)
             

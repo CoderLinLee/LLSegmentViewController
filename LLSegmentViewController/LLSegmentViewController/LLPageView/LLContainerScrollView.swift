@@ -52,7 +52,7 @@ open class LLContainerScrollView: UIScrollView {
     
     public func layoutParalaxHeader(){
         if let headView = paralaxHeader.headView  {
-            self.contentInset = UIEdgeInsetsMake(headView.bounds.height, 0, 0, 0)
+            self.contentInset = UIEdgeInsets.init(top: headView.bounds.height, left: 0, bottom: 0, right: 0)
             headView.center = CGPoint.init(x: bounds.width/2, y: -headView.bounds.height/2)
             insertSubview(headView, at: 0)
             self.contentOffset = CGPoint.init(x: 0, y: -self.contentInset.top)
@@ -150,7 +150,7 @@ extension LLContainerScrollView {
         //顶部下拉
         let contentInsetTop = self.contentInset.top
         let dragTopOffsetY = min(self.contentOffset.y + contentInsetTop,0)
-        self.dragDeleage?.scrollView(scrollView: self, dragTop: fabs(dragTopOffsetY))
+        self.dragDeleage?.scrollView(scrollView: self, dragTop: abs(dragTopOffsetY))
 
         //拉到最小距离的进度
         var minProgress:CGFloat = 0
@@ -228,7 +228,7 @@ extension LLContainerScrollView : UIGestureRecognizerDelegate {
         }
         
         let velocity = otherGestureRecognizer.velocity(in: self)
-        if fabs(velocity.x) > fabs(velocity.y) {
+        if abs(velocity.x) > abs(velocity.y) {
             return false
         }
         

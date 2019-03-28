@@ -216,7 +216,7 @@ extension LLIndicatorView{
             targetWidth = interpolationFrom(from: leftItemWidth, to: rightItemWidth, percent: rightItemView.percent)
             targetWidth -= 2*margin
         case .jdIqiyi(let baseWidth,let changeWidth):
-            let percent = 1 - fabs(0.5-leftItemView.percent)*2   //变化范围（0....1.....0）
+            let percent = 1 - abs(0.5-leftItemView.percent)*2   //变化范围（0....1.....0）
             let minX = leftItemView.center.x - baseWidth/2
             let maxX = rightItemView.center.x - baseWidth/2
             targetWidth = percent * (maxX - minX - changeWidth) + baseWidth
