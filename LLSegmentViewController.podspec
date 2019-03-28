@@ -9,5 +9,4 @@ s.platform     = :ios, "8.0"
 s.source       = {:git => "https://github.com/CoderLinLee/LLSegmentViewController.git", :tag => s.version}
 s.source_files = "LLSegmentViewController/LLSegmentViewController/**/*"
 s.requires_arc = true
-s.swift_version = "4.2"
 end
