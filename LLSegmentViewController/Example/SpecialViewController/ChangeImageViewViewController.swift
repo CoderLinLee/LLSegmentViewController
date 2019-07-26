@@ -13,6 +13,7 @@ class ChangeImageViewViewController: LLSegmentViewController {
     let leftImageView = UIImageView()
     let rightImageView = UIImageView()
     let images = [#imageLiteral(resourceName: "lotus"),#imageLiteral(resourceName: "river"),#imageLiteral(resourceName: "seaWave"),#imageLiteral(resourceName: "city")]
+    let navigationBarHeight = mTopHeight()
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutContentView()
@@ -23,7 +24,7 @@ class ChangeImageViewViewController: LLSegmentViewController {
     }
 
     func layoutContentView() {
-        let frame = CGRect.init(x: 0, y: 64, width: UIScreen.main.bounds.width, height: 100)
+        let frame = CGRect.init(x: 0, y: navigationBarHeight, width: UIScreen.main.bounds.width, height: 100)
         let segmentControlFrame = CGRect.init(x: edgeInsets.left, y: frame.minY + edgeInsets.top, width: frame.width - edgeInsets.left - edgeInsets.right, height: frame.height - edgeInsets.top - edgeInsets.bottom)
         let pageViewFrame = CGRect.init(x: 0, y: frame.maxY, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - frame.maxY)
         relayoutSegmentControlAndPageViewFrame(segmentControlFrame: segmentControlFrame, pageViewFrame: pageViewFrame)
@@ -78,7 +79,7 @@ class ChangeImageViewViewController: LLSegmentViewController {
     }
     
     func setUpImgeViews() {
-        leftImageView.frame = CGRect.init(x: 0, y: 64, width: view.bounds.width, height: edgeInsets.top + edgeInsets.bottom + segmentCtlView.bounds.height)
+        leftImageView.frame = CGRect.init(x: 0, y: navigationBarHeight, width: view.bounds.width, height: edgeInsets.top + edgeInsets.bottom + segmentCtlView.bounds.height)
         rightImageView.frame = leftImageView.frame
         self.view.insertSubview(leftImageView, at: 0)
         self.view.insertSubview(rightImageView, at: 0)

@@ -45,6 +45,7 @@ open class LLCtlPageView: UIScrollView {
         if #available(iOS 11.0, *) {
             self.contentInsetAdjustmentBehavior = .never
         }
+        print(UIScreen.main.bounds)
     }
 }
 

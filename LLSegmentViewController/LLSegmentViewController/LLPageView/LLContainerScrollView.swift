@@ -27,6 +27,7 @@ open class LLContainerScrollView: UIScrollView {
     private var isObserving = true
     private var lock = false
     private var tapAtScrollerToTopLock = false
+    private var safeBottomMargin = mSafeBottomMargin()
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -115,8 +116,8 @@ extension LLContainerScrollView {
             self.scrollView(scrollView: self, contentOffset: oldContentOffset)
         }else if self.contentOffset.y < -self.contentInset.top {
             self.scrollView(scrollView: self, contentOffset: CGPoint.init(x: self.contentOffset.x, y: -self.contentInset.top))
-        }else if self.contentOffset.y > (contentInset.bottom+contentSize.height - bounds.height) {
-            self.scrollView(scrollView: self, contentOffset: CGPoint.init(x: self.contentOffset.x, y: (contentInset.bottom+contentSize.height - bounds.height)))
+        }else if self.contentOffset.y > (contentInset.bottom+contentSize.height - bounds.height + safeBottomMargin) {
+            self.scrollView(scrollView: self, contentOffset: CGPoint.init(x: self.contentOffset.x, y: (contentInset.bottom+contentSize.height - bounds.height + safeBottomMargin)))
         }
     }
 }

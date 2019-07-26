@@ -22,5 +22,4 @@ class InsertViewController: TitleViewController{
         ctl.title = "添加序号" + "\(index)"
         insertOneViewController(ctl: ctl, index: index)
     }
-
 }

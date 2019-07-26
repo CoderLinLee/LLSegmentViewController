@@ -52,6 +52,7 @@ open class LLSegmentViewController: UIViewController {
         view.backgroundColor = UIColor.white
         initSubviews()
         relayoutSubViews()
+        containerScrView.backgroundColor = UIColor.clear
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         if let screenEdgePanGestureRecognizer = getScreenEdgePanGestureRecognizer() {
             containerScrView.panGestureRecognizer.require(toFail: screenEdgePanGestureRecognizer)
@@ -103,6 +104,7 @@ extension LLSegmentViewController{
         case .customFrame(let segmentCtlFrame, let containerFrame):
             segmentCtlView.frame = segmentCtlFrame
             pageView.frame = containerFrame
+            
             containerScrView.contentSize = CGSize.init(width: screenW, height: screenH - (containerScrView.paralaxHeader.minimumHeight))
             containerScrView.layoutParalaxHeader()
             return
@@ -115,7 +117,7 @@ extension LLSegmentViewController{
         let containerFrame = CGRect.init(x: 0, y: containerFrameY, width: screenW, height: containerHeight)
         pageView.frame = containerFrame
         
-        containerScrView.contentSize = CGSize.init(width: screenW, height: screenH - (containerScrView.paralaxHeader.minimumHeight))
+        containerScrView.contentSize = CGSize.init(width: screenW, height: screenH - (containerScrView.paralaxHeader.minimumHeight + mSafeBottomMargin()))
         containerScrView.layoutParalaxHeader()
     }
     

@@ -179,10 +179,10 @@
 			children = (
 				F2055B4D21D4D00100FF961B /* CellModel.swift */,
 				F23B25D822451F4E00262FC0 /* SimpDemoViewController.swift */,
+				F2055B4421D39CB300FF961B /* IndicatorViewController */,
 				F28F1C7021F9B75400153A61 /* DetailViewController */,
 				F2DE12D821E0588400D13738 /* CustomItemView */,
 				F2DE12BF21DCC1E100D13738 /* SpecialViewController */,
-				F2055B4421D39CB300FF961B /* IndicatorViewController */,
 				F2055B3F21D3585E00FF961B /* CustomTableViewController */,
 			);
 			path = Example;
@@ -485,7 +485,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/RollingNotice/RollingNotice.framework",
 				"${BUILT_PRODUCTS_DIR}/SDCycleScrollView/SDCycleScrollView.framework",
@@ -500,7 +500,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8246FDB4DB3DC38E0C01F10 /* [CP] Check Pods Manifest.lock */ = {

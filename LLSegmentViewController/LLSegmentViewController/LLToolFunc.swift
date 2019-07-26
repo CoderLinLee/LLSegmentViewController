@@ -100,6 +100,16 @@ public func mTopHeight(mNavBarHeight:CGFloat = 44)->CGFloat {
     return mStatusBarHeight + mNavBarHeight
 }
 
+public func mSafeBottomMargin()->CGFloat {
+    let mScreenWidth = UIScreen.main.bounds.width
+    let mScreenHeight = UIScreen.main.bounds.height
+    let IPHONEX = (mScreenHeight == 812 && mScreenWidth == 375) || (mScreenHeight == 375 && mScreenWidth == 812)
+    let IPHONEXS_Max = (mScreenHeight == 896 && mScreenWidth == 414) || (mScreenHeight == 414 && mScreenWidth == 896)
+    let IsAllScreen = (IPHONEX || IPHONEXS_Max)
+    let mSafeBottomMargin: CGFloat = IsAllScreen ? 34 : 0
+    return mSafeBottomMargin
+}
+
 
 extension UIViewController{
     internal func ctlTitle()->String{

@@ -27,6 +27,8 @@ class PersonDetailViewController: LLSegmentViewController {
         loadLufeiImageView()
         
         self.layoutInfo.headView = lufeiImageView
+        self.layoutInfo.refreshType = .container
+
         self.layoutInfo.segmentControlPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50),offset:0)
         self.relayoutSubViews()
     }
