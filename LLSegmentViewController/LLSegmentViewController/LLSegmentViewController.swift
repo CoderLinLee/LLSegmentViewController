@@ -105,7 +105,7 @@ extension LLSegmentViewController{
             segmentCtlView.frame = segmentCtlFrame
             pageView.frame = containerFrame
             
-            containerScrView.contentSize = CGSize.init(width: screenW, height: screenH - (containerScrView.paralaxHeader.minimumHeight))
+            containerScrView.contentSize = CGSize.init(width: screenW, height: segmentCtlFrame.height + containerFrame.height)
             containerScrView.layoutParalaxHeader()
             return
         }

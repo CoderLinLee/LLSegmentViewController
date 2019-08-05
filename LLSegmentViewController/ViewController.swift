@@ -108,6 +108,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         }else if indexPath.row == 5{
             styleListCtl.customTabs = detailItemViewTab
         }
+        styleListCtl.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(styleListCtl, animated: true)
 
     }
