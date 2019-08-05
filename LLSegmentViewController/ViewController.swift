@@ -7,7 +7,8 @@
 //
 
 import UIKit
-let simpleTabs = [CellModel(title: "0简单的样式", viewControllerClass: SimpDemoViewController.self)]
+let simpleTabs = [CellModel(title: "0简单的样式", viewControllerClass: SimpDemoViewController.self),
+                  CellModel(title: "1导航栏样式", viewControllerClass: NavViewController.self),]
 
 
 let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerClass: LLMsgViewController.self),
@@ -26,7 +27,7 @@ let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerCla
                             CellModel(title: "13三角形样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "14小红点和数字样式", viewControllerClass: BadgeValueViewController.self),
                             CellModel(title: "15点线效果样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "16QQ红点样式", viewControllerClass: TitleViewController.self),]
+                            CellModel(title: "16QQ红点样式", viewControllerClass: TitleViewController.self)]
 
 let customTab = [CellModel(title: "0微信样式", viewControllerClass: SimpleTabViewController.self),
                  CellModel(title: "1微博样式", viewControllerClass: SinaViewController.self),

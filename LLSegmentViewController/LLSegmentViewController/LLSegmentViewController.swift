@@ -24,8 +24,7 @@ public enum LLSegmentedCtontrolPositionType {
     case top(size:CGSize,offset:CGFloat)
     //在底部
     case bottom(size:CGSize,offset:CGFloat)
-    
-    //在底部
+    //自定义位置
     case customFrame(segmentCtlFrame:CGRect,containerFrame:CGRect)
 }
 
@@ -62,7 +61,7 @@ open class LLSegmentViewController: UIViewController {
 }
 
 extension LLSegmentViewController{
-    public func closeAutomaticallyAdjusts() {
+    open func closeAutomaticallyAdjusts() {
         if #available(iOS 11.0, *) {
             self.containerScrView.contentInsetAdjustmentBehavior = .never
         } else {
@@ -70,7 +69,7 @@ extension LLSegmentViewController{
         }
     }
     
-    public func relayoutSubViews() {
+    open func relayoutSubViews() {
         let screenW = UIScreen.main.bounds.width
         let screenH = UIScreen.main.bounds.height
         
@@ -87,6 +86,7 @@ extension LLSegmentViewController{
             segmentControlSize = size
             segmentCtlViewY = 0
             
+            self.navigationItem.titleView = segmentCtlView
         case .top(let size,let offset):
             let height = size.height
             containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + height + offset)
@@ -122,12 +122,12 @@ extension LLSegmentViewController{
     }
     
     //对于一些特殊的需要自己指定位置信息
-    public func relayoutSegmentControlAndPageViewFrame(segmentControlFrame:CGRect,pageViewFrame:CGRect) {
+    open func relayoutSegmentControlAndPageViewFrame(segmentControlFrame:CGRect,pageViewFrame:CGRect) {
         segmentCtlView.frame = segmentControlFrame
         pageView.frame = pageViewFrame
     }
     
-    public func reloadViewControllers(ctls:[UIViewController]) {
+    open func reloadViewControllers(ctls:[UIViewController]) {
         self.ctls = ctls
         
         var titles = [String]()
@@ -144,7 +144,7 @@ extension LLSegmentViewController{
         pageView.reloadData()
     }
     
-    public func insertOneViewController(ctl:UIViewController,index:NSInteger){
+    open func insertOneViewController(ctl:UIViewController,index:NSInteger){
         if !self.children.contains(ctl) {
             addChild(ctl)
             let itemIndex = max(0, min(index, ctls.count))
@@ -160,7 +160,7 @@ extension LLSegmentViewController{
         }
     }
     
-    public func selected(at Index:NSInteger,animation:Bool)  {
+    open func selected(at Index:NSInteger,animation:Bool)  {
         guard (ctls.count < Index && Index > 0) else {
             return
         }
@@ -169,13 +169,15 @@ extension LLSegmentViewController{
 }
 
 extension LLSegmentViewController :LLContainerScrollViewDagDelegate{
-    public func scrollView(scrollView: LLContainerScrollView, dragTop offsetY: CGFloat) {
+    open func scrollView(scrollView: LLContainerScrollView, dragTop offsetY: CGFloat) {
+        
     }
     
-    public func scrollView(scrollView: LLContainerScrollView, dragToMinimumHeight progress: CGFloat) {
+    open func scrollView(scrollView: LLContainerScrollView, dragToMinimumHeight progress: CGFloat) {
+        
     }
 
-    public func scrollView(scrollView: LLContainerScrollView, shouldScrollWithSubView subView: UIScrollView) -> Bool {
+    open func scrollView(scrollView: LLContainerScrollView, shouldScrollWithSubView subView: UIScrollView) -> Bool {
         if subView == pageView {
             return false
         }
@@ -184,11 +186,11 @@ extension LLSegmentViewController :LLContainerScrollViewDagDelegate{
 }
 
 extension LLSegmentViewController :LLCtlPageViewDataSource{
-    public func numberOfItems(in pageView: LLCtlPageView) -> Int {
+    open func numberOfItems(in pageView: LLCtlPageView) -> Int {
         return ctls.count
     }
     
-    public func pageView(_ pageView: LLCtlPageView, viewForItemAt index: NSInteger) -> UIView {
+    open func pageView(_ pageView: LLCtlPageView, viewForItemAt index: NSInteger) -> UIView {
         return ctls[index].view
     }
 }

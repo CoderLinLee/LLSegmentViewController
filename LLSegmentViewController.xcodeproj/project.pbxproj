@@ -50,6 +50,7 @@
 		F2D3316D220185F900025A48 /* LLIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D33166220185F900025A48 /* LLIndicatorView.swift */; };
 		F2D3316F2201865E00025A48 /* LLSegmentBaseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D3316E2201865E00025A48 /* LLSegmentBaseItemView.swift */; };
 		F2D939E422F7CA0200132DD4 /* HomeTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D939E322F7CA0200132DD4 /* HomeTestViewController.swift */; };
+		F2D939E822F8039700132DD4 /* NavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D939E722F8039700132DD4 /* NavViewController.swift */; };
 		F2DE12C121DCC23500D13738 /* NestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12C021DCC23500D13738 /* NestViewController.swift */; };
 		F2DE12D621DF6DFB00D13738 /* FootballViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */; };
 		F2DE12DA21E058FF00D13738 /* BackgroundColorGradientItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12D921E058FF00D13738 /* BackgroundColorGradientItemView.swift */; };
@@ -126,6 +127,7 @@
 		F2D33166220185F900025A48 /* LLIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLIndicatorView.swift; sourceTree = "<group>"; };
 		F2D3316E2201865E00025A48 /* LLSegmentBaseItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentBaseItemView.swift; sourceTree = "<group>"; };
 		F2D939E322F7CA0200132DD4 /* HomeTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestViewController.swift; sourceTree = "<group>"; };
+		F2D939E722F8039700132DD4 /* NavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavViewController.swift; sourceTree = "<group>"; };
 		F2DE12C021DCC23500D13738 /* NestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestViewController.swift; sourceTree = "<group>"; };
 		F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootballViewController.swift; sourceTree = "<group>"; };
 		F2DE12D921E058FF00D13738 /* BackgroundColorGradientItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorGradientItemView.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			children = (
 				F2055B4D21D4D00100FF961B /* CellModel.swift */,
 				F23B25D822451F4E00262FC0 /* SimpDemoViewController.swift */,
+				F2D939E722F8039700132DD4 /* NavViewController.swift */,
 				F2055B4421D39CB300FF961B /* IndicatorViewController */,
 				F28F1C7021F9B75400153A61 /* DetailViewController */,
 				F2DE12D821E0588400D13738 /* CustomItemView */,
@@ -536,6 +539,7 @@
 				F2D33167220185F900025A48 /* LLSegmentItemTitleImageView.swift in Sources */,
 				18AF01F321E255AF00FD5F14 /* MixViewController.swift in Sources */,
 				F23D2F7B21CA53830067B399 /* LLToolFunc.swift in Sources */,
+				F2D939E822F8039700132DD4 /* NavViewController.swift in Sources */,
 				F28F1C6E21F9599700153A61 /* LLContainerScrollView.swift in Sources */,
 				F2D3316A220185F900025A48 /* LLSegmentItemTabbarView.swift in Sources */,
 				F27132DC21C8DD7C00F9D2AB /* ViewController.swift in Sources */,

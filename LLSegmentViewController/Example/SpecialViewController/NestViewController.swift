@@ -54,7 +54,6 @@ class NestViewController: LLSegmentViewController {
         segmentCtlView.layer.cornerRadius = segmentViewHeight/2
         segmentCtlView.layer.borderColor = UIColor.red.cgColor
         segmentCtlView.layer.borderWidth = 1
-        self.navigationItem.titleView = segmentCtlView
     }
 }
 
