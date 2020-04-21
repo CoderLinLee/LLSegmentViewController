@@ -11,11 +11,11 @@ import UIKit
 //指示器宽度变化样式
 public enum LLIndicatorViewWidthChangeStyle {
     /*跟Item等宽样式*/
-    case equalToItemWidth(margin:CGFloat)
+    case equalToItemWidth(margin: CGFloat)
     /*爱奇艺宽带变化样式*/
-    case jdIqiyi(baseWidth:CGFloat,changeWidth:CGFloat)
+    case jdIqiyi(baseWidth: CGFloat, changeWidth: CGFloat)
     /*固定宽度样式*/
-    case stationary(baseWidth:CGFloat)
+    case stationary(baseWidth: CGFloat)
 }
 
 //指示器中心位置
@@ -23,43 +23,40 @@ public enum LLIndicatorViewCenterYGradientStyle {
     /*在正中心*/
     case center
     /*在顶部，跟顶部间距为margin*/
-    case top(margin:CGFloat)
+    case top(margin: CGFloat)
     /*在底部，跟底部间距为margin*/
-    case bottom(margin:CGFloat)
+    case bottom(margin: CGFloat)
 }
 
-
 //指示器形状样式:这里只是给定了几种常见的样式
-public enum LLIndicatorViewShapeStyle{
+public enum LLIndicatorViewShapeStyle {
     /*自定义类型,不做任何处理，由外部定义这个view的宽高*/
     case custom
     /*三角形*/
-    case triangle(size:CGSize,color:UIColor)
+    case triangle(size: CGSize, color: UIColor)
     /*椭圆*/
-    case ellipse(widthChangeStyle:LLIndicatorViewWidthChangeStyle,height:CGFloat,shadowColor:UIColor?)
+    case ellipse(widthChangeStyle: LLIndicatorViewWidthChangeStyle, height: CGFloat, shadowColor: UIColor?)
     /*横杆*/
-    case crossBar(widthChangeStyle:LLIndicatorViewWidthChangeStyle,height:CGFloat)
+    case crossBar(widthChangeStyle: LLIndicatorViewWidthChangeStyle, height: CGFloat)
     /*背景*/
-    case background(color:UIColor,img:UIImage?)
+    case background(color: UIColor, img: UIImage?)
     /*QQ弹性小球*/
-    case qqDragMsg(color:UIColor,height:CGFloat)
+    case qqDragMsg(color: UIColor, height: CGFloat)
 }
 
-
-@objc public protocol LLIndicatorViewDelegate : NSObjectProtocol {
-    @objc optional func indicatorView(indicatorView: LLIndicatorView, percent:CGFloat)
+@objc public protocol LLIndicatorViewDelegate: NSObjectProtocol {
+    @objc optional func indicatorView(indicatorView: LLIndicatorView, percent: CGFloat)
 }
-
 
 open class LLIndicatorView: UIView {
     public var contentView = UIView()
-    public weak var delegate:LLIndicatorViewDelegate?
-    private var qqShape:CAShapeLayer?
+    public weak var delegate: LLIndicatorViewDelegate?
+    private var qqShape: CAShapeLayer?
     public override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(contentView)
         contentView.frame = bounds
-        contentView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -68,7 +65,7 @@ open class LLIndicatorView: UIView {
 
     //上下变化位置
     public var centerYGradientStyle = LLIndicatorViewCenterYGradientStyle.bottom(margin: 0) {
-        didSet{
+        didSet {
             if let selfSuperView = self.superview {
                 var selfCenter = self.center
                 switch centerYGradientStyle {
@@ -86,7 +83,7 @@ open class LLIndicatorView: UIView {
     
     //宽度变化样式
     public var widthChangeStyle = LLIndicatorViewWidthChangeStyle.stationary(baseWidth: 10) {
-        didSet{
+        didSet {
             var targetWidth = self.bounds.width
             switch widthChangeStyle {
             case .equalToItemWidth:
@@ -104,7 +101,7 @@ open class LLIndicatorView: UIView {
     
     //形状变化样式
     public var shapeStyle = LLIndicatorViewShapeStyle.custom {
-        didSet{
+        didSet {
             self.layer.contents = nil
             switch shapeStyle {
             case .custom:
@@ -119,13 +116,13 @@ open class LLIndicatorView: UIView {
                 selfFrame.size.height = superview?.bounds.height ?? selfFrame.height
                 self.frame = selfFrame
                 self.autoresizingMask = [.flexibleHeight]
-            case .crossBar(let widthChangeStyle,let height):
+            case .crossBar(let widthChangeStyle, let height):
                 self.widthChangeStyle = widthChangeStyle
                 self.centerYGradientStyle = .bottom(margin: 0)
                 var selfBounds = self.bounds
                 selfBounds.size.height = height
                 self.bounds = selfBounds
-            case .triangle(let size,let color):
+            case .triangle(let size, let color):
                 self.widthChangeStyle = .stationary(baseWidth: size.width)
                 self.centerYGradientStyle = .bottom(margin: 0)
                 var selfBounds = self.bounds
@@ -146,7 +143,7 @@ open class LLIndicatorView: UIView {
                 
                 self.backgroundColor = UIColor.clear
                 self.contentView.backgroundColor = UIColor.clear
-            case .ellipse(let widthChangeStyle, let height,let shadowColor):
+            case .ellipse(let widthChangeStyle, let height, let shadowColor):
                 self.widthChangeStyle = widthChangeStyle
                 self.centerYGradientStyle = .center
                 
@@ -155,14 +152,14 @@ open class LLIndicatorView: UIView {
                 self.bounds = selfBounds
                 
                 self.layer.cornerRadius = height/2
-                if shadowColor != nil {
+                if let `shadowColor` = shadowColor {
                     self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.8)
-                    self.layer.shadowColor = shadowColor!.cgColor;
-                    self.layer.shadowRadius = 3;
-                    self.layer.shadowOffset = CGSize.init(width: 3, height: 4);
-                    self.layer.shadowOpacity = 0.6;
+                    self.layer.shadowColor = shadowColor.cgColor
+                    self.layer.shadowRadius = 3
+                    self.layer.shadowOffset = CGSize.init(width: 3, height: 4)
+                    self.layer.shadowOpacity = 0.6
                 }
-            case .qqDragMsg(_,let height):
+            case .qqDragMsg(_, let height):
                 self.bounds = CGRect.init(x: 0, y: 0, width: self.bounds.width, height: height)
                 self.widthChangeStyle = .jdIqiyi(baseWidth: height, changeWidth: 5)
                 self.centerYGradientStyle = .bottom(margin: 0)
@@ -173,10 +170,10 @@ open class LLIndicatorView: UIView {
     }
 }
 
-extension LLIndicatorView{
-    fileprivate func handleQQMsgStyle(leftItemView:LLSegmentBaseItemView) {
+extension LLIndicatorView {
+    fileprivate func handleQQMsgStyle(leftItemView: LLSegmentBaseItemView) {
         switch self.shapeStyle {
-        case .qqDragMsg(let color,let height):
+        case .qqDragMsg(let color, let height):
             self.backgroundColor = UIColor.clear
             if qqShape == nil {
                 let qqShape = CAShapeLayer()
@@ -188,8 +185,8 @@ extension LLIndicatorView{
                 self.qqShape = qqShape
             }
             
-            let baseRadius:CGFloat = 2
-            let leftRectRadius:CGFloat = 7 * leftItemView.percent + baseRadius
+            let baseRadius: CGFloat = 2
+            let leftRectRadius: CGFloat = 7 * leftItemView.percent + baseRadius
             let leftRect = CGRect.init(x: 0, y: (bounds.height - leftRectRadius)/2, width: leftRectRadius, height: leftRectRadius)
             let rightRect = CGRect.init(x: bounds.width - height, y: 0, width: height, height: height)
             qqShape?.path = qqShapPath(smallRect: leftRect, bigRect: rightRect).cgPath
@@ -199,9 +196,9 @@ extension LLIndicatorView{
     }
 }
 
-extension LLIndicatorView{
+extension LLIndicatorView {
     //滚动时变化宽度
-    internal func reloadLayout(leftItemView: LLSegmentBaseItemView,rightItemView:LLSegmentBaseItemView){
+    internal func reloadLayout(leftItemView: LLSegmentBaseItemView, rightItemView: LLSegmentBaseItemView) {
         //center.X
         var selfCenter = self.center
         selfCenter.x = interpolationFrom(from: leftItemView.center.x, to: rightItemView.center.x, percent: rightItemView.percent)
@@ -215,7 +212,7 @@ extension LLIndicatorView{
             let rightItemWidth = rightItemView.bounds.width
             targetWidth = interpolationFrom(from: leftItemWidth, to: rightItemWidth, percent: rightItemView.percent)
             targetWidth -= 2*margin
-        case .jdIqiyi(let baseWidth,let changeWidth):
+        case .jdIqiyi(let baseWidth, let changeWidth):
             let percent = 1 - abs(0.5-leftItemView.percent)*2   //变化范围（0....1.....0）
             let minX = leftItemView.center.x - baseWidth/2
             let maxX = rightItemView.center.x - baseWidth/2
@@ -233,13 +230,13 @@ extension LLIndicatorView{
     }
     
     //最终停留不动下来的宽度
-    internal func finalWidthOn(itemView:LLSegmentBaseItemView)->CGFloat{
+    internal func finalWidthOn(itemView: LLSegmentBaseItemView) -> CGFloat {
         let itemViewWidth = itemView.frame.width
-        var width:CGFloat = 0
+        var width: CGFloat = 0
         switch widthChangeStyle {
         case .equalToItemWidth(let margin):
             width = itemViewWidth - 2*margin
-        case .jdIqiyi(let baseWidth,_):
+        case .jdIqiyi(let baseWidth, _):
             width = baseWidth
         case .stationary(let baseWidth):
             width = baseWidth
@@ -247,6 +244,3 @@ extension LLIndicatorView{
         return width
     }
 }
-
-
-

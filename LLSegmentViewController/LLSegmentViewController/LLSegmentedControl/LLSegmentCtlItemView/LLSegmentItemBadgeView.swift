@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class LLSegmentItemBadgeViewStyle:LLSegmentItemViewStyle {
+public class LLSegmentItemBadgeViewStyle: LLSegmentItemViewStyle {
     /*数字或红点Label.center偏离图片右上角*/
     public var badgeValueLabelOffset = CGPoint.init(x: 5, y: 5)
     public var badgeValueLabelColor = UIColor.red
@@ -20,7 +20,7 @@ public let LLSegmentRedBadgeValue = "redBadgeValue"
 open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
     public let badgeValueLabel = UILabel()
     private let badgeValueObserverKeyPath = "badgeValue"
-    internal var badgeValueLabelLocationView:UIView?
+    internal var badgeValueLabelLocationView: UIView?
     private var badgeItemViewStyle = LLSegmentItemBadgeViewStyle()
     required public init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,7 +42,6 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
         super.bindAssociateViewCtl(ctl: ctl)
         associateViewCtl?.tabBarItem.addObserver(self, forKeyPath: badgeValueObserverKeyPath, options: [.new], context: nil)
     }
-    
 
     deinit {
         associateViewCtl?.tabBarItem.removeObserver(self, forKeyPath: badgeValueObserverKeyPath)
@@ -77,9 +76,9 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
             badgeValueLabelFrame.size.width = 5
             badgeValueLabelFrame.size.height = 5
             badgeValueLabel.text = ""
-        }else if associateViewCtl?.tabBarItem.badgeValue == nil {
+        } else if associateViewCtl?.tabBarItem.badgeValue == nil {
             badgeValueLabel.isHidden = true
-        }else{
+        } else {
             badgeValueLabel.isHidden = false
             badgeValueLabelFrame.size.width += 10
             badgeValueLabelFrame.size.height += 0
@@ -91,8 +90,8 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
         badgeValueLabel.clipsToBounds = true
     }
     
-    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if  keyPath ==  badgeValueObserverKeyPath{
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        if  keyPath ==  badgeValueObserverKeyPath {
             setNeedsLayout()
             layoutIfNeeded()
         }

@@ -8,40 +8,38 @@
 
 import UIKit
 
-public protocol LLSegmentItemTitleImageViewProtocol{
-    var model : LLTitleImageModel! {get set}
-    func refreshWhenPercentChange(titleLabel:UILabel,imageView:UIImageView,percent:CGFloat)
+public protocol LLSegmentItemTitleImageViewProtocol {
+    var model: LLTitleImageModel! { get set }
+    func refreshWhenPercentChange(titleLabel: UILabel, imageView: UIImageView, percent: CGFloat)
 }
-
 
 public enum LLTitleImageButtonStyle {
     case titleEmty
     case titleOnly
-    case titleTop(margin:CGFloat)
-    case titleBottom(margin:CGFloat)
-    case titleLeft(margin:CGFloat)
-    case titleRight(margin:CGFloat)
+    case titleTop(margin: CGFloat)
+    case titleBottom(margin: CGFloat)
+    case titleLeft(margin: CGFloat)
+    case titleRight(margin: CGFloat)
 }
 
-open class LLTitleImageModel{
+open class LLTitleImageModel {
     public var title = ""
     public var imgeStr = ""
     public var selecteImageStr = ""
     public var style = LLTitleImageButtonStyle.titleTop(margin: 0)
     public var imgViewSize = CGSize.init(width: 20, height: 20)
-    public init(title:String,imgeStr:String,style:LLTitleImageButtonStyle) {
+    public init(title: String, imgeStr: String, style: LLTitleImageButtonStyle) {
         self.title = title
         self.imgeStr = imgeStr
         self.style = style
     }
 }
 
-
 open class LLSegmentItemTitleImageView: LLSegmentItemBadgeView {
     let titleLabel = UILabel()
     let imageView = UIImageView()
-    var titleImageModel:LLTitleImageModel?
-    let titleLabelFontSize:CGFloat = 13
+    var titleImageModel: LLTitleImageModel?
+    let titleLabelFontSize: CGFloat = 13
     required public init(frame: CGRect) {
         super.init(frame: frame)
         titleLabel.font = UIFont.systemFont(ofSize: titleLabelFontSize)
@@ -57,16 +55,16 @@ open class LLSegmentItemTitleImageView: LLSegmentItemBadgeView {
     
     public override func bindAssociateViewCtl(ctl: UIViewController) {
         super.bindAssociateViewCtl(ctl: ctl)
-        if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol{
+        if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol {
             self.titleImageModel = ctl.model
-            if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol{
-                ctl.refreshWhenPercentChange(titleLabel:titleLabel, imageView: imageView, percent: percent)
+            if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol {
+                ctl.refreshWhenPercentChange(titleLabel: titleLabel, imageView: imageView, percent: percent)
             }
         }
     }
     
     override open func itemWidth() -> CGFloat {
-        if let titleImageModel = titleImageModel{
+        if let titleImageModel = titleImageModel {
             let layoutInfo = getLayoutInfo(model: titleImageModel)
             return layoutInfo.contentSize.width + 2*10
         }
@@ -75,7 +73,7 @@ open class LLSegmentItemTitleImageView: LLSegmentItemBadgeView {
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-        if let titleImageModel = titleImageModel{
+        if let titleImageModel = titleImageModel {
             titleLabel.text = titleImageModel.title
             
             let layoutInfo = getLayoutInfo(model: titleImageModel)
@@ -86,16 +84,16 @@ open class LLSegmentItemTitleImageView: LLSegmentItemBadgeView {
     
     override open func percentChange(percent: CGFloat) {
         super.percentChange(percent: percent)
-        if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol{
-            ctl.refreshWhenPercentChange(titleLabel:titleLabel, imageView: imageView, percent: percent)
+        if let ctl = associateViewCtl as? LLSegmentItemTitleImageViewProtocol {
+            ctl.refreshWhenPercentChange(titleLabel: titleLabel, imageView: imageView, percent: percent)
         }
     }
     
-    private func getLayoutInfo(model:LLTitleImageModel) -> (titleLabelFrame:CGRect,imageViewFrame:CGRect,contentSize:CGSize) {
+    private func getLayoutInfo(model: LLTitleImageModel) -> (titleLabelFrame: CGRect, imageViewFrame: CGRect, contentSize: CGSize) {
         let titleLabelSize = model.title.LLGetStrSize(font: titleLabelFontSize, w: 1000, h: 1000)
         let imgViewSize = model.imgViewSize
-        var contentWidth:CGFloat = 0
-        var contentHeight:CGFloat = 0
+        var contentWidth: CGFloat = 0
+        var contentHeight: CGFloat = 0
         
         var titleLabelFrame = CGRect.init(origin: CGPoint.zero, size: titleLabelSize)
         var imageViewFrame = CGRect.init(origin: CGPoint.zero, size: imgViewSize)
@@ -159,6 +157,6 @@ open class LLSegmentItemTitleImageView: LLSegmentItemBadgeView {
             titleLabelFrame.origin.x = selfCenter.x + contentWidth/2 - titleLabelSize.width
             titleLabelFrame.origin.y = selfCenter.y - titleLabelSize.height/2
         }
-        return (titleLabelFrame,imageViewFrame,CGSize.init(width: contentWidth, height: contentHeight))
+        return (titleLabelFrame, imageViewFrame, CGSize.init(width: contentWidth, height: contentHeight))
     }
 }

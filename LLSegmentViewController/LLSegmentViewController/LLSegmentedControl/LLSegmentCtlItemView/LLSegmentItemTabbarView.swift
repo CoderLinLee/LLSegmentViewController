@@ -8,15 +8,14 @@
 
 import UIKit
 
-public class LLSegmentItemTabbarViewStyle:LLSegmentItemBadgeViewStyle {
-    public var titleImgeGap:CGFloat = 2
-    public var titleBottomGap:CGFloat = 3
+public class LLSegmentItemTabbarViewStyle: LLSegmentItemBadgeViewStyle {
+    public var titleImgeGap: CGFloat = 2
+    public var titleBottomGap: CGFloat = 3
     
-    public var selectedColor = UIColor.init(red: 50/255.0, green: 50/255.0, blue:  50/255.0, alpha: 1)
+    public var selectedColor = UIColor.init(red: 50/255.0, green: 50/255.0, blue: 50/255.0, alpha: 1)
     public var unSelectedColor = UIColor.init(red: 136/255.0, green: 136/255.0, blue: 136/255.0, alpha: 1)
-    public var titleFontSize:CGFloat = 12
+    public var titleFontSize: CGFloat = 12
 }
-
 
 open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
     let titleLabel = UILabel()
@@ -37,13 +36,12 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override open func percentChange(percent: CGFloat) {
         super.percentChange(percent: percent)
-        titleLabel.textColor = interpolationColorFrom(fromColor:tabbarViewStyle.unSelectedColor, toColor:tabbarViewStyle.selectedColor, percent: percent)
+        titleLabel.textColor = interpolationColorFrom(fromColor: tabbarViewStyle.unSelectedColor, toColor: tabbarViewStyle.selectedColor, percent: percent)
         if percent == 1 {
             imageView.image = associateViewCtl?.tabBarItem.selectedImage
-        }else{
+        } else {
             imageView.image = associateViewCtl?.tabBarItem.image
         }
     }
@@ -77,13 +75,13 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
         
         let imgSize = imageView.image?.size ?? CGSize.zero
         let bottomMargin = titleLabelHeight + tabbarViewStyle.titleBottomGap + tabbarViewStyle.titleImgeGap
-        imageView.center = CGPoint.init(x: bounds.width/2, y:bounds.height - bottomMargin - imgSize.height/2)
+        imageView.center = CGPoint.init(x: bounds.width/2, y: bounds.height - bottomMargin - imgSize.height/2)
         imageView.bounds = CGRect.init(origin: CGPoint.zero, size: imgSize)
         layoutBadgeLabel()
         
         if percent == 1 {
             imageView.image = associateViewCtl?.tabBarItem.selectedImage
-        }else{
+        } else {
             imageView.image = associateViewCtl?.tabBarItem.image
         }
     }

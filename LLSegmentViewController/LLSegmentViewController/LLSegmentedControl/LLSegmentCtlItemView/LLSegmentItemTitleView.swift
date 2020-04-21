@@ -8,16 +8,15 @@
 
 import UIKit
 
-
-public class LLSegmentItemTitleViewStyle:LLSegmentItemBadgeViewStyle {
-    public var selectedColor = UIColor.init(red: 50/255.0, green: 50/255.0, blue:  50/255.0, alpha: 1)
+public class LLSegmentItemTitleViewStyle: LLSegmentItemBadgeViewStyle {
+    public var selectedColor = UIColor.init(red: 50/255.0, green: 50/255.0, blue: 50/255.0, alpha: 1)
     public var unSelectedColor = UIColor.init(red: 136/255.0, green: 136/255.0, blue: 136/255.0, alpha: 1)
-    public var selectedTitleScale:CGFloat = 1.2
-    public var titleFontSize:CGFloat = 12
-    public var extraTitleSpace:CGFloat = 10
+    public var selectedTitleScale: CGFloat = 1.2
+    public var titleFontSize: CGFloat = 12
+    public var extraTitleSpace: CGFloat = 10
     public var titleLabelMaskEnabled = false
     public var titleLabelMaskColor = UIColor.red
-    public var titleLabelCenterOffsetY:CGFloat = 0
+    public var titleLabelCenterOffsetY: CGFloat = 0
 }
 
 open class LLSegmentItemTitleView: LLSegmentItemBadgeView {
@@ -72,9 +71,9 @@ open class LLSegmentItemTitleView: LLSegmentItemBadgeView {
     override open func itemWidth() -> CGFloat {
         if itemTitleViewStyle.itemWidth == LLSegmentAutomaticDimension {
             var titleLableWidth = self.title.LLGetStrSize(font: itemTitleViewStyle.titleFontSize, w: 1000, h: 1000).width
-            titleLableWidth = titleLableWidth + 2*itemTitleViewStyle.extraTitleSpace
+            titleLableWidth += 2*itemTitleViewStyle.extraTitleSpace
             return titleLableWidth
-        }else{
+        } else {
             return itemTitleViewStyle.itemWidth
         }
     }
@@ -89,11 +88,11 @@ open class LLSegmentItemTitleView: LLSegmentItemBadgeView {
     }
 }
 
-extension LLSegmentItemTitleView{
+extension LLSegmentItemTitleView {
     //titleLabel
     private func titleLabelCalculation() {
         let percentConvert = self.percentConvert()
-        titleLabel.textColor = interpolationColorFrom(fromColor:itemTitleViewStyle.unSelectedColor, toColor:itemTitleViewStyle.selectedColor, percent: percentConvert)
+        titleLabel.textColor = interpolationColorFrom(fromColor: itemTitleViewStyle.unSelectedColor, toColor: itemTitleViewStyle.selectedColor, percent: percentConvert)
         let scale = 1 + (itemTitleViewStyle.selectedTitleScale - 1)*percentConvert
         let font = UIFont.boldSystemFont(ofSize: itemTitleViewStyle.titleFontSize * scale)
         titleLabel.font = font
@@ -109,13 +108,13 @@ extension LLSegmentItemTitleView{
             maskTitleLabel.font = titleLabel.font
             
             let maskTitleLabelHalfWidth = titleLabel.frame.width/2
-            var centerX:CGFloat = titleLabel.frame.minX - maskTitleLabelHalfWidth
+            var centerX: CGFloat = titleLabel.frame.minX - maskTitleLabelHalfWidth
             if let indicatorView = indicatorView {
                 //正常情况
-                let indicatorFrame = indicatorView.convert(indicatorView.bounds,to:self)
+                let indicatorFrame = indicatorView.convert(indicatorView.bounds, to: self)
                 if contentOffsetOnRight {
                     centerX = min(indicatorFrame.maxX - maskTitleLabelHalfWidth, titleLabel.center.x)
-                }else{
+                } else {
                     centerX = max(indicatorFrame.minX + maskTitleLabelHalfWidth, titleLabel.center.x)
                 }
                 
@@ -125,7 +124,7 @@ extension LLSegmentItemTitleView{
                     if contentOffsetOnRight {
                         centerX += (titleLabel.frame.width - indicatorViewFinalWidth)*percent/2
                         centerX = min(centerX, titleLabel.center.x)
-                    }else{
+                    } else {
                         centerX -= (titleLabel.frame.width - indicatorViewFinalWidth)*percent/2
                         centerX = max(centerX, titleLabel.center.x)
                     }
@@ -134,7 +133,7 @@ extension LLSegmentItemTitleView{
                 //点击的情况，指示器有动画切换
                 if percent == 0 {
                     centerX = titleLabel.frame.minX - maskTitleLabelHalfWidth
-                }else if percent == 1{
+                } else if percent == 1 {
                     centerX = titleLabel.frame.minX + maskTitleLabelHalfWidth
                 }
             }
@@ -148,7 +147,7 @@ extension LLSegmentItemTitleView{
             maskTitleLabelMask.position = maskTitleLabelCenter
             maskTitleLabel.isHidden = false
             CATransaction.commit()
-        }else{
+        } else {
             CATransaction.begin()
             CATransaction.setDisableActions(true)
             maskTitleLabel.isHidden = true

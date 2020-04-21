@@ -8,20 +8,19 @@
 
 import UIKit
 
-
-@objc public protocol LLContainerScrollViewDagDelegate:NSObjectProtocol {
-    func scrollView(scrollView:LLContainerScrollView,shouldScrollWithSubView subView:UIScrollView) -> Bool
-    func scrollView(scrollView:LLContainerScrollView,dragTop offsetY:CGFloat)
-    func scrollView(scrollView:LLContainerScrollView,dragToMinimumHeight progress:CGFloat)
+@objc public protocol LLContainerScrollViewDagDelegate: NSObjectProtocol {
+    func scrollView(scrollView: LLContainerScrollView, shouldScrollWithSubView subView: UIScrollView) -> Bool
+    func scrollView(scrollView: LLContainerScrollView, dragTop offsetY: CGFloat)
+    func scrollView(scrollView: LLContainerScrollView, dragToMinimumHeight progress: CGFloat)
 }
 
 open class LLContainerScrollView: UIScrollView {
     public var paralaxHeader = LLSubViewsLayoutInfo()
-    internal weak var dragDeleage:LLContainerScrollViewDagDelegate?
+    internal weak var dragDeleage: LLContainerScrollViewDagDelegate?
     private var observedViews = [UIScrollView]()
     
     private let observerKeyPath = "contentOffset"
-    private let observerOptions:NSKeyValueObservingOptions = [.old,.new]
+    private let observerOptions: NSKeyValueObservingOptions = [.old, .new]
     private var observerContext = 0
     
     private var isObserving = true
@@ -45,14 +44,13 @@ open class LLContainerScrollView: UIScrollView {
         self.addObserver(self, forKeyPath: observerKeyPath, options: observerOptions, context: &observerContext)
     }
     
-    
     deinit {
         self.removeObservedViews()
         self.removeObserver(self, forKeyPath: observerKeyPath, context: &observerContext)
     }
     
-    public func layoutParalaxHeader(){
-        if let headView = paralaxHeader.headView  {
+    public func layoutParalaxHeader() {
+        if let headView = paralaxHeader.headView {
             self.contentInset = UIEdgeInsets.init(top: headView.bounds.height, left: 0, bottom: 0, right: 0)
             headView.center = CGPoint.init(x: bounds.width/2, y: -headView.bounds.height/2)
             insertSubview(headView, at: 0)
@@ -68,8 +66,8 @@ open class LLContainerScrollView: UIScrollView {
     }
 }
 
-extension LLContainerScrollView{
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+extension LLContainerScrollView {
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if paralaxHeader.headView == nil {
             return
         }
@@ -78,21 +76,21 @@ extension LLContainerScrollView{
         }
         if keyPath == observerKeyPath ,
         let newContentOffset = change?[NSKeyValueChangeKey.newKey] as? CGPoint,
-        let oldContentOffset = change?[NSKeyValueChangeKey.oldKey] as? CGPoint{
+        let oldContentOffset = change?[NSKeyValueChangeKey.oldKey] as? CGPoint {
             let diff = oldContentOffset.y - newContentOffset.y
             if diff == 0 || !isObserving { return }
             
-            switch paralaxHeader.refreshType{
+            switch paralaxHeader.refreshType {
             case .list:
                 if scrollView == self {
                     listRefreshSelfHandle(newContentOffset: newContentOffset, oldContentOffset: oldContentOffset)
-                }else{
+                } else {
                     listRefreshOtherScrollViewHandle(scrollView: scrollView, newContentOffset: newContentOffset, oldContentOffset: oldContentOffset)
                 }
             case .container:
                 if scrollView == self {
                     containerRefreshSelfHandle(newContentOffset: newContentOffset, oldContentOffset: oldContentOffset)
-                }else{
+                } else {
                     containerRefreshOtherScrollViewHandle(scrollView: scrollView, newContentOffset: newContentOffset, oldContentOffset: oldContentOffset)
                 }
             }
@@ -101,7 +99,7 @@ extension LLContainerScrollView{
 }
 
 extension LLContainerScrollView {
-    fileprivate func listRefreshOtherScrollViewHandle(scrollView:UIScrollView, newContentOffset:CGPoint,oldContentOffset:CGPoint) {
+    fileprivate func listRefreshOtherScrollViewHandle(scrollView: UIScrollView, newContentOffset: CGPoint, oldContentOffset: CGPoint) {
         lock = (scrollView.contentOffset.y > -scrollView.contentInset.top)
         //Manage scroll up
         let minimumHeight = -paralaxHeader.minimumHeight
@@ -110,20 +108,20 @@ extension LLContainerScrollView {
         }
     }
     
-    fileprivate func listRefreshSelfHandle(newContentOffset:CGPoint,oldContentOffset:CGPoint) {
+    fileprivate func listRefreshSelfHandle(newContentOffset: CGPoint, oldContentOffset: CGPoint) {
         let diff = oldContentOffset.y - newContentOffset.y
         if diff > 0 && lock {
             self.scrollView(scrollView: self, contentOffset: oldContentOffset)
-        }else if self.contentOffset.y < -self.contentInset.top {
+        } else if self.contentOffset.y < -self.contentInset.top {
             self.scrollView(scrollView: self, contentOffset: CGPoint.init(x: self.contentOffset.x, y: -self.contentInset.top))
-        }else if self.contentOffset.y > (contentInset.bottom+contentSize.height - bounds.height + safeBottomMargin) {
+        } else if self.contentOffset.y > (contentInset.bottom+contentSize.height - bounds.height + safeBottomMargin) {
             self.scrollView(scrollView: self, contentOffset: CGPoint.init(x: self.contentOffset.x, y: (contentInset.bottom+contentSize.height - bounds.height + safeBottomMargin)))
         }
     }
 }
 
 extension LLContainerScrollView {
-    fileprivate func containerRefreshOtherScrollViewHandle(scrollView:UIScrollView, newContentOffset:CGPoint,oldContentOffset:CGPoint) {
+    fileprivate func containerRefreshOtherScrollViewHandle(scrollView: UIScrollView, newContentOffset: CGPoint, oldContentOffset: CGPoint) {
         //Adjust the observed scrollview's content offset
         lock = (scrollView.contentOffset.y > -scrollView.contentInset.top)
         
@@ -133,28 +131,27 @@ extension LLContainerScrollView {
         }
     }
     
-    fileprivate func containerRefreshSelfHandle(newContentOffset:CGPoint,oldContentOffset:CGPoint) {
+    fileprivate func containerRefreshSelfHandle(newContentOffset: CGPoint, oldContentOffset: CGPoint) {
         let diff = oldContentOffset.y - newContentOffset.y
         let minimumHeight = -self.paralaxHeader.minimumHeight
         //Adjust self scroll offset when scroll down
-        if diff > 0 && lock{
+        if diff > 0 && lock {
             self.scrollView(scrollView: self, contentOffset: oldContentOffset)
-        }else if self.contentOffset.y < -self.contentInset.top && !self.bounces {
+        } else if self.contentOffset.y < -self.contentInset.top && !self.bounces {
             self.scrollView(scrollView: self, contentOffset: CGPoint.init(x: self.contentOffset.x, y: -self.contentInset.top))
-        }else if self.contentOffset.y > minimumHeight {
+        } else if self.contentOffset.y > minimumHeight {
             self.scrollView(scrollView: self, contentOffset: CGPoint.init(x: self.contentOffset.x, y: minimumHeight))
         }
-        
         
         guard let _ = paralaxHeader.headView else { return }
         
         //顶部下拉
         let contentInsetTop = self.contentInset.top
-        let dragTopOffsetY = min(self.contentOffset.y + contentInsetTop,0)
+        let dragTopOffsetY = min(self.contentOffset.y + contentInsetTop, 0)
         self.dragDeleage?.scrollView(scrollView: self, dragTop: abs(dragTopOffsetY))
 
         //拉到最小距离的进度
-        var minProgress:CGFloat = 0
+        var minProgress: CGFloat = 0
         if self.contentInset.top != self.paralaxHeader.minimumHeight {
             minProgress = (self.contentOffset.y + self.paralaxHeader.minimumHeight) / (-self.contentInset.top + self.paralaxHeader.minimumHeight)
         }
@@ -163,10 +160,9 @@ extension LLContainerScrollView {
     }
 }
 
-
-extension LLContainerScrollView{
-    fileprivate func scrollView(scrollView:UIScrollView,contentOffset:CGPoint) {
-        if tapAtScrollerToTopLock == true && scrollView == self{
+extension LLContainerScrollView {
+    fileprivate func scrollView(scrollView: UIScrollView, contentOffset: CGPoint) {
+        if tapAtScrollerToTopLock == true && scrollView == self {
             return
         }
         isObserving = false
@@ -176,15 +172,15 @@ extension LLContainerScrollView{
 }
 
 //observedViewManager
-extension LLContainerScrollView{
+extension LLContainerScrollView {
     fileprivate func removeObservedViews() {
-        for scrollView in observedViews{
+        for scrollView in observedViews {
             scrollView.removeObserver(self, forKeyPath: observerKeyPath, context: &observerContext)
         }
         observedViews.removeAll()
     }
     
-    fileprivate func addObservedView(scrollView:UIScrollView)  {
+    fileprivate func addObservedView(scrollView: UIScrollView) {
         if !self.observedViews.contains(scrollView) {
             self.observedViews.append(scrollView)
             lock = (scrollView.contentOffset.y > -scrollView.contentInset.top)
@@ -193,14 +189,14 @@ extension LLContainerScrollView{
     }
 }
 
-extension LLContainerScrollView : UIScrollViewDelegate {
+extension LLContainerScrollView: UIScrollViewDelegate {
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         lock = false
         self.removeObservedViews()
     }
     
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate && paralaxHeader.refreshType == .list{
+        if !decelerate && paralaxHeader.refreshType == .list {
             lock = false
             self.removeObservedViews()
         }
@@ -215,10 +211,9 @@ extension LLContainerScrollView : UIScrollViewDelegate {
         tapAtScrollerToTopLock = false
     }
     
-    
 }
 
-extension LLContainerScrollView : UIGestureRecognizerDelegate {
+extension LLContainerScrollView: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if otherGestureRecognizer.view == self {
             return false
@@ -242,16 +237,12 @@ extension LLContainerScrollView : UIGestureRecognizerDelegate {
         }
         
         var shouldScroll = true
-        if dragDeleage?.scrollView(scrollView: self, shouldScrollWithSubView: scrollView) == true{
+        if dragDeleage?.scrollView(scrollView: self, shouldScrollWithSubView: scrollView) == true {
             shouldScroll = true
             self.addObservedView(scrollView: scrollView)
-        }else{
+        } else {
             shouldScroll = false
         }
         return shouldScroll
     }
 }
-
-
-
-
