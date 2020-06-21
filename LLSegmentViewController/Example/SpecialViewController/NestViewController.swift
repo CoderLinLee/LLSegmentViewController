@@ -9,7 +9,7 @@
 import UIKit
 
 class NestViewController: LLSegmentViewController {
-    let segmentItemWidth:CGFloat = 60
+    let segmentItemWidth:CGFloat = 120
     let segmentViewHeight:CGFloat = 30
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,22 @@ class NestViewController: LLSegmentViewController {
         
         let test2Ctl = NestSubViewController()
         test2Ctl.title = "主题二"
-        let ctls =  [test1Ctl,test2Ctl]
+        
+        let test3Ctl = NestSubViewController()
+        test3Ctl.title = "主题3"
+        
+        let test4Ctl = NestSubViewController()
+        test4Ctl.title = "主题4"
+        
+        let test5Ctl = NestSubViewController()
+        test5Ctl.title = "主题5"
+        
+        let test6Ctl = NestSubViewController()
+        test6Ctl.title = "主题6"
+        
+        let test7Ctl = NestSubViewController()
+        test7Ctl.title = "主题7"
+        let ctls =  [test1Ctl,test2Ctl,test3Ctl,test4Ctl,test5Ctl, test6Ctl, test7Ctl]
         reloadViewControllers(ctls:ctls)
     }
     

@@ -84,7 +84,7 @@ extension LLCtlPageView {
 
 extension LLCtlPageView: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if !gestureRecognizer.isKind(of: UIPanGestureRecognizer.classForCoder()) || !otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.classForCoder()) {
+        guard let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer, let otherGestureRecognizer = otherGestureRecognizer as? UIPanGestureRecognizer else {
             return false
         }
         
@@ -101,16 +101,26 @@ extension LLCtlPageView: UIGestureRecognizerDelegate {
         }
         
         let currentIndex = Int(gestureView.contentOffset.x / gestureView.bounds.width)
-        let subIndex = Int(otherGestureView.contentOffset.x / otherGestureView.bounds.width)
-        if subIndex > 0 {
-            return false
-        } else if subIndex == 0 {
-            if currentIndex == gestureView.itemCount - 1 {
+        let currentItemCount = gestureView.itemCount
+        // let subIndex = Int(otherGestureView.contentOffset.x / otherGestureView.bounds.width)
+        // let subItemCount = otherGestureView.itemCount
+        let isCurrentSupper: Bool = otherGestureView.isDescendant(of: gestureView)
+        let isMoveLeft: Bool = gestureRecognizer.velocity(in: self).x > 0
+        
+        var result: Bool = false
+        if isCurrentSupper {
+            result = false
+        } else {
+            if isMoveLeft && currentIndex == 0 {
                 return true
+            } else if isMoveLeft == false && currentIndex == currentItemCount - 1 {
+                result = true
+            } else {
+                result = false
             }
-            return false
         }
-        return false
+        // print("currentIndex: \(currentIndex), currentItemCount: \(currentItemCount), subIndex: \(subIndex), subItemCount: \(subItemCount), result: \(result), isCurrentSupper: \(isCurrentSupper), isMoveLeft: \(isMoveLeft)")
+        return result
     }
 }
 

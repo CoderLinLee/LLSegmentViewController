@@ -32,8 +32,6 @@
 		F27132DF21C8DD7C00F9D2AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F27132DD21C8DD7C00F9D2AB /* Main.storyboard */; };
 		F27132E121C8DD7F00F9D2AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F27132E021C8DD7F00F9D2AB /* Assets.xcassets */; };
 		F27132E421C8DD7F00F9D2AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F27132E221C8DD7F00F9D2AB /* LaunchScreen.storyboard */; };
-		F27132EF21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132EE21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.swift */; };
-		F27132FA21C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132F921C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift */; };
 		F271330C21C8E66F00F9D2AB /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F271330B21C8E66F00F9D2AB /* TestViewController.swift */; };
 		F28F1C6E21F9599700153A61 /* LLContainerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F1C6C21F9599700153A61 /* LLContainerScrollView.swift */; };
 		F28F1C6F21F9599700153A61 /* LLCtlPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F1C6D21F9599700153A61 /* LLCtlPageView.swift */; };
@@ -57,23 +55,6 @@
 		F2DE12DE21E07BD100D13738 /* BadgeValueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12DD21E07BD100D13738 /* BadgeValueViewController.swift */; };
 		F2DE12E021E0887100D13738 /* AttributeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12DF21E0887100D13738 /* AttributeItemView.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		F27132EB21C8DD7F00F9D2AB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F27132CE21C8DD7C00F9D2AB /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F27132D521C8DD7C00F9D2AB;
-			remoteInfo = LLSegmentViewController;
-		};
-		F27132F621C8DD7F00F9D2AB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F27132CE21C8DD7C00F9D2AB /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F27132D521C8DD7C00F9D2AB;
-			remoteInfo = LLSegmentViewController;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1813AAEE21ECD1EA0005FA4A /* BackColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackColorViewController.swift; sourceTree = "<group>"; };
@@ -105,12 +86,6 @@
 		F27132E021C8DD7F00F9D2AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F27132E321C8DD7F00F9D2AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F27132E521C8DD7F00F9D2AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F27132EA21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LLSegmentViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F27132EE21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentViewControllerTests.swift; sourceTree = "<group>"; };
-		F27132F021C8DD7F00F9D2AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F27132F521C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LLSegmentViewControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F27132F921C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLSegmentViewControllerUITests.swift; sourceTree = "<group>"; };
-		F27132FB21C8DD7F00F9D2AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F271330B21C8E66F00F9D2AB /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		F28F1C6C21F9599700153A61 /* LLContainerScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLContainerScrollView.swift; sourceTree = "<group>"; };
 		F28F1C6D21F9599700153A61 /* LLCtlPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLCtlPageView.swift; sourceTree = "<group>"; };
@@ -141,20 +116,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D1B99E78E4091E7FC691C33 /* Pods_LLSegmentViewController.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F27132E721C8DD7F00F9D2AB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F27132F221C8DD7F00F9D2AB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,8 +190,6 @@
 			children = (
 				1833537621E104A0005331E7 /* LLSegmentViewController.podspec */,
 				F27132D821C8DD7C00F9D2AB /* LLSegmentViewController */,
-				F27132ED21C8DD7F00F9D2AB /* LLSegmentViewControllerTests */,
-				F27132F821C8DD7F00F9D2AB /* LLSegmentViewControllerUITests */,
 				F27132D721C8DD7C00F9D2AB /* Products */,
 				4D4DCDDB2A1A8FAB0AACF4EC /* Pods */,
 				15666768D7EE40A6F80634EF /* Frameworks */,
@@ -241,8 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				F27132D621C8DD7C00F9D2AB /* LLSegmentViewController.app */,
-				F27132EA21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.xctest */,
-				F27132F521C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -265,24 +222,6 @@
 				F27132E521C8DD7F00F9D2AB /* Info.plist */,
 			);
 			path = LLSegmentViewController;
-			sourceTree = "<group>";
-		};
-		F27132ED21C8DD7F00F9D2AB /* LLSegmentViewControllerTests */ = {
-			isa = PBXGroup;
-			children = (
-				F27132EE21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.swift */,
-				F27132F021C8DD7F00F9D2AB /* Info.plist */,
-			);
-			path = LLSegmentViewControllerTests;
-			sourceTree = "<group>";
-		};
-		F27132F821C8DD7F00F9D2AB /* LLSegmentViewControllerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				F27132F921C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift */,
-				F27132FB21C8DD7F00F9D2AB /* Info.plist */,
-			);
-			path = LLSegmentViewControllerUITests;
 			sourceTree = "<group>";
 		};
 		F28F1C6B21F9598C00153A61 /* LLPageView */ = {
@@ -374,42 +313,6 @@
 			productReference = F27132D621C8DD7C00F9D2AB /* LLSegmentViewController.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F27132E921C8DD7F00F9D2AB /* LLSegmentViewControllerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F271330121C8DD7F00F9D2AB /* Build configuration list for PBXNativeTarget "LLSegmentViewControllerTests" */;
-			buildPhases = (
-				F27132E621C8DD7F00F9D2AB /* Sources */,
-				F27132E721C8DD7F00F9D2AB /* Frameworks */,
-				F27132E821C8DD7F00F9D2AB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F27132EC21C8DD7F00F9D2AB /* PBXTargetDependency */,
-			);
-			name = LLSegmentViewControllerTests;
-			productName = LLSegmentViewControllerTests;
-			productReference = F27132EA21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		F27132F421C8DD7F00F9D2AB /* LLSegmentViewControllerUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F271330421C8DD7F00F9D2AB /* Build configuration list for PBXNativeTarget "LLSegmentViewControllerUITests" */;
-			buildPhases = (
-				F27132F121C8DD7F00F9D2AB /* Sources */,
-				F27132F221C8DD7F00F9D2AB /* Frameworks */,
-				F27132F321C8DD7F00F9D2AB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F27132F721C8DD7F00F9D2AB /* PBXTargetDependency */,
-			);
-			name = LLSegmentViewControllerUITests;
-			productName = LLSegmentViewControllerUITests;
-			productReference = F27132F521C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -423,16 +326,6 @@
 					F27132D521C8DD7C00F9D2AB = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1010;
-					};
-					F27132E921C8DD7F00F9D2AB = {
-						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1010;
-						TestTargetID = F27132D521C8DD7C00F9D2AB;
-					};
-					F27132F421C8DD7F00F9D2AB = {
-						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1010;
-						TestTargetID = F27132D521C8DD7C00F9D2AB;
 					};
 				};
 			};
@@ -450,8 +343,6 @@
 			projectRoot = "";
 			targets = (
 				F27132D521C8DD7C00F9D2AB /* LLSegmentViewController */,
-				F27132E921C8DD7F00F9D2AB /* LLSegmentViewControllerTests */,
-				F27132F421C8DD7F00F9D2AB /* LLSegmentViewControllerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -465,20 +356,6 @@
 				1833537721E104A0005331E7 /* LLSegmentViewController.podspec in Resources */,
 				F27132E121C8DD7F00F9D2AB /* Assets.xcassets in Resources */,
 				F27132DF21C8DD7C00F9D2AB /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F27132E821C8DD7F00F9D2AB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F27132F321C8DD7F00F9D2AB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,36 +456,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F27132E621C8DD7F00F9D2AB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F27132EF21C8DD7F00F9D2AB /* LLSegmentViewControllerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F27132F121C8DD7F00F9D2AB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F27132FA21C8DD7F00F9D2AB /* LLSegmentViewControllerUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F27132EC21C8DD7F00F9D2AB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F27132D521C8DD7C00F9D2AB /* LLSegmentViewController */;
-			targetProxy = F27132EB21C8DD7F00F9D2AB /* PBXContainerItemProxy */;
-		};
-		F27132F721C8DD7F00F9D2AB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F27132D521C8DD7C00F9D2AB /* LLSegmentViewController */;
-			targetProxy = F27132F621C8DD7F00F9D2AB /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F27132DD21C8DD7C00F9D2AB /* Main.storyboard */ = {
@@ -749,8 +597,9 @@
 			baseConfigurationReference = BDFA1D1750488976A5B9CCE2 /* Pods-LLSegmentViewController.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AT942ZRU45;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = LLSegmentViewController/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -759,6 +608,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -769,8 +619,9 @@
 			baseConfigurationReference = 409E3CFB73D76E65D46ADB7F /* Pods-LLSegmentViewController.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AT942ZRU45;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = LLSegmentViewController/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -779,86 +630,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		F271330221C8DD7F00F9D2AB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LLSegmentViewControllerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LLSegmentViewController.app/LLSegmentViewController";
-			};
-			name = Debug;
-		};
-		F271330321C8DD7F00F9D2AB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LLSegmentViewControllerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LLSegmentViewController.app/LLSegmentViewController";
-			};
-			name = Release;
-		};
-		F271330521C8DD7F00F9D2AB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LLSegmentViewControllerUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = LLSegmentViewController;
-			};
-			name = Debug;
-		};
-		F271330621C8DD7F00F9D2AB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LLSegmentViewControllerUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = LLSegmentViewController;
 			};
 			name = Release;
 		};
@@ -879,24 +653,6 @@
 			buildConfigurations = (
 				F27132FF21C8DD7F00F9D2AB /* Debug */,
 				F271330021C8DD7F00F9D2AB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F271330121C8DD7F00F9D2AB /* Build configuration list for PBXNativeTarget "LLSegmentViewControllerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F271330221C8DD7F00F9D2AB /* Debug */,
-				F271330321C8DD7F00F9D2AB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F271330421C8DD7F00F9D2AB /* Build configuration list for PBXNativeTarget "LLSegmentViewControllerUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F271330521C8DD7F00F9D2AB /* Debug */,
-				F271330621C8DD7F00F9D2AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
