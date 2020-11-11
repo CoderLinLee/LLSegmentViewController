@@ -1,0 +1,60 @@
+# OS X
+.DS_Store
+
+# AppCode
+.idea
+
+# Xcode
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+profile
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.dSYM.zip
+
+# Bundler
+.bundle
+
+Carthage
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
+# 
+# Note: if you ignore the Pods directory, make sure to uncomment
+# `pod install` in .travis.yml
+#
+Pods/
+
+# R.swift
+Kuril/*.generated.swift
+*.generated.swift
+
+# Build Info
+Kuril/BuildInfo.plist
+
+# Useless temp files
+Podfile_BACKUP_[0-9]*.lock
+Podfile_BASE_[0-9]*.lock
+Podfile_LOCAL_[0-9]*.lock
+Podfile_REMOTE_[0-9]*.lock
+
+# EFPodsAnalyzer
+EFPADiagram
+EFPADiagram/*.*
+
+# XcodeGen
+*.xcodeproj
+*.xcodeproj/*.*
+*.xcworkspace
+*.xcworkspace/*.*

@@ -59,8 +59,8 @@ open class LLSegmentViewController: UIViewController {
     }
 }
 
-extension LLSegmentViewController {
-    open func closeAutomaticallyAdjusts() {
+@objc extension LLSegmentViewController {
+    @objc open func closeAutomaticallyAdjusts() {
         if #available(iOS 11.0, *) {
             self.containerScrView.contentInsetAdjustmentBehavior = .never
         } else {
@@ -68,7 +68,7 @@ extension LLSegmentViewController {
         }
     }
     
-    open func relayoutSubViews() {
+    @objc open func relayoutSubViews() {
         let screenW = UIScreen.main.bounds.width
         let screenH = UIScreen.main.bounds.height
         
@@ -120,12 +120,18 @@ extension LLSegmentViewController {
     }
     
     //对于一些特殊的需要自己指定位置信息
-    open func relayoutSegmentControlAndPageViewFrame(segmentControlFrame: CGRect, pageViewFrame: CGRect) {
+    @objc open func relayoutSegmentControlAndPageViewFrame(segmentControlFrame: CGRect, pageViewFrame: CGRect) {
         segmentCtlView.frame = segmentControlFrame
         pageView.frame = pageViewFrame
     }
     
-    open func reloadViewControllers(ctls: [UIViewController]) {
+    @objc open func reloadViewControllers(ctls: [UIViewController]) {
+        // reload ctls 移除添加的 ctl
+        self.ctls.forEach { (vc) in
+            vc.view.removeFromSuperview()
+            vc.removeFromParent()
+        }
+        
         self.ctls = ctls
         
         var titles = [String]()
@@ -142,7 +148,7 @@ extension LLSegmentViewController {
         pageView.reloadData()
     }
     
-    open func insertOneViewController(ctl: UIViewController, index: NSInteger) {
+    @objc open func insertOneViewController(ctl: UIViewController, index: NSInteger) {
         if !self.children.contains(ctl) {
             addChild(ctl)
             let itemIndex = max(0, min(index, ctls.count))
@@ -158,7 +164,7 @@ extension LLSegmentViewController {
         }
     }
     
-    open func selected(at index: NSInteger, animation: Bool) {
+    @objc open func selected(at index: NSInteger, animation: Bool) {
         guard (ctls.count > index && index >= 0) else {
             return
         }
