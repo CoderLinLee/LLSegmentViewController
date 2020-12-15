@@ -66,6 +66,31 @@ open class LLContainerScrollView: UIScrollView {
     }
 }
 
+public enum ScrollViewDirectionEnum: String {
+    case Down = "Down"
+    case Up = "Up"
+    case None = "None"
+}
+
+private struct AssociatedKeys {
+    static var scrollViewDirectionKey: String = "ll_scrollViewDirectionKey"
+}
+
+public extension UIScrollView {
+    var scrollDirection: ScrollViewDirectionEnum? {
+        get {
+            if let rawvalue = objc_getAssociatedObject(self, &AssociatedKeys.scrollViewDirectionKey) as? String {
+                return ScrollViewDirectionEnum(rawValue: rawvalue)
+            } else {
+                return nil
+            }
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.scrollViewDirectionKey, newValue?.rawValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
 extension LLContainerScrollView {
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if paralaxHeader.headView == nil {
@@ -79,7 +104,7 @@ extension LLContainerScrollView {
         let oldContentOffset = change?[NSKeyValueChangeKey.oldKey] as? CGPoint {
             let diff = oldContentOffset.y - newContentOffset.y
             if diff == 0 || !isObserving { return }
-            
+            scrollView.scrollDirection = diff > 0 ? .Down : .Up
             switch paralaxHeader.refreshType {
             case .list:
                 if scrollView == self {
