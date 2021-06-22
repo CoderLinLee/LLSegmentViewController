@@ -15,21 +15,20 @@ class StyleListViewController: UIViewController {
     var customTabs = [CellModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
-        initSubView()
+        view.backgroundColor = UIColor.white
+        initTableView()
     }
 }
 
 extension StyleListViewController {
-    func initSubView() {
+    func initTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = UIColor.clear
         tableView.frame = view.bounds
         tableView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         tableView.tableFooterView = UIView()
         tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
-        self.view.addSubview(tableView)
+        view.addSubview(tableView)
     }
 }
 

@@ -27,10 +27,6 @@ let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerCla
                             CellModel(title: "15点线效果样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "16QQ红点样式", viewControllerClass: TitleViewController.self),]
 
-let customTab = [CellModel(title: "0微信样式", viewControllerClass: SimpleTabViewController.self),
-                 CellModel(title: "1微博样式", viewControllerClass: SinaViewController.self),
-                 CellModel(title: "2背景色或图片样式", viewControllerClass: BackColorViewController.self)]
-
 let specialTab = [CellModel(title: "0嵌套样式", viewControllerClass: NestViewController.self),
                   CellModel(title: "1足球样式", viewControllerClass: FootballViewController.self),
                   CellModel(title: "2插入样式", viewControllerClass: InsertViewController.self),
@@ -38,6 +34,10 @@ let specialTab = [CellModel(title: "0嵌套样式", viewControllerClass: NestVie
                   CellModel(title: "4IndicatorImageView底部样式", viewControllerClass: ChangeImageViewViewController.self),
                   CellModel(title: "5title&image样式", viewControllerClass: TitleImageItemViewController.self),
                   CellModel(title: "6上拉隐藏导航栏下拉显示导航栏", viewControllerClass: NavHidenChangeLayoutViewController.self)]
+
+let customTab = [CellModel(title: "0微信样式", viewControllerClass: SimpleTabViewController.self),
+                 CellModel(title: "1微博样式", viewControllerClass: SinaViewController.self),
+                 CellModel(title: "2背景色或图片样式", viewControllerClass: BackColorViewController.self)]
 
 let customItemViewTab = [CellModel(title: "0背景色渐变样式", viewControllerClass:
     BackgroundColorGradientItemViewController.self),
@@ -51,29 +51,38 @@ let detailItemViewTab = [CellModel(title: "0个人中心", viewControllerClass:P
                          CellModel(title: "4顶部刷新", viewControllerClass: TopRefreshViewController.self),
                          CellModel(title: "5商品详情", viewControllerClass: GoodsDetailViewController.self),]
 
+
+struct ListItemModel {
+    var title:String
+    var customTabs: [CellModel]
+}
+
 class ViewController: UIViewController {
-    var dataArr = ["指示器样式","特殊样式","自定义TabViewController","自定义ItemView","详情页"]
+    let dataArr = [ListItemModel.init(title: "指示器样式", customTabs: indicatiorcustomTabs),
+                   ListItemModel.init(title: "特殊样式", customTabs: specialTab),
+                   ListItemModel.init(title: "自定义TabViewController", customTabs: customTab),
+                   ListItemModel.init(title: "自定义ItemView", customTabs: customItemViewTab),
+                   ListItemModel.init(title: "详情页", customTabs: detailItemViewTab)]
     let tableView = UITableView(frame: CGRect.zero, style: .plain)
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "LLSegmentViewController"
-        initSubView()
+        initTableView()
     }
 }
 
 
 extension ViewController {
-    func initSubView() {
-        let topInsert:CGFloat = 0
+    static let cellIndentifier = "cell"
+    func initTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = UIColor.clear
         tableView.frame = view.bounds
-        tableView.contentInset = UIEdgeInsets.init(top: -topInsert, left: 0, bottom: 0, right: 0)
         tableView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         tableView.tableFooterView = UIView()
-        self.view.addSubview(tableView)
-        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
+        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: ViewController.cellIndentifier)
+        view.addSubview(tableView)
     }
 }
 
@@ -85,27 +94,15 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        cell.textLabel?.text = dataArr[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: ViewController.cellIndentifier)!
+        cell.textLabel?.text = dataArr[indexPath.row].title
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let styleListCtl = StyleListViewController()
-        styleListCtl.title = dataArr[indexPath.row]
-        if indexPath.row == 0 {
-            styleListCtl.customTabs = indicatiorcustomTabs
-        }else if indexPath.row == 1 {
-            styleListCtl.customTabs = specialTab
-        }else if indexPath.row == 2 {
-            styleListCtl.customTabs = customTab
-        }else if indexPath.row == 3{
-            styleListCtl.customTabs = customItemViewTab
-        }else if indexPath.row == 4{
-            styleListCtl.customTabs = detailItemViewTab
-        }
-        self.navigationController?.pushViewController(styleListCtl, animated: true)
-
+        styleListCtl.customTabs = dataArr[indexPath.row].customTabs
+        navigationController?.pushViewController(styleListCtl, animated: true)
     }
 }
