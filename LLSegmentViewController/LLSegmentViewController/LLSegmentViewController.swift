@@ -10,30 +10,36 @@ import UIKit
 
 //下拉刷新控件的位置
 public enum LLDragRefreshType {
+    //整体下拉
     case container
+    //列表下拉
     case list
 }
 
 //分段控件的位置
 public enum LLSegmentedCtontrolPositionType {
+    //在导航条上面的
     case nav(size:CGSize)
-    case top(size:CGSize)
-    case bottom(size:CGSize)
+    //在顶部
+    case top(size:CGSize,offset:CGFloat)
+    //在底部
+    case bottom(size:CGSize,offset:CGFloat)
+    //自定义位置
+    case customFrame(segmentCtlFrame:CGRect,containerFrame:CGRect)
 }
 
 //控件布局位置信息
 public class LLSubViewsLayoutInfo:NSObject{
     public var minimumHeight:CGFloat = 64
-    public var segmentControlPositionType:LLSegmentedCtontrolPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50))
+    public var segmentControlPositionType:LLSegmentedCtontrolPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50), offset: 0)
     public var refreshType = LLDragRefreshType.container
     public var headView:UIView?
 }
 
 
-
 open class LLSegmentViewController: UIViewController {
     public let layoutInfo = LLSubViewsLayoutInfo()
-    public let segmentCtlView = LLViewControllerSegmentControl(frame: CGRect.zero, titles: [String]())
+    public let segmentCtlView = LLSegmentedControl(frame: CGRect.zero, titles: [String]())
     public let pageView:LLCtlPageView = LLCtlPageView(frame: CGRect.zero, ctls: [UIViewController]())
     public let containerScrView = LLContainerScrollView()
     public private (set) var ctls = [UIViewController]()
@@ -45,6 +51,7 @@ open class LLSegmentViewController: UIViewController {
         view.backgroundColor = UIColor.white
         initSubviews()
         relayoutSubViews()
+        containerScrView.backgroundColor = UIColor.clear
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         if let screenEdgePanGestureRecognizer = getScreenEdgePanGestureRecognizer() {
             containerScrView.panGestureRecognizer.require(toFail: screenEdgePanGestureRecognizer)
@@ -54,7 +61,7 @@ open class LLSegmentViewController: UIViewController {
 }
 
 extension LLSegmentViewController{
-    public func closeAutomaticallyAdjusts() {
+    open func closeAutomaticallyAdjusts() {
         if #available(iOS 11.0, *) {
             self.containerScrView.contentInsetAdjustmentBehavior = .never
         } else {
@@ -62,7 +69,7 @@ extension LLSegmentViewController{
         }
     }
     
-    public func relayoutSubViews() {
+    open func relayoutSubViews() {
         let screenW = UIScreen.main.bounds.width
         let screenH = UIScreen.main.bounds.height
         
@@ -79,20 +86,28 @@ extension LLSegmentViewController{
             segmentControlSize = size
             segmentCtlViewY = 0
             
-        case .top(let size):
+            self.navigationItem.titleView = segmentCtlView
+        case .top(let size,let offset):
             let height = size.height
-            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + height)
-            containerFrameY = height
+            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + height + offset)
+            containerFrameY = height + offset
             
             segmentControlSize = size
-            segmentCtlViewY = 0
+            segmentCtlViewY = offset
             
-        case .bottom(let size):
-            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + size.height)
+        case .bottom(let size,let offset):
+            containerHeight = screenH - (containerScrView.paralaxHeader.minimumHeight + size.height + offset)
             containerFrameY = 0
             
             segmentControlSize = size
             segmentCtlViewY = containerHeight
+        case .customFrame(let segmentCtlFrame, let containerFrame):
+            segmentCtlView.frame = segmentCtlFrame
+            pageView.frame = containerFrame
+            
+            containerScrView.contentSize = CGSize.init(width: screenW, height: segmentCtlFrame.height + containerFrame.height)
+            containerScrView.layoutParalaxHeader()
+            return
         }
     
 
@@ -102,36 +117,36 @@ extension LLSegmentViewController{
         let containerFrame = CGRect.init(x: 0, y: containerFrameY, width: screenW, height: containerHeight)
         pageView.frame = containerFrame
         
-        containerScrView.contentSize = CGSize.init(width: screenW, height: screenH - (containerScrView.paralaxHeader.minimumHeight))
+        containerScrView.contentSize = CGSize.init(width: screenW, height: screenH - (containerScrView.paralaxHeader.minimumHeight + mSafeBottomMargin()))
         containerScrView.layoutParalaxHeader()
     }
     
     //对于一些特殊的需要自己指定位置信息
-    public func relayoutSegmentControlAndPageViewFrame(segmentControlFrame:CGRect,pageViewFrame:CGRect) {
+    open func relayoutSegmentControlAndPageViewFrame(segmentControlFrame:CGRect,pageViewFrame:CGRect) {
         segmentCtlView.frame = segmentControlFrame
         pageView.frame = pageViewFrame
     }
     
-    public func reloadViewControllers(ctls:[UIViewController]) {
+    open func reloadViewControllers(ctls:[UIViewController]) {
         self.ctls = ctls
         
         var titles = [String]()
         for ctl in ctls{
-            addChildViewController(ctl)
+            addChild(ctl)
             let title = ctl.ctlTitle()
             titles.append(title)
         }
-        segmentCtlView.titles = titles
         segmentCtlView.ctls = ctls
+        segmentCtlView.titles = titles
         segmentCtlView.reloadData()
 
         pageView.reloadCurrentIndex(index: 0)
         pageView.reloadData()
     }
     
-    public func insertOneViewController(ctl:UIViewController,index:NSInteger){
-        if !self.childViewControllers.contains(ctl) {
-            addChildViewController(ctl)
+    open func insertOneViewController(ctl:UIViewController,index:NSInteger){
+        if !self.children.contains(ctl) {
+            addChild(ctl)
             let itemIndex = max(0, min(index, ctls.count))
             self.ctls.insert(ctl, at: itemIndex)
             
@@ -145,7 +160,7 @@ extension LLSegmentViewController{
         }
     }
     
-    public func selected(at Index:NSInteger,animation:Bool)  {
+    open func selected(at Index:NSInteger,animation:Bool)  {
         guard (ctls.count < Index && Index > 0) else {
             return
         }
@@ -154,13 +169,15 @@ extension LLSegmentViewController{
 }
 
 extension LLSegmentViewController :LLContainerScrollViewDagDelegate{
-    public func scrollView(scrollView: LLContainerScrollView, dragTop offsetY: CGFloat) {
+    open func scrollView(scrollView: LLContainerScrollView, dragTop offsetY: CGFloat) {
+        
     }
     
-    public func scrollView(scrollView: LLContainerScrollView, dragToMinimumHeight progress: CGFloat) {
+    open func scrollView(scrollView: LLContainerScrollView, dragToMinimumHeight progress: CGFloat) {
+        
     }
 
-    public func scrollView(scrollView: LLContainerScrollView, shouldScrollWithSubView subView: UIScrollView) -> Bool {
+    open func scrollView(scrollView: LLContainerScrollView, shouldScrollWithSubView subView: UIScrollView) -> Bool {
         if subView == pageView {
             return false
         }
@@ -169,11 +186,11 @@ extension LLSegmentViewController :LLContainerScrollViewDagDelegate{
 }
 
 extension LLSegmentViewController :LLCtlPageViewDataSource{
-    public func numberOfItems(in pageView: LLCtlPageView) -> Int {
+    open func numberOfItems(in pageView: LLCtlPageView) -> Int {
         return ctls.count
     }
     
-    public func pageView(_ pageView: LLCtlPageView, viewForItemAt index: NSInteger) -> UIView {
+    open func pageView(_ pageView: LLCtlPageView, viewForItemAt index: NSInteger) -> UIView {
         return ctls[index].view
     }
 }
@@ -206,24 +223,5 @@ extension LLSegmentViewController{
             }
         }
         return nil;
-    }
-}
-
-open class LLViewControllerSegmentControl: LLSegmentedControl {
-    var ctls = [UIViewController]()
-    override public func reloadData(ctlViewStyle: LLSegmentedControlStyle? = nil) {
-        if let ctlViewStyle = ctlViewStyle {
-            self.ctlViewStyle = ctlViewStyle
-        }
-        
-        removeItemViews()
-        reloadItemViews()
-        for (index,ctl) in ctls.enumerated() {
-            if let itemView = itemViews[index] as? LLSegmentItemBadgeView{
-                itemView.associateViewCtl = ctl
-            }
-        }
-        reLayoutItemViews()
-        setDefaultSelectedAtIndexStatu()
     }
 }

@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A3A27E48E1711BAB50346F1CE12EC0AE"
+               BlueprintIdentifier = "078C585B2F277AE19A1E16ACDDFEF36D"
+               BuildableName = "RollingNotice.framework"
                BlueprintName = "RollingNotice"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "RollingNotice.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

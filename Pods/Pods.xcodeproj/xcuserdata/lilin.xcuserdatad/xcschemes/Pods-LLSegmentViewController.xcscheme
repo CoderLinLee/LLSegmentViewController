@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "26EBB7CDF89A6F946667F95E341E3BDC"
+               BlueprintIdentifier = "0D07E429DEEA0C03C58BCBEAA5E03C0A"
                BuildableName = "Pods_LLSegmentViewController.framework"
                BlueprintName = "Pods-LLSegmentViewController"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "26EBB7CDF89A6F946667F95E341E3BDC"
+            BlueprintIdentifier = "0D07E429DEEA0C03C58BCBEAA5E03C0A"
             BuildableName = "Pods_LLSegmentViewController.framework"
             BlueprintName = "Pods-LLSegmentViewController"
             ReferencedContainer = "container:Pods.xcodeproj">

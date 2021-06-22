@@ -21,9 +21,11 @@
 		F2055B4A21D4CE1200FF961B /* SinaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B4921D4CE1200FF961B /* SinaViewController.swift */; };
 		F2055B4E21D4D00100FF961B /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B4D21D4D00100FF961B /* CellModel.swift */; };
 		F2055B5221D4D85B00FF961B /* StyleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2055B5121D4D85B00FF961B /* StyleListViewController.swift */; };
+		F23B25D922451F4E00262FC0 /* SimpDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23B25D822451F4E00262FC0 /* SimpDemoViewController.swift */; };
 		F23D2F7221CA27F00067B399 /* LLSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23D2F6D21CA27F00067B399 /* LLSegmentViewController.swift */; };
 		F23D2F7B21CA53830067B399 /* LLToolFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23D2F7A21CA53830067B399 /* LLToolFunc.swift */; };
 		F263034421D4E94E0067F8CA /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263034321D4E94E0067F8CA /* TitleViewController.swift */; };
+		F26689E8224B188D00C2696C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26689E7224B188D00C2696C /* WebViewController.swift */; };
 		F27132DA21C8DD7C00F9D2AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132D921C8DD7C00F9D2AB /* AppDelegate.swift */; };
 		F27132DC21C8DD7C00F9D2AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27132DB21C8DD7C00F9D2AB /* ViewController.swift */; };
 		F27132DF21C8DD7C00F9D2AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F27132DD21C8DD7C00F9D2AB /* Main.storyboard */; };
@@ -46,6 +48,8 @@
 		F2D3316C220185F900025A48 /* LLSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D33165220185F900025A48 /* LLSegmentedControl.swift */; };
 		F2D3316D220185F900025A48 /* LLIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D33166220185F900025A48 /* LLIndicatorView.swift */; };
 		F2D3316F2201865E00025A48 /* LLSegmentBaseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D3316E2201865E00025A48 /* LLSegmentBaseItemView.swift */; };
+		F2D939E422F7CA0200132DD4 /* HomeTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D939E322F7CA0200132DD4 /* HomeTestViewController.swift */; };
+		F2D939E822F8039700132DD4 /* NavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D939E722F8039700132DD4 /* NavViewController.swift */; };
 		F2DE12C121DCC23500D13738 /* NestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12C021DCC23500D13738 /* NestViewController.swift */; };
 		F2DE12D621DF6DFB00D13738 /* FootballViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */; };
 		F2DE12DA21E058FF00D13738 /* BackgroundColorGradientItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DE12D921E058FF00D13738 /* BackgroundColorGradientItemView.swift */; };
@@ -87,9 +91,11 @@
 		F2055B4921D4CE1200FF961B /* SinaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinaViewController.swift; sourceTree = "<group>"; };
 		F2055B4D21D4D00100FF961B /* CellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
 		F2055B5121D4D85B00FF961B /* StyleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleListViewController.swift; sourceTree = "<group>"; };
+		F23B25D822451F4E00262FC0 /* SimpDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpDemoViewController.swift; sourceTree = "<group>"; };
 		F23D2F6D21CA27F00067B399 /* LLSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentViewController.swift; sourceTree = "<group>"; };
 		F23D2F7A21CA53830067B399 /* LLToolFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLToolFunc.swift; sourceTree = "<group>"; };
 		F263034321D4E94E0067F8CA /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
+		F26689E7224B188D00C2696C /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F27132D621C8DD7C00F9D2AB /* LLSegmentViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLSegmentViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F27132D921C8DD7C00F9D2AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F27132DB21C8DD7C00F9D2AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +124,8 @@
 		F2D33165220185F900025A48 /* LLSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentedControl.swift; sourceTree = "<group>"; };
 		F2D33166220185F900025A48 /* LLIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLIndicatorView.swift; sourceTree = "<group>"; };
 		F2D3316E2201865E00025A48 /* LLSegmentBaseItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLSegmentBaseItemView.swift; sourceTree = "<group>"; };
+		F2D939E322F7CA0200132DD4 /* HomeTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestViewController.swift; sourceTree = "<group>"; };
+		F2D939E722F8039700132DD4 /* NavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavViewController.swift; sourceTree = "<group>"; };
 		F2DE12C021DCC23500D13738 /* NestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestViewController.swift; sourceTree = "<group>"; };
 		F2DE12D521DF6DFB00D13738 /* FootballViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootballViewController.swift; sourceTree = "<group>"; };
 		F2DE12D921E058FF00D13738 /* BackgroundColorGradientItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorGradientItemView.swift; sourceTree = "<group>"; };
@@ -172,10 +180,12 @@
 			isa = PBXGroup;
 			children = (
 				F2055B4D21D4D00100FF961B /* CellModel.swift */,
+				F23B25D822451F4E00262FC0 /* SimpDemoViewController.swift */,
+				F2D939E722F8039700132DD4 /* NavViewController.swift */,
+				F2055B4421D39CB300FF961B /* IndicatorViewController */,
 				F28F1C7021F9B75400153A61 /* DetailViewController */,
 				F2DE12D821E0588400D13738 /* CustomItemView */,
 				F2DE12BF21DCC1E100D13738 /* SpecialViewController */,
-				F2055B4421D39CB300FF961B /* IndicatorViewController */,
 				F2055B3F21D3585E00FF961B /* CustomTableViewController */,
 			);
 			path = Example;
@@ -242,6 +252,8 @@
 				F27132DB21C8DD7C00F9D2AB /* ViewController.swift */,
 				F271330B21C8E66F00F9D2AB /* TestViewController.swift */,
 				F2055B5121D4D85B00FF961B /* StyleListViewController.swift */,
+				F26689E7224B188D00C2696C /* WebViewController.swift */,
+				F2D939E322F7CA0200132DD4 /* HomeTestViewController.swift */,
 				F2055B3C21D3580800FF961B /* Example */,
 				F23D2F6B21CA27F00067B399 /* LLSegmentViewController */,
 				F27132DD21C8DD7C00F9D2AB /* Main.storyboard */,
@@ -407,13 +419,16 @@
 				TargetAttributes = {
 					F27132D521C8DD7C00F9D2AB = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 					};
 					F27132E921C8DD7F00F9D2AB = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = F27132D521C8DD7C00F9D2AB;
 					};
 					F27132F421C8DD7F00F9D2AB = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = F27132D521C8DD7C00F9D2AB;
 					};
 				};
@@ -473,7 +488,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/RollingNotice/RollingNotice.framework",
 				"${BUILT_PRODUCTS_DIR}/SDCycleScrollView/SDCycleScrollView.framework",
@@ -488,7 +503,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LLSegmentViewController/Pods-LLSegmentViewController-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8246FDB4DB3DC38E0C01F10 /* [CP] Check Pods Manifest.lock */ = {
@@ -521,10 +536,12 @@
 				F2D33167220185F900025A48 /* LLSegmentItemTitleImageView.swift in Sources */,
 				18AF01F321E255AF00FD5F14 /* MixViewController.swift in Sources */,
 				F23D2F7B21CA53830067B399 /* LLToolFunc.swift in Sources */,
+				F2D939E822F8039700132DD4 /* NavViewController.swift in Sources */,
 				F28F1C6E21F9599700153A61 /* LLContainerScrollView.swift in Sources */,
 				F2D3316A220185F900025A48 /* LLSegmentItemTabbarView.swift in Sources */,
 				F27132DC21C8DD7C00F9D2AB /* ViewController.swift in Sources */,
 				1833537521DFAC86005331E7 /* InsertViewController.swift in Sources */,
+				F2D939E422F7CA0200132DD4 /* HomeTestViewController.swift in Sources */,
 				F2D3316B220185F900025A48 /* LLSegmentItemTitleView.swift in Sources */,
 				F263034421D4E94E0067F8CA /* TitleViewController.swift in Sources */,
 				1813AAEF21ECD1EA0005FA4A /* BackColorViewController.swift in Sources */,
@@ -539,6 +556,7 @@
 				1818A8A321FC48D900588CB4 /* GoodsDetailViewController.swift in Sources */,
 				F27132DA21C8DD7C00F9D2AB /* AppDelegate.swift in Sources */,
 				181A970621FA0E0D0093FA41 /* HidenNavViewController.swift in Sources */,
+				F26689E8224B188D00C2696C /* WebViewController.swift in Sources */,
 				F23D2F7221CA27F00067B399 /* LLSegmentViewController.swift in Sources */,
 				18AF01F521E39A9F00FD5F14 /* ChangeImageViewViewController.swift in Sources */,
 				F2DE12D621DF6DFB00D13738 /* FootballViewController.swift in Sources */,
@@ -553,6 +571,7 @@
 				F271330C21C8E66F00F9D2AB /* TestViewController.swift in Sources */,
 				F28F1C7421FAFC5800153A61 /* ListRefreshViewController.swift in Sources */,
 				F2055B4E21D4D00100FF961B /* CellModel.swift in Sources */,
+				F23B25D922451F4E00262FC0 /* SimpDemoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,7 +755,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -756,7 +775,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -775,7 +794,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LLSegmentViewController.app/LLSegmentViewController";
 			};
@@ -795,7 +814,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LLSegmentViewController.app/LLSegmentViewController";
 			};
@@ -814,7 +833,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = LLSegmentViewController;
 			};
@@ -833,7 +852,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewControllerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = LLSegmentViewController;
 			};

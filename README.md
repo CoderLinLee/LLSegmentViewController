@@ -1,10 +1,5 @@
 # LLSegmentViewController
 
-##效果参考
-
-[JXCategoryView](https://github.com/pujiaxin33/JXCategoryView)
-
-
 ## 要求
 
 - iOS 8.0+
@@ -16,9 +11,80 @@
 pod 'LLSegmentViewController'
 ```
 
+## 特征
+1、预加载控制器View
+```Swift
+pageView.preLoadRange = 1...3 //当前控制器的左边预加载1个，右边预加载3个
+```
+2、红点设置简单，跟当前控制器绑定，不再需要写额外控制代码
+```Swift
+self.tabBarItem.badgeValue = "\(indexPath.row)"//红点设置为LLSegmentRedBadgeValue
+```
+3、自定义性强：参考自定义样式
+
+## 项目中的使用
+```Swift
+class SimpDemoViewController: LLSegmentViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadSegmentedConfig()
+    }
+}
+
+extension SimpDemoViewController{
+    func loadSegmentedConfig() {
+        layoutContentView()
+        loadCtls()
+        setUpSegmentStyle()
+    }
+
+    func layoutContentView() {
+        self.layoutInfo.segmentControlPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 44),offset:0)
+        self.relayoutSubViews()
+    }
+
+    func loadCtls() {
+        let introCtl = UIViewController()
+        introCtl.title = "简介"
+        introCtl.view.backgroundColor = UIColor.yellow
+        
+        let catalogCtl = UIViewController()
+        catalogCtl.title = "目录"
+        catalogCtl.view.backgroundColor = UIColor.red
+        
+        let ctls =  [introCtl,catalogCtl]
+        reloadViewControllers(ctls:ctls)
+    }
+
+    func setUpSegmentStyle() {
+        let itemStyle = LLSegmentItemTitleViewStyle()
+        itemStyle.selectedColor = UIColor.init(red: 50/255.0, green: 50/255.0, blue: 50/255.0, alpha: 1)
+        itemStyle.unSelectedColor = UIColor.init(red: 136/255.0, green: 136/255.0, blue: 136/255.0, alpha: 1)
+        itemStyle.selectedTitleScale = 1
+        itemStyle.titleFontSize = 15
+        itemStyle.itemWidth = UIScreen.main.bounds.width/CGFloat(ctls.count)//如果不指定是自动适配的
+        //这里可以继续增加itemStyle的其他配置项... ...
+
+        segmentCtlView.backgroundColor = UIColor.white
+        segmentCtlView.separatorLineShowEnabled = true //间隔线显示，默认不显示
+        //还有其他配置项：颜色、宽度、上下的间隔...
+
+        segmentCtlView.bottomSeparatorStyle = (1,UIColor.red) //分割线:默认透明色
+        segmentCtlView.indicatorView.widthChangeStyle = .stationary(baseWidth: 11)//横杆宽度:有默认值
+        segmentCtlView.indicatorView.centerYGradientStyle = .bottom(margin: 0)//横杆位置:有默认值
+        segmentCtlView.indicatorView.shapeStyle = .custom //形状样式:有默认值
+
+        var segmentedCtlStyle = LLSegmentedControlStyle()
+        segmentedCtlStyle.segmentItemViewClass = LLSegmentItemTitleView.self  //ItemView和ItemViewStyle要统一对应
+        segmentedCtlStyle.itemViewStyle = itemStyle
+        segmentCtlView.reloadData(ctlViewStyle: segmentedCtlStyle)
+    }
+```
+
+
 ## 自定义
 只需两步就可完成自定义效果：(可参考项目内的自定义样式)
--  1、继承LLSegmentBaseItemView；
+-  1、继承LLSegmentBaseItemView或子类；
 -  2、实现LLSegmentBaseItemView以下方法（有些方法可实现可不实现）
 
 ```Swift
@@ -28,7 +94,7 @@ public func titleChange(title:String)
 public func percentChange(percent:CGFloat)
 //3、返回当前ItemView的宽度
 public func itemWidth() ->CGFloat
-//设置Item的style样式
+//4、设置Item的style样式
 public func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle) 
 ```
 

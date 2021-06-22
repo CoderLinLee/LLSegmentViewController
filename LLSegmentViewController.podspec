@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "LLSegmentViewController"
-s.version      = "1.1.3"
+s.version      = "1.1.13"
 s.summary      = "主流APP分类切换滚动视图"
 s.homepage     = "https://github.com/CoderLinLee/LLSegmentViewController"
 s.license      = "MIT"
@@ -9,5 +9,5 @@ s.platform     = :ios, "8.0"
 s.source       = {:git => "https://github.com/CoderLinLee/LLSegmentViewController.git", :tag => s.version}
 s.source_files = "LLSegmentViewController/LLSegmentViewController/**/*"
 s.requires_arc = true
-s.swift_version = "4.0"
+s.swift_version = "4.2"
 end

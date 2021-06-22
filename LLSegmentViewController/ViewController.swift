@@ -7,6 +7,8 @@
 //
 
 import UIKit
+let simpleTabs = [CellModel(title: "0简单的样式", viewControllerClass: SimpDemoViewController.self),
+                  CellModel(title: "1导航栏样式", viewControllerClass: NavViewController.self),]
 
 
 let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerClass: LLMsgViewController.self),
@@ -25,7 +27,7 @@ let indicatiorcustomTabs = [CellModel(title: "0Segment样式", viewControllerCla
                             CellModel(title: "13三角形样式", viewControllerClass: TitleViewController.self),
                             CellModel(title: "14小红点和数字样式", viewControllerClass: BadgeValueViewController.self),
                             CellModel(title: "15点线效果样式", viewControllerClass: TitleViewController.self),
-                            CellModel(title: "16QQ红点样式", viewControllerClass: TitleViewController.self),]
+                            CellModel(title: "16QQ红点样式", viewControllerClass: TitleViewController.self)]
 
 let specialTab = [CellModel(title: "0嵌套样式", viewControllerClass: NestViewController.self),
                   CellModel(title: "1足球样式", viewControllerClass: FootballViewController.self),
@@ -103,6 +105,8 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: true)
         let styleListCtl = StyleListViewController()
         styleListCtl.customTabs = dataArr[indexPath.row].customTabs
+        styleListCtl.title = dataArr[indexPath.row].title
         navigationController?.pushViewController(styleListCtl, animated: true)
+
     }
 }

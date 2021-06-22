@@ -83,7 +83,7 @@ fileprivate func pointToPointDistanceWithPoint(point1: CGPoint, point2: CGPoint)
 
 extension String {
     internal func LLGetStrSize(font: CGFloat, w: CGFloat, h: CGFloat) -> CGSize {
-        let strSize = (self as NSString).boundingRect(with: CGSize(width: w, height: h), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: font)], context: nil).size
+        let strSize = (self as NSString).boundingRect(with: CGSize(width: w, height: h), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: font)], context: nil).size
         return strSize
     }
 }
@@ -98,6 +98,16 @@ public func mTopHeight(mNavBarHeight:CGFloat = 44)->CGFloat {
     let IsAllScreen = (IPHONEX || IPHONEXS_Max)
     let mStatusBarHeight: CGFloat = IsAllScreen ? 44.0 : 20.0
     return mStatusBarHeight + mNavBarHeight
+}
+
+public func mSafeBottomMargin()->CGFloat {
+    let mScreenWidth = UIScreen.main.bounds.width
+    let mScreenHeight = UIScreen.main.bounds.height
+    let IPHONEX = (mScreenHeight == 812 && mScreenWidth == 375) || (mScreenHeight == 375 && mScreenWidth == 812)
+    let IPHONEXS_Max = (mScreenHeight == 896 && mScreenWidth == 414) || (mScreenHeight == 414 && mScreenWidth == 896)
+    let IsAllScreen = (IPHONEX || IPHONEXS_Max)
+    let mSafeBottomMargin: CGFloat = IsAllScreen ? 34 : 0
+    return mSafeBottomMargin
 }
 
 

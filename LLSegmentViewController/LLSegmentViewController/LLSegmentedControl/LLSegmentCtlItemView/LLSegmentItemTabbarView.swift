@@ -30,7 +30,7 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
         
         imageView.contentMode = .bottom
         badgeValueLabelLocationView = imageView
-        self.bringSubview(toFront: badgeValueLabel)
+        self.bringSubviewToFront(badgeValueLabel)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -54,7 +54,6 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
     
     override open func titleChange(title: String) {
         super.titleChange(title: title)
-
         titleLabel.text = title
     }
     
@@ -71,6 +70,7 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
+        titleLabel.sizeToFit()
         let titleLabelHeight = titleLabel.bounds.height
         let titleLabelY = bounds.height - tabbarViewStyle.titleBottomGap - titleLabelHeight
         titleLabel.frame = CGRect.init(x: 0, y: titleLabelY, width: bounds.width, height: titleLabelHeight)
@@ -80,5 +80,11 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
         imageView.center = CGPoint.init(x: bounds.width/2, y:bounds.height - bottomMargin - imgSize.height/2)
         imageView.bounds = CGRect.init(origin: CGPoint.zero, size: imgSize)
         layoutBadgeLabel()
+        
+        if percent == 1 {
+            imageView.image = associateViewCtl?.tabBarItem.selectedImage
+        }else{
+            imageView.image = associateViewCtl?.tabBarItem.image
+        }
     }
 }

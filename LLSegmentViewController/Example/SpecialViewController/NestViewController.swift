@@ -54,7 +54,6 @@ class NestViewController: LLSegmentViewController {
         segmentCtlView.layer.cornerRadius = segmentViewHeight/2
         segmentCtlView.layer.borderColor = UIColor.red.cgColor
         segmentCtlView.layer.borderWidth = 1
-        self.navigationItem.titleView = segmentCtlView
     }
 }
 
@@ -69,7 +68,7 @@ class NestSubViewController: LLSegmentViewController {
     }
     
     func layoutContentView() {
-        self.layoutInfo.segmentControlPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50))
+        self.layoutInfo.segmentControlPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50),offset:0)
         self.relayoutSubViews()
     }
     

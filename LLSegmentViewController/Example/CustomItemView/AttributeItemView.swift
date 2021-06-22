@@ -29,13 +29,13 @@ class AttributeItemView: LLSegmentBaseItemView {
         if let fistTitle = titles.first,
             let lastTitle = titles.last {
             let contentStr = fistTitle + "\n" + lastTitle
-            let firstAttributes = [NSAttributedStringKey.foregroundColor:UIColor.blue]
-            let lastAttributes = [NSAttributedStringKey.foregroundColor:UIColor.black]
+            let firstAttributes = [NSAttributedString.Key.foregroundColor:UIColor.blue]
+            let lastAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
             
             let attributedText = NSMutableAttributedString(string: contentStr, attributes: nil)
             attributedText.addAttributes(firstAttributes, range: NSRange.init(location: 0, length: fistTitle.count))
             attributedText.addAttributes(lastAttributes, range: NSRange.init(location: contentStr.count - lastTitle.count, length: lastTitle.count))
-            attributedText.addAttributes([NSAttributedStringKey.font:UIFont.systemFont(ofSize: 15)], range: NSRange.init(location: 0, length: contentStr.count))
+            attributedText.addAttributes([NSAttributedString.Key.font:UIFont.systemFont(ofSize: 15)], range: NSRange.init(location: 0, length: contentStr.count))
             titleLabel.attributedText = attributedText
         }
         
@@ -62,7 +62,7 @@ class AttributeItemViewController: LLSegmentViewController {
     }
     
     func layoutContentView() {
-        self.layoutInfo.segmentControlPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50))
+        self.layoutInfo.segmentControlPositionType = .top(size: CGSize.init(width: UIScreen.main.bounds.width, height: 50),offset:0)
         self.relayoutSubViews()
     }
     

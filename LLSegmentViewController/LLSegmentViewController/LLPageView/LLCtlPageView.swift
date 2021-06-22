@@ -35,7 +35,7 @@ open class LLCtlPageView: UIScrollView {
     
     fileprivate func initSubViews() {
         self.delegate = self
-        self.backgroundColor = UIColor.black
+        self.backgroundColor = UIColor.clear
         self.isPagingEnabled = true
         self.bounces = false
         self.contentInset = UIEdgeInsets.zero

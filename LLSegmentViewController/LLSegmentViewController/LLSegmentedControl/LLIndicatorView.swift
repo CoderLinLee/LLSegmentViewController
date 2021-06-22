@@ -10,15 +10,21 @@ import UIKit
 
 //指示器宽度变化样式
 public enum LLIndicatorViewWidthChangeStyle {
+    /*跟Item等宽样式*/
     case equalToItemWidth(margin:CGFloat)
+    /*爱奇艺宽带变化样式*/
     case jdIqiyi(baseWidth:CGFloat,changeWidth:CGFloat)
+    /*固定宽度样式*/
     case stationary(baseWidth:CGFloat)
 }
 
 //指示器中心位置
 public enum LLIndicatorViewCenterYGradientStyle {
+    /*在正中心*/
     case center
+    /*在顶部，跟顶部间距为margin*/
     case top(margin:CGFloat)
+    /*在底部，跟底部间距为margin*/
     case bottom(margin:CGFloat)
 }
 
@@ -60,6 +66,7 @@ open class LLIndicatorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    //上下变化位置
     public var centerYGradientStyle = LLIndicatorViewCenterYGradientStyle.bottom(margin: 0) {
         didSet{
             if let selfSuperView = self.superview {
@@ -77,6 +84,7 @@ open class LLIndicatorView: UIView {
         }
     }
     
+    //宽度变化样式
     public var widthChangeStyle = LLIndicatorViewWidthChangeStyle.stationary(baseWidth: 10) {
         didSet{
             var targetWidth = self.bounds.width
@@ -94,6 +102,7 @@ open class LLIndicatorView: UIView {
         }
     }
     
+    //形状变化样式
     public var shapeStyle = LLIndicatorViewShapeStyle.custom {
         didSet{
             self.layer.contents = nil
@@ -207,7 +216,7 @@ extension LLIndicatorView{
             targetWidth = interpolationFrom(from: leftItemWidth, to: rightItemWidth, percent: rightItemView.percent)
             targetWidth -= 2*margin
         case .jdIqiyi(let baseWidth,let changeWidth):
-            let percent = 1 - fabs(0.5-leftItemView.percent)*2   //变化范围（0....1.....0）
+            let percent = 1 - abs(0.5-leftItemView.percent)*2   //变化范围（0....1.....0）
             let minX = leftItemView.center.x - baseWidth/2
             let maxX = rightItemView.center.x - baseWidth/2
             targetWidth = percent * (maxX - minX - changeWidth) + baseWidth
