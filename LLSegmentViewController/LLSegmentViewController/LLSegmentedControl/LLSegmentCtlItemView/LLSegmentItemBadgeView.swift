@@ -19,7 +19,6 @@ public class LLSegmentItemBadgeViewStyle:LLSegmentItemViewStyle {
 public let LLSegmentRedBadgeValue = "redBadgeValue"
 open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
     public let badgeValueLabel = UILabel()
-    private let badgeValueObserverKeyPath = "badgeValue"
     internal var badgeValueLabelLocationView:UIView?
     private var badgeItemViewStyle = LLSegmentItemBadgeViewStyle()
     required public init(frame: CGRect) {
@@ -38,16 +37,6 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func bindAssociateViewCtl(ctl: UIViewController) {
-        super.bindAssociateViewCtl(ctl: ctl)
-        associateViewCtl?.tabBarItem.addObserver(self, forKeyPath: badgeValueObserverKeyPath, options: [.new], context: nil)
-    }
-    
-
-    deinit {
-        associateViewCtl?.tabBarItem.removeObserver(self, forKeyPath: badgeValueObserverKeyPath)
-    }
-    
     open override func setSegmentItemViewStyle(itemViewStyle: LLSegmentItemViewStyle) {
         super.setSegmentItemViewStyle(itemViewStyle: itemViewStyle)
         if let itemViewStyle = itemViewStyle as? LLSegmentItemBadgeViewStyle {
@@ -62,7 +51,7 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
             return
         }
         
-        var badgeValueStr = associateViewCtl?.tabBarItem.badgeValue
+        var badgeValueStr = tabBarItem?.badgeValue
         if let badgeValue = badgeValueStr, let intValue = Int(badgeValue) {
             if intValue > badgeItemViewStyle.badgeValueMaxNum {
                 badgeValueStr = "\(badgeItemViewStyle.badgeValueMaxNum)+"
@@ -72,12 +61,12 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
         badgeValueLabel.sizeToFit()
         
         var badgeValueLabelFrame = badgeValueLabel.frame
-        if associateViewCtl?.tabBarItem.badgeValue == LLSegmentRedBadgeValue {
+        if tabBarItem?.badgeValue == LLSegmentRedBadgeValue {
             badgeValueLabel.isHidden = false
             badgeValueLabelFrame.size.width = 5
             badgeValueLabelFrame.size.height = 5
             badgeValueLabel.text = ""
-        }else if associateViewCtl?.tabBarItem.badgeValue == nil {
+        }else if tabBarItem?.badgeValue == nil {
             badgeValueLabel.isHidden = true
         }else{
             badgeValueLabel.isHidden = false
@@ -89,12 +78,5 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
         badgeValueLabel.center = CGPoint.init(x: badgeValueLabelLocationView.frame.maxX + badgeItemViewStyle.badgeValueLabelOffset.x, y: badgeValueLabelLocationView.frame.minY + badgeItemViewStyle.badgeValueLabelOffset.y)
         badgeValueLabel.layer.cornerRadius = badgeValueLabel.bounds.height/2
         badgeValueLabel.clipsToBounds = true
-    }
-    
-    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if  keyPath ==  badgeValueObserverKeyPath{
-            setNeedsLayout()
-            layoutIfNeeded()
-        }
     }
 }

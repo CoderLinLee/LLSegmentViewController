@@ -34,9 +34,9 @@ class PersonDetailViewController: LLSegmentViewController {
     }
     
     func loadCtls() {
-        let test1Ctl = factoryCtl(title: "能力", imageName:  "", selectedImageNameStr: "")
-        let test2Ctl = factoryCtl(title: "爱好", imageName: "", selectedImageNameStr: "")
-        let test3Ctl = factoryCtl(title: "队友", imageName: "", selectedImageNameStr: "")
+        let test1Ctl = TestViewController.init(title: "能力", imageName: "", selectedImageNameStr: "")
+        let test2Ctl = TestViewController.init(title: "爱好", imageName: "", selectedImageNameStr: "")
+        let test3Ctl = TestViewController.init(title: "队友", imageName: "", selectedImageNameStr: "")
         let ctls =  [test1Ctl,test2Ctl,test3Ctl]
         reloadViewControllers(ctls:ctls)
     }

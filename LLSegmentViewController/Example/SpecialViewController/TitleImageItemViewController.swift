@@ -25,12 +25,31 @@ class TitleImageItemViewController: LLSegmentViewController {
 
     func loadCtls(style:LLTitleImageButtonStyle?) {
         var ctls = [UIViewController]()
-        let models = getModels(style: style)
-        for model in models {
-            let ctl = TitleImageViewController()
+        let margin: CGFloat = 5
+        let datas:[(title:String,imageStr:String,style:LLTitleImageButtonStyle)] = [
+            ("螃蟹","watermelon",LLTitleImageButtonStyle.titleTop(margin: margin)),
+            ("麻辣小龙虾","lobster",LLTitleImageButtonStyle.titleRight(margin: margin)),
+            ("苹果","grape", LLTitleImageButtonStyle.titleLeft(margin: margin)),
+            ("营养胡萝卜","crab",LLTitleImageButtonStyle.titleBottom(margin: margin)),
+            ("葡萄","carrot",LLTitleImageButtonStyle.titleEmty),
+            ("美味西瓜","apple",LLTitleImageButtonStyle.titleOnly),]
+        for (title,imageStr, diyStyle) in datas {
+            let ctl = TestViewController.init()
             ctl.showTableView = true
-            ctl.model = model
-            ctl.title = model.title
+            let tabBarItem = LLSegmentItemTitleImageTabBarItem.init(
+                                            title: title,
+                                            image: UIImage(named: imageStr),
+                                            selectedImage: UIImage(named: imageStr + "_selected"))
+            if let currentStyle = style {
+                tabBarItem.style = currentStyle
+            }else{
+                tabBarItem.style = diyStyle
+            }
+            
+            tabBarItem.setImageBlock = { (imageView,isSelected,tabBarItem) in
+                imageView.image = isSelected ? tabBarItem.selectedImage : tabBarItem.image
+            }
+            ctl.tabBarItem = tabBarItem
             ctls.append(ctl)
         }
         reloadViewControllers(ctls:ctls)
@@ -62,26 +81,7 @@ class TitleImageItemViewController: LLSegmentViewController {
 
 
 
-
-
-class TitleImageViewController: TestViewController,LLSegmentItemTitleImageViewProtocol {
-    func refreshWhenPercentChange(titleLabel:UILabel,imageView: UIImageView, percent: CGFloat) {
-        if percent < 0.5 {
-            titleLabel.textColor = UIColor.lightGray
-            imageView.image = UIImage.init(named: model.imgeStr)
-        }else {
-            titleLabel.textColor = UIColor.black
-            imageView.image = UIImage.init(named: model.imgeStr + "_selected")
-        }
-    }
-    
-    var model:LLTitleImageModel!
-}
-
-
-
-
-
+//选择某种样式
 class ChooseTitleImageStyleViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     typealias chooseStyleBlockDefine = (LLTitleImageButtonStyle?)->Void
     var chooseStyleBlock:chooseStyleBlockDefine?
@@ -94,9 +94,19 @@ class ChooseTitleImageStyleViewController: UIViewController,UITableViewDataSourc
                                                                    ("混合",nil)]
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tableView = addTableView()
+        initTableView()
+    }
+    
+    func initTableView() {
+        let tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = UIColor.white
+        tableView.tableFooterView = UIView()
+        tableView.frame = view.bounds
+        tableView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
+        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
+        view.addSubview(tableView)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -108,48 +118,10 @@ class ChooseTitleImageStyleViewController: UIViewController,UITableViewDataSourc
         cell.textLabel?.text = dataArr[indexPath.row].title
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = dataArr[indexPath.row]
         chooseStyleBlock?(data.style)
         self.navigationController?.popViewController(animated: true)
     }
-}
-
-
-
-
-func getModels(style:LLTitleImageButtonStyle?)->[LLTitleImageModel] {
-    let datas:[(title:String,imageStr:String)] = [
-        ("螃蟹","watermelon"),
-        ("麻辣小龙虾","lobster"),
-        ("苹果","grape"),
-        ("营养胡萝卜","crab"),
-        ("葡萄","carrot"),
-        ("美味西瓜","apple"),
-        ("香蕉","grape")]
-    var models = [LLTitleImageModel]()
-    let margin:CGFloat = 2
-    for (index,data) in datas.enumerated() {
-        var newStyle = LLTitleImageButtonStyle.titleEmty
-        if style != nil {
-            newStyle = style!
-        }else{
-            if index == 0 {
-                newStyle = LLTitleImageButtonStyle.titleTop(margin: margin)
-            }else if index == 1{
-                newStyle = LLTitleImageButtonStyle.titleRight(margin: margin)
-            }else if index == 2{
-                newStyle = LLTitleImageButtonStyle.titleLeft(margin: margin)
-            }else if index == 3{
-                newStyle = LLTitleImageButtonStyle.titleBottom(margin: margin)
-            }else if index == 4{
-                newStyle = LLTitleImageButtonStyle.titleEmty
-            }else if index == 5{
-                newStyle = LLTitleImageButtonStyle.titleOnly
-            }
-        }
-        let model = LLTitleImageModel(title: data.title, imgeStr: data.imageStr, style: newStyle)
-        models.append(model)
-    }
-    return models
 }

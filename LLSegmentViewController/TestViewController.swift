@@ -9,39 +9,40 @@
 import UIKit
 import MJRefresh
 
-func LLRandomRGB() -> UIColor {
-    return UIColor.init(red: CGFloat(arc4random()%256)/255.0, green: CGFloat(arc4random()%256)/255.0, blue: CGFloat(arc4random()%256)/255.0, alpha: 1)
-}
-
-func factoryCtl(title:String,imageName:String,selectedImageNameStr:String) -> UIViewController {
-    let test2Ctl = TestViewController()
-    test2Ctl.title = title
-    test2Ctl.tabBarItem.image = imageName.isEmpty ? nil : UIImage.init(named: imageName)
-    test2Ctl.tabBarItem.selectedImage = selectedImageNameStr.isEmpty ? nil : UIImage.init(named: selectedImageNameStr)
-    return test2Ctl
-}
-
 
 class TestViewController: UIViewController {
     var showTableView = true
-    var tableView:UITableView!
+    var tableView:UITableView = UITableView.init(frame: CGRect.zero, style: .plain)
     
     typealias scrollViewEndDragClosure =  (_ isScrollToTop:Bool)-> Void
     var scrollViewEndDragBlock:scrollViewEndDragClosure?
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = LLRandomRGB()
+        view.backgroundColor = UIColor.init(red: CGFloat(arc4random()%256)/255.0, green: CGFloat(arc4random()%256)/255.0, blue: CGFloat(arc4random()%256)/255.0, alpha: 1)
         if showTableView == true {
-            initSubView()
+            initTableView()
         }
     }
 }
 
 extension TestViewController {
-    func initSubView() {
-        tableView = addTableView()
+    convenience init(title:String,imageName:String,selectedImageNameStr:String) {
+        self.init()
+        self.title = title
+        self.tabBarItem.image = imageName.isEmpty ? nil : UIImage.init(named: imageName)
+        tabBarItem.selectedImage = selectedImageNameStr.isEmpty ? nil : UIImage.init(named: selectedImageNameStr)
+    }
+    
+    func initTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = UIColor.white
+        tableView.tableFooterView = UIView()
+        tableView.frame = view.bounds
+        tableView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
+        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
+        view.addSubview(tableView)
+
         tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headRefreshAction))
         tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerRefreshAction))
     }
@@ -77,6 +78,7 @@ extension TestViewController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tabBarItem.badgeValue = "\(indexPath.row)"
+        self.tabBarItem.title = "测试标题" + "\(indexPath.row)"
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

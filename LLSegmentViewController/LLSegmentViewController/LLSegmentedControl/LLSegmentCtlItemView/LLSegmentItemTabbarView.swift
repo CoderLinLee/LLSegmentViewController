@@ -42,9 +42,9 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
         super.percentChange(percent: percent)
         titleLabel.textColor = interpolationColorFrom(fromColor:tabbarViewStyle.unSelectedColor, toColor:tabbarViewStyle.selectedColor, percent: percent)
         if percent == 1 {
-            imageView.image = associateViewCtl?.tabBarItem.selectedImage
+            imageView.image = tabBarItem?.selectedImage
         }else{
-            imageView.image = associateViewCtl?.tabBarItem.image
+            imageView.image = tabBarItem?.image
         }
     }
     
@@ -82,9 +82,9 @@ open class LLSegmentItemTabbarView: LLSegmentItemBadgeView {
         layoutBadgeLabel()
         
         if percent == 1 {
-            imageView.image = associateViewCtl?.tabBarItem.selectedImage
+            imageView.image = tabBarItem?.selectedImage
         }else{
-            imageView.image = associateViewCtl?.tabBarItem.image
+            imageView.image = tabBarItem?.image
         }
     }
 }

@@ -55,6 +55,8 @@ open class LLSegmentItemTitleView: LLSegmentItemBadgeView {
         maskTitleLabel.center = titleLabel.center
         maskTitleLabelMask.bounds = maskTitleLabel.bounds
         layoutBadgeLabel()
+        titleLabelCalculation()
+        titleLabelMaskCalculation()
     }
     
     override open func titleChange(title: String) {

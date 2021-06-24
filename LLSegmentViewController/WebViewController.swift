@@ -16,10 +16,10 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.clipsToBounds = false
+        view.addSubview(webView)
         webView.clipsToBounds = false
         webView.frame = view.bounds
         webView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        view.addSubview(webView)
         webView.scrollView.clipsToBounds = false
         if let requestUrl =  URL.init(string: url) {
             let request = URLRequest.init(url:requestUrl)

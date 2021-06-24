@@ -38,12 +38,6 @@ class AttributeItemView: LLSegmentBaseItemView {
             attributedText.addAttributes([NSAttributedString.Key.font:UIFont.systemFont(ofSize: 15)], range: NSRange.init(location: 0, length: contentStr.count))
             titleLabel.attributedText = attributedText
         }
-        
-        //方式二：ctl转化为自己的viewControler，
-        //            if let ctl = associateViewCtl as? CustomViewControler{
-        //                let model = ctl.model
-        //            }
-        
     }
     
     override func itemWidth() -> CGFloat {

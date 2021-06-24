@@ -216,10 +216,10 @@ extension LLIndicatorView{
             targetWidth = interpolationFrom(from: leftItemWidth, to: rightItemWidth, percent: rightItemView.percent)
             targetWidth -= 2*margin
         case .jdIqiyi(let baseWidth,let changeWidth):
-            let percent = 1 - abs(0.5-leftItemView.percent)*2   //变化范围（0....1.....0）
+            let newPercent = 1 - abs(0.5-leftItemView.percent)*2   //变化范围（0....1.....0）
             let minX = leftItemView.center.x - baseWidth/2
             let maxX = rightItemView.center.x - baseWidth/2
-            targetWidth = percent * (maxX - minX - changeWidth) + baseWidth
+            targetWidth = newPercent * (maxX - minX - changeWidth) + baseWidth
             
         case .stationary(let baseWidth):
             targetWidth = baseWidth
@@ -227,8 +227,8 @@ extension LLIndicatorView{
         var selfBounds = self.bounds
         selfBounds.size.width = targetWidth
         self.bounds = selfBounds
-        delegate?.indicatorView?(indicatorView: self, percent: leftItemView.percent)
         
+        delegate?.indicatorView?(indicatorView: self, percent: leftItemView.percent)
         self.handleQQMsgStyle(leftItemView: leftItemView)
     }
     

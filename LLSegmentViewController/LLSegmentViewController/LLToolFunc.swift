@@ -97,6 +97,9 @@ public func mTopHeight(mNavBarHeight:CGFloat = 44)->CGFloat {
     let IPHONEXS_Max = (mScreenHeight == 896 && mScreenWidth == 414) || (mScreenHeight == 414 && mScreenWidth == 896)
     let IsAllScreen = (IPHONEX || IPHONEXS_Max)
     let mStatusBarHeight: CGFloat = IsAllScreen ? 44.0 : 20.0
+
+
+    
     return mStatusBarHeight + mNavBarHeight
 }
 
@@ -113,13 +116,7 @@ public func mSafeBottomMargin()->CGFloat {
 
 extension UIViewController{
     internal func ctlTitle()->String{
-        var title = ""
-        if self.title != nil {
-            title = self.title ?? ""
-        }else if self.tabBarItem.title != nil{
-            title = self.tabBarItem.title ?? ""
-        }
-        return title
+        return self.title ?? self.tabBarItem.title ?? ""
     }
 }
 

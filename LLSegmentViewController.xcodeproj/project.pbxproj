@@ -746,14 +746,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AT942ZRU45;
+				DEVELOPMENT_TEAM = 8XN9KLEGU7;
 				INFOPLIST_FILE = LLSegmentViewController/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewController;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewController12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -766,14 +766,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AT942ZRU45;
+				DEVELOPMENT_TEAM = 8XN9KLEGU7;
 				INFOPLIST_FILE = LLSegmentViewController/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewController;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qianhaishouhui.LLSegmentViewController12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

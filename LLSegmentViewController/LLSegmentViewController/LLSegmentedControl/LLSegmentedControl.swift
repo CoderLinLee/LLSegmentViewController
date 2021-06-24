@@ -64,8 +64,7 @@ open class LLSegmentedControl: UIView {
     //----------------------private-----------------------//
     private let associateScrollerViewObserverKeyPath = "contentOffset"
     private var totalPercent:CGFloat = 0
-    internal var titles:[String]!
-    internal var ctls = [UIViewController]()
+    internal var tabBarItems:[UITabBarItem]!
     private let segMegmentScrollerView = UIScrollView(frame: CGRect.zero)
     private let bottomSeparatorLineView = UIView()
     private var itemAndSeparatorViews = [(itemView:LLSegmentBaseItemView,separatorView:UIView)]()
@@ -74,9 +73,9 @@ open class LLSegmentedControl: UIView {
             associateScrollerView?.addObserver(self, forKeyPath: associateScrollerViewObserverKeyPath, options: [.new,.old], context: nil)
         }
     }
-    init(frame: CGRect,titles:[String]) {
+    init(frame: CGRect,tabBarItems:[UITabBarItem]) {
         super.init(frame: frame)
-        self.titles = titles
+        self.tabBarItems = tabBarItems
         initSubviews()
     }
     
@@ -155,6 +154,10 @@ extension LLSegmentedControl{
 
     //初始化设置状态和位置
     internal func setDefaultSelectedAtIndexStatu(){
+        guard tabBarItems.count > 0 else {
+            return
+        }
+        
         if let defaultSelectedItemView = getItemView(atIndex: self.ctlViewStyle.defaultSelectedIndex) {
             defaultSelectedItemView.percentChange(percent: 1)
             currentSelectedItemView = defaultSelectedItemView
@@ -170,7 +173,7 @@ extension LLSegmentedControl{
             indicatorView.centerYGradientStyle = indicatorView.centerYGradientStyle
             indicatorView.reloadLayout(leftItemView: defaultSelectedItemView, rightItemView: defaultSelectedItemView)
             
-            totalPercent = 1.0/CGFloat(titles.count)
+            totalPercent = 1.0/CGFloat(tabBarItems.count)
             delegate?.segMegmentCtlView?(segMegmentCtlView: self, totalPercent: totalPercent)
         }
     }
@@ -186,19 +189,20 @@ extension LLSegmentedControl{
     }
     
     private func checkOutItemView(sourceItemView:LLSegmentBaseItemView,destinationItemView:LLSegmentBaseItemView){
-        //有些类型要处理点击的情况
-        delegate?.segMegmentCtlView?(segMegmentCtlView: self, clickItemAt: sourceItemView, to: destinationItemView)
-        
-        //点击的是当前的
-        if sourceItemView == destinationItemView {
-            return
-        }
-        
         //询问代理点击是否切换
         let shouldCheckOut = delegate?.segMegmentCtlView?(segMegmentCtlView: self, sourceItemView: sourceItemView, shouldChangeTo: destinationItemView)
         if shouldCheckOut != true && shouldCheckOut != nil{
             return
         }
+
+        //点击的是当前的
+        if sourceItemView == destinationItemView {
+            return
+        }
+        
+        //有些类型要处理点击的情况
+        delegate?.segMegmentCtlView?(segMegmentCtlView: self, clickItemAt: sourceItemView, to: destinationItemView)
+        
         
         //ItemView响应
         checkOutItemViewAction(sourceItemView: sourceItemView, destinationItemView: destinationItemView)
@@ -252,7 +256,7 @@ extension LLSegmentedControl{
 //MARK:- **************************************** ContentView滚动处理 ************************************
 extension LLSegmentedControl{
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard titles != nil && titles.count > 0 else {
+        guard tabBarItems.count > 0 else {
             return
         }
         
@@ -260,6 +264,7 @@ extension LLSegmentedControl{
             let newContentOffset = change?[NSKeyValueChangeKey.newKey] as? CGPoint,
             let scrollView = associateScrollerView{
             
+            //整体滑动进度
             totalPercent = (newContentOffset.x + scrollView.bounds.width) / scrollView.contentSize.width
             let percentRang = CGFloat(0)...CGFloat(1)
             if percentRang.contains(totalPercent){
@@ -286,31 +291,36 @@ extension LLSegmentedControl{
     private func contentOffsetChangeViewAction(leftItemView:LLSegmentBaseItemView,rightItemView:LLSegmentBaseItemView) {
         //边界情况:快速滑动的情况,contentOffset的变化是不连续的
         if (leftItemView,rightItemView) != (self.leftItemView,self.rightItemView) {
+            
+            //1、重制之前的itemView进度
             let curentItemViews = [leftItemView,rightItemView]
             if !curentItemViews.contains(self.leftItemView){
                 self.leftItemView.percentChange(percent: 0)
-            }else if !curentItemViews.contains(self.rightItemView){
+            }
+            if !curentItemViews.contains(self.rightItemView){
                 self.rightItemView.percentChange(percent: 0)
             }
             
-            //segMegmentScrollerView Follow rolling:segMegmentScrollerView跟随用户的滑动
+            //2、segMegmentScrollerView跟随用户的滑动
             var scrollerPageItemView = leftItemView
             if rightItemView.percent >= 0.5 {
                 scrollerPageItemView = rightItemView
             }
             segmentScrollerViewSrollerToCenter(itemView: scrollerPageItemView, animated: true)
             
-            //滚动选中
+            //3、滚动选中
             if scrollerPageItemView != currentSelectedItemView{
                 currentSelectedItemView = scrollerPageItemView
                 delegate?.segMegmentCtlView?(segMegmentCtlView: self, dragToSelected: currentSelectedItemView)
             }
+            
         }
         
-
+        //4、变动指示器
+        indicatorView.reloadLayout(leftItemView: leftItemView, rightItemView: rightItemView)
         self.leftItemView = leftItemView
         self.rightItemView = rightItemView
-        indicatorView.reloadLayout(leftItemView: leftItemView, rightItemView: rightItemView)
+
     }
 }
 
@@ -318,16 +328,17 @@ extension LLSegmentedControl{
 //MARK:- **************************************** Tool方法 ************************************
 extension LLSegmentedControl{
     private func getLeftAndRightItemView()->(leftItemView:LLSegmentBaseItemView,rightItemView:LLSegmentBaseItemView)?{
-        guard titles != nil && titles.count > 0 else {
+        guard tabBarItems.count > 0 else {
             return nil
         }
         
-        guard let associateScrollerView = associateScrollerView else {
+        guard let associateScrollerView = associateScrollerView , associateScrollerView.bounds.width > 0 else {
             return nil
         }
+        let offsetX = associateScrollerView.contentOffset.x
 
         //边界,最右边和最左边的情况
-        let basePercent = associateScrollerView.contentOffset.x/associateScrollerView.contentSize.width
+        let basePercent = offsetX/associateScrollerView.contentSize.width
         let drageRange = basePercent...1
         if totalPercent < drageRange.lowerBound {
             leftItemView.percentChange(percent: 1)
@@ -342,9 +353,10 @@ extension LLSegmentedControl{
         }
         
         //计算leftItemIndex,rightItemIndex
-        let index = associateScrollerView.contentOffset.x/associateScrollerView.bounds.width
-        let leftItemIndex = max(0, min(titles.count - 1, Int((index))))
-        let rightItemIndex = max(0, min(titles.count - 1, Int(ceil(index))))
+        let itemCount = tabBarItems.count
+        let index = offsetX/associateScrollerView.bounds.width
+        let leftItemIndex = max(0, min(itemCount - 1, Int((index))))
+        let rightItemIndex = max(0, min(itemCount - 1, Int(ceil(index))))
         var rightPercent = CGFloat(index) - CGFloat(leftItemIndex)
         var leftPercent = 1 - rightPercent
         if leftItemIndex == rightItemIndex {
@@ -364,16 +376,18 @@ extension LLSegmentedControl{
         return nil
     }
     
+    //滚动到中间位置使itemView完全显示出来
     private  func segmentScrollerViewSrollerToCenter(itemView:LLSegmentBaseItemView,animated:Bool) {
-        var offsetX = segMegmentScrollerView.contentOffset.x
+        let scrollerView = segMegmentScrollerView
         let targetCenter = itemView.center
-         
-        let boundsCenterX = bounds.width/2
-        if let convertCenter = itemView.superview?.convert(targetCenter, to: self){
-            offsetX -= (boundsCenterX - convertCenter.x)
-            offsetX = max(0, min(offsetX, segMegmentScrollerView.contentSize.width - bounds.width))
-            segMegmentScrollerView.setContentOffset(CGPoint.init(x: offsetX - ctlViewStyle.contentInset.left, y: 0), animated: animated)
-        }
+        let halfWidth = bounds.width/2
+        
+        let convertCenter = scrollerView.convert(targetCenter, to: self)
+        var offsetX = scrollerView.contentOffset.x
+        offsetX -= (halfWidth - convertCenter.x)
+        offsetX = offsetX - ctlViewStyle.contentInset.left
+        offsetX = max(0, min(offsetX, scrollerView.contentSize.width - bounds.width))
+        scrollerView.setContentOffset(CGPoint.init(x: offsetX, y: 0), animated: animated)
     }
 }
 
@@ -390,14 +404,12 @@ extension LLSegmentedControl{
     
     internal func reloadItemViews(){
         let ItemViewClass = self.ctlViewStyle.segmentItemViewClass
-        for (index,title) in titles.enumerated() {
+        for (index,tabBarItem) in tabBarItems.enumerated() {
             //ItemView
             let segmentCtlItemView = ItemViewClass.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: bounds.height))
-            if ctls.count > index {
-                segmentCtlItemView.bindAssociateViewCtl(ctl: ctls[index])
-            }
+            segmentCtlItemView.tabBarItem = tabBarItem
             segmentCtlItemView.setSegmentItemViewStyle(itemViewStyle: self.ctlViewStyle.itemViewStyle)
-            segmentCtlItemView.titleChange(title: title)
+            segmentCtlItemView.titleChange(title: tabBarItem.title ?? "")
             segmentCtlItemView.percentChange(percent: 0)
             segmentCtlItemView.index = index
             segmentCtlItemView.indicatorView = indicatorView

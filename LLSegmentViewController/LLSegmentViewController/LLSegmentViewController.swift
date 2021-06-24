@@ -39,7 +39,7 @@ public class LLSubViewsLayoutInfo:NSObject{
 
 open class LLSegmentViewController: UIViewController {
     public let layoutInfo = LLSubViewsLayoutInfo()
-    public let segmentCtlView = LLSegmentedControl(frame: CGRect.zero, titles: [String]())
+    public let segmentCtlView = LLSegmentedControl(frame: CGRect.zero, tabBarItems: [UITabBarItem]())
     public let pageView:LLCtlPageView = LLCtlPageView(frame: CGRect.zero, ctls: [UIViewController]())
     public let containerScrView = LLContainerScrollView()
     public private (set) var ctls = [UIViewController]()
@@ -136,8 +136,8 @@ extension LLSegmentViewController{
             let title = ctl.ctlTitle()
             titles.append(title)
         }
-        segmentCtlView.ctls = ctls
-        segmentCtlView.titles = titles
+
+        segmentCtlView.tabBarItems = ctls.map({  $0.tabBarItem })
         segmentCtlView.reloadData()
 
         pageView.reloadCurrentIndex(index: 0)
@@ -153,9 +153,8 @@ extension LLSegmentViewController{
             pageView.reloadCurrentIndex(index: itemIndex)
             pageView.reloadData()
             
-            segmentCtlView.titles.insert(ctl.ctlTitle(), at: index)
+            segmentCtlView.tabBarItems.insert(ctl.tabBarItem, at: index)
             segmentCtlView.ctlViewStyle.defaultSelectedIndex = itemIndex
-            segmentCtlView.ctls = ctls
             segmentCtlView.reloadData()
         }
     }

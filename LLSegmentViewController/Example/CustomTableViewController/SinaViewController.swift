@@ -24,15 +24,15 @@ class SinaViewController: LLSegmentViewController {
     }
     
     func loadCtls() {
-        let test1Ctl = factoryCtl(title: "首页", imageName:  "tabbar_home", selectedImageNameStr: "tabbar_home_selected")
+        let test1Ctl = TestViewController(title: "首页", imageName:  "tabbar_home", selectedImageNameStr: "tabbar_home_selected")
         test1Ctl.tabBarItem.badgeValue = "10"
         
-        let test2Ctl = factoryCtl(title: "消息", imageName: "tabbar_message_center", selectedImageNameStr: "tabbar_message_center_selected")
+        let test2Ctl = TestViewController(title: "消息", imageName: "tabbar_message_center", selectedImageNameStr: "tabbar_message_center_selected")
         
-        let test3Ctl = factoryCtl(title: "发现", imageName: "tabbar_discover", selectedImageNameStr: "tabbar_discover_selected")
+        let test3Ctl = TestViewController(title: "发现", imageName: "tabbar_discover", selectedImageNameStr: "tabbar_discover_selected")
         test3Ctl.tabBarItem.badgeValue = LLSegmentRedBadgeValue
         
-        let test4Ctl = factoryCtl(title: "我的", imageName: "tabbar_profile", selectedImageNameStr: "tabbar_profile_selected")
+        let test4Ctl = TestViewController(title: "我的", imageName: "tabbar_profile", selectedImageNameStr: "tabbar_profile_selected")
         
         let ctls =  [test1Ctl,test2Ctl,test3Ctl,test4Ctl]
         reloadViewControllers(ctls:ctls)

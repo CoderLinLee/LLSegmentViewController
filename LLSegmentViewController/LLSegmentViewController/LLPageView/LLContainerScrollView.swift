@@ -18,8 +18,8 @@ import UIKit
 open class LLContainerScrollView: UIScrollView {
     public var paralaxHeader = LLSubViewsLayoutInfo()
     internal weak var dragDeleage:LLContainerScrollViewDagDelegate?
-    private var observedViews = [UIScrollView]()
     
+    private var observedViews = [UIScrollView]()
     private let observerKeyPath = "contentOffset"
     private let observerOptions:NSKeyValueObservingOptions = [.old,.new]
     private var observerContext = 0
@@ -27,6 +27,7 @@ open class LLContainerScrollView: UIScrollView {
     private var isObserving = true
     private var lock = false
     private var tapAtScrollerToTopLock = false
+    
     private var safeBottomMargin = mSafeBottomMargin()
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -219,22 +220,27 @@ extension LLContainerScrollView : UIScrollViewDelegate {
 }
 
 extension LLContainerScrollView : UIGestureRecognizerDelegate {
+    //两个scrollView同时滚动
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if otherGestureRecognizer.view == self {
             return false
         }
         
+        // Consider scroll view pan only
+        guard let scrollView = otherGestureRecognizer.view as? UIScrollView else {
+            return false
+        }
         guard let otherGestureRecognizer = otherGestureRecognizer as? UIPanGestureRecognizer else {
             return false
         }
+
         
+        //横行滚动禁止联动
         let velocity = otherGestureRecognizer.velocity(in: self)
         if abs(velocity.x) > abs(velocity.y) {
             return false
         }
         
-        // Consider scroll view pan only
-        guard let scrollView = otherGestureRecognizer.view as? UIScrollView else { return false }
         
         // Tricky case: UITableViewWrapperView
         if scrollView.superview?.isKind(of: UITableView.classForCoder()) == true {

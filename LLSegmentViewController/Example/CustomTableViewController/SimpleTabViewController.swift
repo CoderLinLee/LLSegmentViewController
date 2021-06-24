@@ -25,16 +25,16 @@ class SimpleTabViewController: LLSegmentViewController {
     }
     
     func loadCtls() {
-        let test1Ctl = factoryCtl(title: "微信", imageName:  "tabbar_mainframe", selectedImageNameStr: "tabbar_mainframeHL")
+        let test1Ctl = TestViewController(title: "微信", imageName:  "tabbar_mainframe", selectedImageNameStr: "tabbar_mainframeHL")
         test1Ctl.tabBarItem.badgeValue = "10"
         
-        let test2Ctl = factoryCtl(title: "通讯录", imageName: "tabbar_contacts", selectedImageNameStr: "tabbar_contactsHL")
+        let test2Ctl = TestViewController(title: "通讯录", imageName: "tabbar_contacts", selectedImageNameStr: "tabbar_contactsHL")
         test2Ctl.tabBarItem.badgeValue = nil
         
-        let test3Ctl = factoryCtl(title: "发现", imageName: "tabbar_discover1", selectedImageNameStr: "tabbar_discoverHL")
+        let test3Ctl = TestViewController(title: "发现", imageName: "tabbar_discover1", selectedImageNameStr: "tabbar_discoverHL")
         test3Ctl.tabBarItem.badgeValue = LLSegmentRedBadgeValue
         
-        let test4Ctl = factoryCtl(title: "我", imageName: "tabbar_me", selectedImageNameStr: "tabbar_meHL")
+        let test4Ctl = TestViewController(title: "我", imageName: "tabbar_me", selectedImageNameStr: "tabbar_meHL")
         let ctls =  [test1Ctl,test2Ctl,test3Ctl,test4Ctl]
         reloadViewControllers(ctls:ctls)
     }

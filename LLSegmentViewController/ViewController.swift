@@ -60,7 +60,9 @@ struct ListItemModel {
 }
 
 class ViewController: UIViewController {
-    let dataArr = [ListItemModel.init(title: "指示器样式", customTabs: indicatiorcustomTabs),
+    
+    let dataArr = [ListItemModel.init(title: "简单样式", customTabs: simpleTabs),
+                   ListItemModel.init(title: "指示器样式", customTabs: indicatiorcustomTabs),
                    ListItemModel.init(title: "特殊样式", customTabs: specialTab),
                    ListItemModel.init(title: "自定义TabViewController", customTabs: customTab),
                    ListItemModel.init(title: "自定义ItemView", customTabs: customItemViewTab),
@@ -70,7 +72,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         title = "LLSegmentViewController"
         initTableView()
+        
+        var statusBarHeight:CGFloat = 0
+        if #available(iOS 13.0, *) {
+            statusBarHeight = UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.size.height ?? 0
+        } else {
+            statusBarHeight = UIApplication.shared.statusBarFrame.size.height
+        }
+        print(statusBarHeight)
     }
+    
 }
 
 
@@ -106,7 +117,8 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         let styleListCtl = StyleListViewController()
         styleListCtl.customTabs = dataArr[indexPath.row].customTabs
         styleListCtl.title = dataArr[indexPath.row].title
+        styleListCtl.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(styleListCtl, animated: true)
-
     }
 }
+
