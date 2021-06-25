@@ -74,7 +74,10 @@ open class LLSegmentItemTitleView: LLSegmentItemBadgeView {
     override open func itemWidth() -> CGFloat {
         if itemTitleViewStyle.itemWidth == LLSegmentAutomaticDimension {
             var titleLableWidth = self.title.LLGetStrSize(font: itemTitleViewStyle.titleFontSize, w: 1000, h: 1000).width
-            titleLableWidth = titleLableWidth + 2*itemTitleViewStyle.extraTitleSpace
+            var diff:CGFloat = badgeValueLabel.bounds.width/2 + badgeItemViewStyle.badgeValueLabelOffset.x
+            diff = badgeValueLabel.isHidden ? 0 : diff
+            print(diff,badgeItemViewStyle.badgeValueLabelOffset.x)
+            titleLableWidth = titleLableWidth + 2*itemTitleViewStyle.extraTitleSpace + max(diff, 0)
             return titleLableWidth
         }else{
             return itemTitleViewStyle.itemWidth

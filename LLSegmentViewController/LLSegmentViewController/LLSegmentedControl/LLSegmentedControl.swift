@@ -149,7 +149,6 @@ extension LLSegmentedControl{
         }
         segMegmentScrollerView.contentSize = CGSize.init(width: lastItemView?.frame.maxX ?? bounds.width, height: bounds.height)
         segMegmentScrollerView.contentInset = ctlViewStyle.contentInset
-        segMegmentScrollerView.contentOffset = CGPoint.init(x: -ctlViewStyle.contentInset.left, y: 0)
     }
 
     //初始化设置状态和位置
@@ -385,8 +384,8 @@ extension LLSegmentedControl{
         let convertCenter = scrollerView.convert(targetCenter, to: self)
         var offsetX = scrollerView.contentOffset.x
         offsetX -= (halfWidth - convertCenter.x)
-        offsetX = offsetX - ctlViewStyle.contentInset.left
         offsetX = max(0, min(offsetX, scrollerView.contentSize.width - bounds.width))
+        offsetX = offsetX - ctlViewStyle.contentInset.left
         scrollerView.setContentOffset(CGPoint.init(x: offsetX, y: 0), animated: animated)
     }
 }
@@ -413,6 +412,20 @@ extension LLSegmentedControl{
             segmentCtlItemView.percentChange(percent: 0)
             segmentCtlItemView.index = index
             segmentCtlItemView.indicatorView = indicatorView
+            segmentCtlItemView.itemWidthChanged = { [weak self, weak segmentCtlItemView] in
+                guard let weak = self else {
+                    return
+                }
+                guard let item = segmentCtlItemView else {
+                    return
+                }
+                //更新frame
+                self?.reLayoutItemViews()
+                //更新指示器位置
+                self?.indicatorView.reloadLayout(leftItemView: weak.leftItemView,
+                                                 rightItemView: weak.rightItemView)
+                self?.segmentScrollerViewSrollerToCenter(itemView: item, animated: true)
+            }
             
             segMegmentScrollerView.addSubview(segmentCtlItemView)
             itemViews.append(segmentCtlItemView)

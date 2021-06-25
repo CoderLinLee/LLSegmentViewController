@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1807E1CA2685C0BF00A0661D /* EmoticonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807E1C92685C0BF00A0661D /* EmoticonViewController.swift */; };
 		1813AAEF21ECD1EA0005FA4A /* BackColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813AAEE21ECD1EA0005FA4A /* BackColorViewController.swift */; };
 		1813AAF121ECE3AE0005FA4A /* TitleImageItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813AAF021ECE3AE0005FA4A /* TitleImageItemViewController.swift */; };
 		1818A8A321FC48D900588CB4 /* GoodsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1818A8A221FC48D900588CB4 /* GoodsDetailViewController.swift */; };
@@ -75,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1807E1C92685C0BF00A0661D /* EmoticonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoticonViewController.swift; sourceTree = "<group>"; };
 		1813AAEE21ECD1EA0005FA4A /* BackColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackColorViewController.swift; sourceTree = "<group>"; };
 		1813AAF021ECE3AE0005FA4A /* TitleImageItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleImageItemViewController.swift; sourceTree = "<group>"; };
 		1818A8A221FC48D900588CB4 /* GoodsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				F2055B4D21D4D00100FF961B /* CellModel.swift */,
 				F23B25D822451F4E00262FC0 /* SimpDemoViewController.swift */,
 				F2D939E722F8039700132DD4 /* NavViewController.swift */,
+				1807E1C92685C0BF00A0661D /* EmoticonViewController.swift */,
 				F2055B4421D39CB300FF961B /* IndicatorViewController */,
 				F28F1C7021F9B75400153A61 /* DetailViewController */,
 				F2DE12D821E0588400D13738 /* CustomItemView */,
@@ -571,6 +574,7 @@
 				F271330C21C8E66F00F9D2AB /* TestViewController.swift in Sources */,
 				F28F1C7421FAFC5800153A61 /* ListRefreshViewController.swift in Sources */,
 				F2055B4E21D4D00100FF961B /* CellModel.swift in Sources */,
+				1807E1CA2685C0BF00A0661D /* EmoticonViewController.swift in Sources */,
 				F23B25D922451F4E00262FC0 /* SimpDemoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

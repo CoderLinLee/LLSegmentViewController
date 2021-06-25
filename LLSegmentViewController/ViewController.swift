@@ -54,6 +54,8 @@ let detailItemViewTab = [CellModel(title: "0个人中心", viewControllerClass:P
                          CellModel(title: "5商品详情", viewControllerClass: GoodsDetailViewController.self),]
 
 
+let segMentViewTab = [CellModel(title: "0表情包", viewControllerClass:EmoticonViewController.self),]
+
 struct ListItemModel {
     var title:String
     var customTabs: [CellModel]
@@ -66,7 +68,8 @@ class ViewController: UIViewController {
                    ListItemModel.init(title: "特殊样式", customTabs: specialTab),
                    ListItemModel.init(title: "自定义TabViewController", customTabs: customTab),
                    ListItemModel.init(title: "自定义ItemView", customTabs: customItemViewTab),
-                   ListItemModel.init(title: "详情页", customTabs: detailItemViewTab)]
+                   ListItemModel.init(title: "详情页", customTabs: detailItemViewTab),
+                   ListItemModel.init(title: "segmentViewDemo", customTabs: segMentViewTab)]
     let tableView = UITableView(frame: CGRect.zero, style: .plain)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,6 +122,39 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         styleListCtl.title = dataArr[indexPath.row].title
         styleListCtl.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(styleListCtl, animated: true)
+    }
+}
+
+
+
+class NumberO {
+    var s = 0
+    required init() {
+        
+    }
+}
+
+protocol BaseNumber {
+    associatedtype S = NumberO
+}
+
+class Base:BaseNumber {
+    var num:S = S()
+}
+
+
+class NumberOO: NumberO {
+    var c = 0
+}
+
+class Item: Base {
+    func test()->Base {
+        num.s = 10
+        
+        
+        let b = Base.init()
+        b.num = NumberOO.init()
+        return b
     }
 }
 

@@ -68,7 +68,7 @@ extension TestViewController {
 extension TestViewController:UITableViewDelegate,UITableViewDataSource{
     //列表
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

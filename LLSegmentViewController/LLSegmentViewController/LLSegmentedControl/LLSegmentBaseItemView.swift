@@ -25,6 +25,9 @@ open class LLSegmentItemViewStyle:NSObject {
     public var itemWidth:CGFloat = LLSegmentAutomaticDimension
     /*过渡变化*/
     public var selectedStyle = LLSegmentItemViewSelectedStyle.gradient
+    public required override init() {
+        
+    }
 }
 
 
@@ -35,6 +38,8 @@ open class LLSegmentBaseItemView: UIView  {
     public var percent:CGFloat = 0
     public var title:String = ""
     public var badgeValue:String = ""
+    
+    public var itemWidthChanged: (()->Void)?
     internal weak var indicatorView:LLIndicatorView?
     private var itemViewStyle = LLSegmentItemViewStyle()
     
@@ -86,6 +91,9 @@ open class LLSegmentBaseItemView: UIView  {
             layoutIfNeeded()
         }else if keyPath == titleObserverKeyPath {
             titleChange(title: tabBarItem?.title ?? "")
+            if itemViewStyle.itemWidth ==  LLSegmentAutomaticDimension{
+                itemWidthChanged?()
+            }
             setNeedsLayout()
             layoutIfNeeded()
         }
@@ -103,6 +111,6 @@ open class LLSegmentBaseItemView: UIView  {
     //override for subClass
     open func badgeValueChange(badgeValue:String){ self.badgeValue = badgeValue }
     open func titleChange(title:String){ self.title = title }
-    open func itemWidth() ->CGFloat { return 0 }
+    open func itemWidth() ->CGFloat {  return 0 }
     open func setSegmentItemViewStyle(itemViewStyle:LLSegmentItemViewStyle) { self.itemViewStyle=itemViewStyle }
 }

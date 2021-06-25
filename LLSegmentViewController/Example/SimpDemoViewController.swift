@@ -13,6 +13,7 @@ class SimpDemoViewController: LLSegmentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSegmentedConfig()
+        self.navigationController?.navigationBar.isTranslucent = true
     }
 }
 

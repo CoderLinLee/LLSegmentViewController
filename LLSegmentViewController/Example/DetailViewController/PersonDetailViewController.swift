@@ -42,7 +42,7 @@ class PersonDetailViewController: LLSegmentViewController {
     }
     
     func setUpSegmentStyle() {
-        let contentInset = UIEdgeInsets.init(top: 0, left: 30, bottom: 0, right: 30)
+        let contentInset = UIEdgeInsets.init(top: 0, left: 60, bottom: 0, right: 30)
         let itemStyle = LLSegmentItemTitleViewStyle()
         itemStyle.itemWidth = (UIScreen.main.bounds.width - contentInset.left - contentInset.right)/CGFloat(ctls.count)
         itemStyle.titleFontSize = 15
@@ -53,7 +53,7 @@ class PersonDetailViewController: LLSegmentViewController {
         segmentCtlStyle.itemViewStyle = itemStyle
         segmentCtlView.reloadData(ctlViewStyle: segmentCtlStyle)
         segmentCtlView.clickAnimation = false
-        segmentCtlView.backgroundColor = UIColor.white
+        segmentCtlView.backgroundColor = UIColor.red
         
         segmentCtlView.indicatorView.shapeStyle = .crossBar(widthChangeStyle: .stationary(baseWidth: 10), height: 3)
     }

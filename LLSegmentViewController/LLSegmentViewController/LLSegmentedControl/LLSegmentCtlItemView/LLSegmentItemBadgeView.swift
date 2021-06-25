@@ -20,7 +20,7 @@ public let LLSegmentRedBadgeValue = "redBadgeValue"
 open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
     public let badgeValueLabel = UILabel()
     internal var badgeValueLabelLocationView:UIView?
-    private var badgeItemViewStyle = LLSegmentItemBadgeViewStyle()
+    public var badgeItemViewStyle = LLSegmentItemBadgeViewStyle()
     required public init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -30,6 +30,7 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
         badgeValueLabel.font = UIFont.systemFont(ofSize: 12)
         badgeValueLabel.frame = CGRect.init(x: 0, y: 0, width: 20, height: 20)
         badgeValueLabel.center = CGPoint.init(x: bounds.width - 10, y: 10)
+        badgeValueLabel.isHidden = true
         addSubview(badgeValueLabel)
     }
     
@@ -68,6 +69,7 @@ open class LLSegmentItemBadgeView: LLSegmentBaseItemView {
             badgeValueLabel.text = ""
         }else if tabBarItem?.badgeValue == nil {
             badgeValueLabel.isHidden = true
+            badgeValueLabel.text = ""
         }else{
             badgeValueLabel.isHidden = false
             badgeValueLabelFrame.size.width += 10
