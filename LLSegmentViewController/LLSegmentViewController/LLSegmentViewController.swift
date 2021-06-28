@@ -128,6 +128,10 @@ extension LLSegmentViewController{
     }
     
     open func reloadViewControllers(ctls:[UIViewController]) {
+        self.ctls.forEach { (vc) in
+            vc.removeFromParent()
+        }
+        
         self.ctls = ctls
         
         var titles = [String]()
